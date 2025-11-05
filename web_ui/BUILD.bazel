@@ -1,0 +1,54 @@
+# BUILD.bazel for React web UI
+#
+# This uses standard npm/vite tooling to build the React application.
+# In a production setup with rules_js, this would use npm_translate_lock
+# and js_binary/js_run_devserver rules for full Bazel integration.
+#
+# For now, we use genrule to wrap npm commands for simplicity.
+
+# Build the React application using Vite
+# Run with: bazel build //web_ui:build
+#
+# This compiles TypeScript and bundles the React app into static files
+# Output will be in web_ui/dist/
+genrule(
+    name = "build",
+    srcs = glob([
+        "src/**/*",
+        "*.json",
+        "*.ts",
+        "*.html",
+    ]),
+    outs = ["dist/index.html"],
+    cmd = """
+        # Change to web_ui directory
+        cd $$(dirname $$(dirname $(location package.json)))
+        
+        # Install dependencies if needed
+        if [ ! -d "node_modules" ]; then
+            npm install
+        fi
+        
+        # Build the application
+        npm run build
+        
+        # Copy build output to Bazel output location
+        cp -r dist/* $$(dirname $(OUTS))
+    """,
+    visibility = ["//visibility:public"],
+)
+
+# Development server (not a true Bazel target, but documented here)
+# Run with: cd web_ui && npm install && npm run dev
+#
+# This starts the Vite dev server on http://localhost:3000
+# It includes hot module replacement for fast development
+# The vite.config.ts proxies /api requests to http://localhost:8000
+#
+# Prerequisites:
+# 1. Install dependencies: cd web_ui && npm install
+# 2. Start API server: bazel run //py_api:server (in another terminal)
+# 3. Start dev server: npm run dev
+#
+# Note: In a full rules_js setup, this would be a proper Bazel target
+# using js_run_devserver or similar rules.

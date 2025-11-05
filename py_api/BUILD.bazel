@@ -1,0 +1,70 @@
+# Load Python rules for building Python binaries and tests
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+load("@pip_deps//:requirements.bzl", "requirement")
+
+# py_library defines reusable Python modules
+# This allows the server and tests to share the same code
+py_library(
+    name = "py_api_lib",
+    srcs = [
+        "__init__.py",
+        "db.py",
+        "handlers.py",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        requirement("aiosqlite"),
+    ],
+)
+
+# py_binary defines the FastAPI server executable
+# Run with: bazel run //py_api:server
+#
+# This starts the FastAPI server on port 8000 by default.
+# The server provides REST endpoints for accessing economic indicators.
+#
+# Example usage:
+#   bazel run //py_api:server
+#   # Server will be available at http://localhost:8000
+#   # API docs at http://localhost:8000/docs
+#
+# The server reads from ./data/econ.db which must be populated first
+# by running: bazel run //go_fetch:refresh
+#
+# Environment variables:
+#   ECON_DB_PATH - Path to SQLite database (default: ./data/econ.db)
+#   PORT - Server port (default: 8000)
+py_binary(
+    name = "server",
+    srcs = ["main.py"],
+    main = "main.py",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":py_api_lib",
+        requirement("fastapi"),
+        requirement("uvicorn"),
+    ],
+    # Allow data directory access
+    data = [],
+)
+
+# py_test defines tests for the API
+# Run with: bazel test //py_api:api_test
+#
+# These tests create a temporary SQLite database with fixture data
+# This ensures tests are hermetic and don't depend on external data
+py_test(
+    name = "api_test",
+    srcs = ["test_api.py"],
+    deps = [
+        ":py_api_lib",
+        requirement("fastapi"),
+        requirement("uvicorn"),
+        requirement("httpx"),
+        requirement("pytest"),
+    ],
+    # Import the main module for testing
+    data = [
+        ":server",
+    ],
+)
