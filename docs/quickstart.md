@@ -255,7 +255,7 @@ bazel build //...
 
 ## Next Steps
 
-1. **Read the concepts**: Check out [docs/CONCEPTS.md](CONCEPTS.md)
+1. **Read the concepts**: Check out [Bazel Concepts](concepts.md)
 2. **Modify code**: Change `main.py` and see incremental builds
 3. **Add a dependency**: Update `requirements.txt` and rebuild
 4. **Create a test**: Add a new test file and `py_test` target

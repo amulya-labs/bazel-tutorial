@@ -39,3 +39,7 @@ node_modules/
 /web_ui/node_modules/
 *.log
 .env
+
+# MkDocs build artifacts
+/site/
+.cache/

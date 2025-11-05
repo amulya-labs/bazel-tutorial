@@ -1,8 +1,6 @@
-# 🧱 Bazel Multi-Language Tutorial (with Economic Dashboard)
+# Bazel Multi-Language Tutorial
 
 A comprehensive, hands-on guide to building polyglot applications with Bazel — Google's fast, reproducible, and scalable build system.
-
-**📚 [Full Documentation →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
 
 ## 🎯 What You'll Learn
 
@@ -33,11 +31,11 @@ bazel build //...
 bazel test //...
 ```
 
-**[Full Quick Start Guide →](https://rrl-personal-projects.github.io/bazel-tutorial/quickstart/)**
+**[Full Quick Start Guide →](quickstart.md)**
 
 ## 📚 What's Inside
 
-### 1️⃣ Basic Tutorial Services
+### Basic Tutorial Services
 
 Simple services to learn Bazel fundamentals:
 
@@ -46,9 +44,9 @@ Simple services to learn Bazel fundamentals:
 | `py_service` | Python (FastAPI) | "Hello from Python" web service | `bazel run //py_service:server` |
 | `go_service` | Go | "Hello from Go" web service | `bazel run //go_service:server` |
 
-**[Learn More →](https://rrl-personal-projects.github.io/bazel-tutorial/basic-tutorial/)**
+**[Learn More →](basic-tutorial.md)**
 
-### 2️⃣ Economic Indicators Dashboard
+### 📊 Economic Indicators Dashboard
 
 A full-stack polyglot application demonstrating real-world Bazel usage:
 
@@ -67,10 +65,10 @@ A full-stack polyglot application demonstrating real-world Bazel usage:
 ```
 
 **Features:**
-- 📊 Go service fetches economic data from FRED API
-- 🐍 Python FastAPI serves REST endpoints with computed metrics
-- ⚛️ React frontend with interactive charts and responsive design
-- 📈 Tracks 6 core economic indicators (CPI, Unemployment, Fed Funds, etc.)
+- Go service fetches economic data from FRED API
+- Python FastAPI serves REST endpoints with computed metrics
+- React frontend with interactive charts and responsive design
+- Tracks 6 core economic indicators (CPI, Unemployment, Fed Funds, etc.)
 
 **Quick Start:**
 ```bash
@@ -84,9 +82,7 @@ export FRED_API_KEY=your_key_here
 cd web_ui && npm install && npm run dev
 ```
 
-Open http://localhost:3000 in your browser! 🎉
-
-**[Full Dashboard Documentation →](https://rrl-personal-projects.github.io/bazel-tutorial/economic-dashboard/)**
+**[Full Dashboard Documentation →](economic-dashboard.md)**
 
 ## 🏗️ Repository Structure
 
@@ -103,7 +99,7 @@ bazel-tutorial/
 ├── py_api/                  # REST API server (Python)
 ├── web_ui/                  # Dashboard UI (React + TypeScript)
 │
-├── docs/                    # Documentation (MkDocs)
+├── docs/                    # Documentation
 ├── tests/                   # Integration tests
 │
 └── .github/workflows/       # CI/CD pipelines
@@ -128,6 +124,8 @@ bazel_dep(name = "rules_python", version = "0.31.0")
 bazel_dep(name = "rules_go", version = "0.46.0")
 ```
 
+**[Learn more about Bazel concepts →](concepts.md)**
+
 ### BUILD.bazel Files
 
 Each component has a `BUILD.bazel` file defining buildable targets:
@@ -147,7 +145,31 @@ go_binary(
 )
 ```
 
-**[Learn more about Bazel concepts →](https://rrl-personal-projects.github.io/bazel-tutorial/concepts/)**
+### Targets and Labels
+
+- `//go_service:server` - The "server" target in the "go_service" package
+- `//py_api:server` - Python API server binary
+- `//...` - All targets in all packages (recursive)
+
+**[Deep dive into dependencies →](dependencies.md)**
+
+## 🧪 Testing
+
+All tests use fixtures and mocks - no network access required!
+
+```bash
+# Run all tests
+bazel test //...
+
+# Run specific tests
+bazel test //go_fetch:fred_test
+bazel test //py_api:api_test
+
+# View test output
+bazel test //... --test_output=all
+```
+
+**[Complete testing guide →](testing.md)**
 
 ## 🔄 Incremental Builds
 
@@ -166,47 +188,59 @@ echo "// comment" >> go_service/main.go
 bazel build //...
 ```
 
-## 🧪 Testing
+## ⚙️ CI/CD Integration
 
-All tests use fixtures and mocks - no network access required!
+The repository includes GitHub Actions workflows demonstrating:
 
-```bash
-# Run all tests
-bazel test //...
+- Bazel build and test automation
+- Dependency caching for fast CI runs
+- Multi-language build verification
 
-# Run specific tests
-bazel test //go_fetch:fred_test
-bazel test //py_api:api_test
-
-# View test output
-bazel test //... --test_output=all
+```yaml
+- name: Build and Test
+  run: |
+    bazel build //...
+    bazel test //...
 ```
 
-**[Complete testing guide →](https://rrl-personal-projects.github.io/bazel-tutorial/testing/)**
-
-## 📖 Documentation
-
-Comprehensive guides available at **[https://rrl-personal-projects.github.io/bazel-tutorial/](https://rrl-personal-projects.github.io/bazel-tutorial/)**
-
-- **[Quick Start Guide](https://rrl-personal-projects.github.io/bazel-tutorial/quickstart/)** - Get up and running quickly
-- **[Installation Guide](https://rrl-personal-projects.github.io/bazel-tutorial/installation/)** - Install all prerequisites
-- **[Basic Tutorial](https://rrl-personal-projects.github.io/bazel-tutorial/basic-tutorial/)** - Learn with simple services
-- **[Economic Dashboard](https://rrl-personal-projects.github.io/bazel-tutorial/economic-dashboard/)** - Full-stack application
-- **[Bazel Concepts](https://rrl-personal-projects.github.io/bazel-tutorial/concepts/)** - Deep dive into fundamentals
-- **[Dependencies](https://rrl-personal-projects.github.io/bazel-tutorial/dependencies/)** - Managing dependencies
-- **[Query Guide](https://rrl-personal-projects.github.io/bazel-tutorial/query/)** - Explore the build graph
-- **[Testing Guide](https://rrl-personal-projects.github.io/bazel-tutorial/testing/)** - Testing strategies
-- **[Contributing](https://rrl-personal-projects.github.io/bazel-tutorial/contributing/)** - Development guidelines
+Bazel's incremental caching allows the same artifacts to be reused between CI runs.
 
 ## 🧠 Why Bazel for Polyglot Repos?
 
-### Benefits Demonstrated
+### Benefits Demonstrated in This Project
 
-1. **Single Build System** - One tool for Go, Python, and JavaScript
-2. **Incremental Builds** - Only rebuild what changed
-3. **Hermetic Testing** - Tests don't depend on network or system state
-4. **Explicit Dependencies** - Clear dependency graph
-5. **Scalability** - Works from small projects to massive monorepos
+1. **Single Build System**
+   - One tool for Go, Python, and JavaScript
+   - Consistent commands across languages
+
+2. **Incremental Builds**
+   - Only rebuild what changed
+   - Shared cache across projects
+
+3. **Hermetic Testing**
+   - Tests don't depend on network or system state
+   - Use mocks and fixtures
+
+4. **Explicit Dependencies**
+   - Clear dependency graph
+   - No hidden dependencies
+
+5. **Scalability**
+   - Works for small projects (this) and massive monorepos (Google)
+   - Parallel builds and tests
+
+## 📖 Documentation
+
+Explore comprehensive guides:
+
+- **[Quick Start Guide](quickstart.md)** - Get up and running quickly
+- **[Basic Tutorial](basic-tutorial.md)** - Learn with simple services
+- **[Economic Dashboard](economic-dashboard.md)** - Full-stack application example
+- **[Bazel Concepts](concepts.md)** - Deep dive into Bazel fundamentals
+- **[Dependencies](dependencies.md)** - Managing Python, Go, and npm dependencies
+- **[Query Guide](query.md)** - Explore the build graph with `bazel query`
+- **[Testing Guide](testing.md)** - Comprehensive testing strategies
+- **[Contributing](contributing.md)** - Development guidelines
 
 ## 🔧 Troubleshooting
 
@@ -214,29 +248,39 @@ Comprehensive guides available at **[https://rrl-personal-projects.github.io/baz
 
 **"command not found: bazel"**
 - Install Bazel: https://bazel.build/install
-- Or use Bazelisk: https://github.com/bazelbuild/bazelisk
+- Or use Bazelisk (recommended): https://github.com/bazelbuild/bazelisk
 
 **"Failed to fetch external repository"**
-- Check internet connection
+- Check your internet connection
 - Run `bazel sync` to re-fetch dependencies
+- Check MODULE.bazel for typos
+
+**"Builds are slow"**
+- First build downloads all dependencies (slow)
+- Subsequent builds use cache (fast!)
+- Enable remote caching for team collaboration
 
 **"Database not found" (Economic Dashboard)**
-- Run: `bazel run //go_fetch:refresh`
-- Set: `export FRED_API_KEY=your_key`
-
-**See more:** [Full Troubleshooting Guide](https://rrl-personal-projects.github.io/bazel-tutorial/installation/#common-installation-issues)
+- Run the data fetcher first: `bazel run //go_fetch:refresh`
+- Make sure you set `FRED_API_KEY` environment variable
 
 ### Validation Script
 
-Verify your setup is working:
+To verify your setup is working correctly:
 
 ```bash
 ./validate.sh
 ```
 
+This script will:
+- Check if Bazel is installed
+- Validate repository structure
+- Build all targets
+- Run all tests
+
 ## 🤝 Contributing
 
-Contributions are welcome! See **[Contributing Guide](https://rrl-personal-projects.github.io/bazel-tutorial/contributing/)** for guidelines on:
+Contributions are welcome! See **[CONTRIBUTING.md](contributing.md)** for guidelines on:
 - Adding new services
 - Improving documentation
 - Adding tests
@@ -244,10 +288,17 @@ Contributions are welcome! See **[Contributing Guide](https://rrl-personal-proje
 
 ## 📚 Further Reading
 
-- [Bazel Documentation](https://bazel.build/)
-- [Bzlmod Guide](https://bazel.build/external/overview#bzlmod)
+### Official Documentation
+
+- [Bazel Basics](https://bazel.build/basics)
+- [Bzlmod Guide](https://bazel.build/external/overview#bzlmod) - The new MODULE.bazel system
 - [rules_python](https://github.com/bazelbuild/rules_python)
 - [rules_go](https://github.com/bazelbuild/rules_go)
+- [Bazel Query Guide](https://bazel.build/query/guide)
+- [Bazel Remote Caching](https://bazel.build/remote/caching)
+
+### Economic Data
+
 - [FRED API Documentation](https://fred.stlouisfed.org/docs/api/)
 
 ## 📄 License
@@ -258,4 +309,4 @@ MIT License - See LICENSE file for details
 
 **Happy Building! 🚀**
 
-For questions or issues, open a [GitHub issue](https://github.com/rrl-personal-projects/bazel-tutorial/issues).
+For questions or issues, please open a [GitHub issue](https://github.com/rrl-personal-projects/bazel-tutorial/issues).
