@@ -6,10 +6,25 @@ on:
   pull_request:
     branches: [ main, master ]
 
+concurrency:
+  # PR runs: use PR number so runs for the same PR serialize
+  # workflow_run events (called by other workflows): include repo+branch
+  # Fallback for push/branch/scheduled runs: use workflow name + branch/ref
+  group: ${{ 
+    github.event_name == 'pull_request' && 
+      format('{0}-pr-{1}', github.workflow, github.event.pull_request.number)
+      ||
+    github.event_name == 'workflow_run' &&
+      format('{0}-run-{1}-{2}', github.workflow, github.event.workflow_run.head_repository.full_name, github.event.workflow_run.head_branch)
+      ||
+    format('{0}-branch-{1}', github.workflow, github.ref_name || github.ref)
+    }}
+  cancel-in-progress: true
+
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, small, cpu]
     
     permissions:
       contents: read
@@ -20,16 +35,6 @@ jobs:
       
     - name: Setup Bazelisk
       uses: bazelbuild/setup-bazelisk@v2
-      
-    - name: Mount Bazel cache
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.cache/bazel
-          ~/.cache/bazelisk
-        key: ${{ runner.os }}-bazel-${{ hashFiles('MODULE.bazel', '.bazelversion', '**/*.bazel', '**/*.bzl') }}
-        restore-keys: |
-          ${{ runner.os }}-bazel-
     
     - name: Build all targets
       run: bazel build //...
