@@ -22,12 +22,12 @@ python.toolchain(
     python_version = "3.11",
 )
 
-# Configure pip dependencies from requirements.txt
+# Configure pip dependencies from requirements lock file
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
     hub_name = "pip_deps",
     python_version = "3.11",
-    requirements_lock = "//py_service:requirements.txt",
+    requirements_lock = "//py_service:requirements_lock.txt",
 )
 use_repo(pip, "pip_deps")
 
