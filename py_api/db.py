@@ -7,7 +7,7 @@ that is populated by the Go fetch service.
 import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class EconDatabase:
@@ -118,7 +118,7 @@ class EconDatabase:
         series_id: str, 
         start_date: Optional[str] = None,
         end_date: Optional[str] = None
-    ) -> List[Dict[str, any]]:
+    ) -> List[Dict[str, Any]]:
         """Get observations for a series within a date range.
         
         Args:
@@ -208,7 +208,7 @@ class EconDatabase:
         
         return ((latest_value - year_ago_value) / year_ago_value) * 100
 
-    def get_last_refresh(self) -> Optional[Dict[str, any]]:
+    def get_last_refresh(self) -> Optional[Dict[str, Any]]:
         """Get information about the last data refresh.
         
         Returns:

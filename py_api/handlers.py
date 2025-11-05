@@ -1,6 +1,6 @@
 """API handlers for economic indicators endpoints."""
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from datetime import datetime, timedelta
 
 from .db import EconDatabase

@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from py_api.main import app, db
+from py_api.main import app
 from py_api.db import EconDatabase
 
 

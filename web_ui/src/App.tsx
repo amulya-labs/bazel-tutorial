@@ -127,13 +127,13 @@ function App() {
               </div>
               <div className="info-item">
                 <span className="label">MoM Change:</span>
-                <span className={`value ${selectedSeries.delta_mom && selectedSeries.delta_mom > 0 ? 'positive' : 'negative'}`}>
+                <span className={`value ${selectedSeries.delta_mom !== null && selectedSeries.delta_mom !== 0 ? (selectedSeries.delta_mom > 0 ? 'positive' : 'negative') : 'neutral'}`}>
                   {selectedSeries.delta_mom !== null ? `${selectedSeries.delta_mom > 0 ? '+' : ''}${selectedSeries.delta_mom.toFixed(2)}%` : 'N/A'}
                 </span>
               </div>
               <div className="info-item">
                 <span className="label">YoY Change:</span>
-                <span className={`value ${selectedSeries.delta_yoy && selectedSeries.delta_yoy > 0 ? 'positive' : 'negative'}`}>
+                <span className={`value ${selectedSeries.delta_yoy !== null && selectedSeries.delta_yoy !== 0 ? (selectedSeries.delta_yoy > 0 ? 'positive' : 'negative') : 'neutral'}`}>
                   {selectedSeries.delta_yoy !== null ? `${selectedSeries.delta_yoy > 0 ? '+' : ''}${selectedSeries.delta_yoy.toFixed(2)}%` : 'N/A'}
                 </span>
               </div>
