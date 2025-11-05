@@ -13,6 +13,9 @@ venv/
 ENV/
 env/
 
+# Go module cache
+root/
+
 # IDE files
 .idea/
 .vscode/
