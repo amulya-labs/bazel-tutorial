@@ -26,3 +26,16 @@ root/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Economic Dashboard data files
+/data/*.db
+/data/*.db-journal
+/data/*.db-shm
+/data/*.db-wal
+
+# Node modules and build artifacts
+node_modules/
+/web_ui/dist/
+/web_ui/node_modules/
+*.log
+.env

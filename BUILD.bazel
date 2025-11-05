@@ -1,0 +1,12 @@
+# Root BUILD.bazel file for the Bazel Multi-Language Tutorial
+# This file defines targets at the repository root level
+
+# Filegroup to make run_all.sh accessible
+filegroup(
+    name = "run_all",
+    srcs = ["run_all.sh"],
+    visibility = ["//visibility:public"],
+)
+
+# Alias for running all services
+# This is a convenience target documented in ECONOMIC_DASHBOARD.md

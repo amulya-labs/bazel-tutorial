@@ -1,0 +1,65 @@
+# Load Go rules for building Go binaries and tests
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/rrl-personal-projects/bazel-tutorial/go_fetch
+gazelle(name = "gazelle")
+
+# go_library defines a reusable Go library with the core logic
+# This allows both the binary and tests to depend on the same code
+go_library(
+    name = "go_fetch_lib",
+    srcs = [
+        "fred.go",
+        "store_sqlite.go",
+    ],
+    importpath = "github.com/rrl-personal-projects/bazel-tutorial/go_fetch",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_mattn_go_sqlite3//:go-sqlite3",
+    ],
+)
+
+# go_binary defines the executable that refreshes economic data
+# Run with: bazel run //go_fetch:refresh
+# 
+# This binary fetches the latest economic indicators from FRED API
+# and stores them in a SQLite database. It requires FRED_API_KEY
+# environment variable to be set.
+#
+# Example usage:
+#   export FRED_API_KEY=your_key_here
+#   bazel run //go_fetch:refresh
+#
+# The binary will create/update ./data/econ.db with the latest data
+go_binary(
+    name = "refresh",
+    srcs = ["main.go"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":go_fetch_lib",
+        "@com_github_mattn_go_sqlite3//:go-sqlite3",
+    ],
+    # Allow environment variables to pass through for API key
+    data = [],
+)
+
+# go_test defines tests for the FRED client
+# Run with: bazel test //go_fetch:fred_test
+#
+# These tests use mock HTTP clients to avoid making real API calls
+# This ensures tests are hermetic and don't depend on network access
+go_test(
+    name = "fred_test",
+    srcs = ["fred_test.go"],
+    embed = [":go_fetch_lib"],
+    deps = [],
+)
+
+# Additional test for storage functionality (optional, can be added later)
+# go_test(
+#     name = "store_test",
+#     srcs = ["store_sqlite_test.go"],
+#     embed = [":go_fetch_lib"],
+#     deps = ["@com_github_mattn_go_sqlite3//:go-sqlite3"],
+# )

@@ -233,3 +233,38 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
 - Improving documentation
 - Adding tests
 - Submitting pull requests
+
+---
+
+## 🆕 Economic Indicators Dashboard
+
+**New: A comprehensive full-stack polyglot application!**
+
+This advanced tutorial demonstrates real-world Bazel usage with:
+- **Go** service that fetches economic data from FRED API
+- **Python** FastAPI serving REST endpoints with computed metrics
+- **React** frontend with interactive charts and responsive design
+
+### Quick Start
+
+```bash
+# Get a free FRED API key from https://fred.stlouisfed.org
+export FRED_API_KEY=your_key_here
+
+# Run everything
+./run_all.sh
+
+# In another terminal, start the UI
+cd web_ui && npm install && npm run dev
+```
+
+📖 **[Full Documentation](ECONOMIC_DASHBOARD.md)**
+
+This teaching project demonstrates:
+- ✅ Multi-language builds (Go + Python + React)
+- ✅ Incremental compilation and caching
+- ✅ Hermetic testing without network dependencies
+- ✅ Modern CI/CD with GitHub Actions
+
+---
+
