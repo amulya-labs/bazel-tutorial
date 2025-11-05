@@ -1,0 +1,22 @@
+# Load shell test rule
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+
+# sh_test defines a shell script test
+# This can be run with: bazel test //tests:test_go_service
+sh_test(
+    name = "test_go_service",
+    srcs = ["test_go_service.sh"],
+    data = [
+        "//go_service:server",  # Ensures the Go service is built before testing
+    ],
+)
+
+# py_test for integration testing
+# This can be run with: bazel test //tests:test_py_service
+py_test(
+    name = "test_py_service",
+    srcs = ["test_py_service.py"],
+    data = [
+        "//py_service:server",  # Ensures the Python service is built before testing
+    ],
+)

@@ -1,0 +1,20 @@
+# Load Go rules for building Go binaries and tests
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_test")
+
+# go_binary defines an executable Go program
+# This target can be run with: bazel run //go_service:server
+go_binary(
+    name = "server",
+    srcs = ["main.go"],  # Source files to compile
+    visibility = ["//visibility:public"],  # Makes this target visible to other packages
+)
+
+# go_test defines a Go test target
+# This target can be tested with: bazel test //go_service:go_service_test
+go_test(
+    name = "go_service_test",
+    srcs = [
+        "main.go",      # Include main.go so tests can access handler functions
+        "main_test.go", # Test file
+    ],
+)

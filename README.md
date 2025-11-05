@@ -26,12 +26,16 @@ You’ll build, test, and run them independently — and learn how Bazel manages
 
 🏗️ Repository Structure
 bazel-multilang-tutorial/
-├── WORKSPACE               # Defines external dependencies and Bazel rules
+├── MODULE.bazel            # Defines external dependencies using Bzlmod (new standard)
+├── .bazelversion           # Specifies the Bazel version to use
+├── .bazelrc                # Bazel configuration options
 ├── go_service/             # Go service + BUILD.bazel
 │   ├── main.go
+│   ├── main_test.go
 │   └── BUILD.bazel
 ├── py_service/             # Python service + BUILD.bazel
 │   ├── main.py
+│   ├── test_main.py
 │   ├── requirements.txt
 │   └── BUILD.bazel
 ├── tests/                  # Cross-service tests
@@ -64,26 +68,29 @@ bazel run //go_service:server
 bazel test //...
 
 📦 Understanding Bazel Files
-🧰 WORKSPACE
+🧰 MODULE.bazel
 
-Defines external dependencies and language rules.
+The new standard for defining external dependencies using Bzlmod (Bazel Module system).
 For example:
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-# Go rules
-http_archive(
-    name = "io_bazel_rules_go",
-    urls = ["https://github.com/bazelbuild/rules_go/releases/download/v0.47.0/rules_go-v0.47.0.tar.gz"],
-    sha256 = "...",
+```python
+module(
+    name = "bazel_multilang_tutorial",
+    version = "1.0.0",
 )
 
 # Python rules
-http_archive(
-    name = "rules_python",
-    urls = ["https://github.com/bazelbuild/rules_python/releases/download/0.31.0/rules_python-0.31.0.tar.gz"],
-    sha256 = "...",
-)
+bazel_dep(name = "rules_python", version = "0.31.0")
+
+# Go rules
+bazel_dep(name = "rules_go", version = "0.46.0")
+```
+
+**Why MODULE.bazel instead of WORKSPACE?**
+- Cleaner dependency management
+- Better version resolution
+- More maintainable for large projects
+- The new Bazel standard (Bzlmod)
 
 🧱 BUILD.bazel
 

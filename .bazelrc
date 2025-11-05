@@ -1,0 +1,23 @@
+# .bazelrc - Configuration for Bazel builds
+
+# Enable Bzlmod (the new dependency management system)
+common --enable_bzlmod
+
+# Use a local cache to speed up builds
+build --disk_cache=~/.cache/bazel
+
+# Show test output for failed tests
+test --test_output=errors
+
+# Use colors in output
+common --color=yes
+
+# Show progress
+build --show_progress
+test --show_progress
+
+# Enable platform-specific build settings
+build --enable_platform_specific_config
+
+# Python-specific: Use hermetic Python toolchain
+build --incompatible_use_python_toolchains=true
