@@ -1,4 +1,4 @@
-# 🧱 Bazel Multi-Language Tutorial (with Economic Dashboards)
+# 🧱 Bazel Multi-Language Tutorial (with Economic Dashboard)
 
 A comprehensive, hands-on guide to building polyglot applications with Bazel — Google's fast, reproducible, and scalable build system.
 
