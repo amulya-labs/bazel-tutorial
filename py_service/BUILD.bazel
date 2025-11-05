@@ -23,6 +23,7 @@ py_test(
         "test_main.py",  # Test file
         "main.py",       # Include main.py so tests can import from it
     ],
+    main = "test_main.py",  # Specify the test entry point
     deps = [
         requirement("fastapi"),
         requirement("uvicorn"),
