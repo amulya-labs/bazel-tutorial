@@ -1,5 +1,5 @@
 # Load Go rules for building Go binaries and tests
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
 
 # go_binary defines an executable Go program
 # This target can be run with: bazel run //go_service:server

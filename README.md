@@ -146,22 +146,43 @@ Enable remote cache (optional, advanced).
 
 🧠 Key Takeaways
 
-Bazel provides deterministic builds — same inputs → same outputs.
+✅ Bazel provides deterministic builds — same inputs → same outputs.
 
-It understands dependencies deeply, so it rebuilds only what changed.
+✅ It understands dependencies deeply, so it rebuilds only what changed.
 
-It can build different languages together, reproducibly.
+✅ It can build different languages together, reproducibly.
 
-Ideal for large repos, CI optimization, and polyglot systems.
+✅ **Bzlmod (MODULE.bazel)** is the new standard, replacing WORKSPACE.
+
+✅ Ideal for large repos, CI optimization, and polyglot systems.
+
+📖 Detailed Documentation
+
+This repository includes comprehensive guides:
+
+- **[Quick Start Guide](docs/QUICKSTART.md)** - Get up and running quickly
+- **[Bazel Concepts](docs/CONCEPTS.md)** - Deep dive into Bazel fundamentals
+- **[Adding Dependencies](docs/DEPENDENCIES.md)** - How to add Python, Go, and other dependencies
 
 📚 Further Reading
 
-Bazel Basics
+📘 Official Documentation
 
-rules_python
+[Bazel Basics](https://bazel.build/basics)
 
-rules_go
+[Bzlmod Guide](https://bazel.build/external/overview#bzlmod) - The new MODULE.bazel system
 
-Bazel Query Guide
+[rules_python](https://github.com/bazelbuild/rules_python)
 
-Bazel Remote Caching
+[rules_go](https://github.com/bazelbuild/rules_go)
+
+[Bazel Query Guide](https://bazel.build/query/guide)
+
+[Bazel Remote Caching](https://bazel.build/remote/caching)
+
+🎯 Tutorial Guides
+
+Check the [docs/](docs/) folder for detailed guides:
+- [QUICKSTART.md](docs/QUICKSTART.md) - Installation and basic commands
+- [CONCEPTS.md](docs/CONCEPTS.md) - Understanding Bazel fundamentals
+- [DEPENDENCIES.md](docs/DEPENDENCIES.md) - Managing dependencies

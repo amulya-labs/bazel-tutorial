@@ -1,5 +1,5 @@
-# Load shell test rule
-load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+# Load Python test rule for integration tests
+load("@rules_python//python:defs.bzl", "py_test")
 
 # sh_test defines a shell script test
 # This can be run with: bazel test //tests:test_go_service
