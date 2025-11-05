@@ -1,0 +1,79 @@
+site_name: Bazel Multi-Language Tutorial
+site_description: A hands-on guide to building polyglot applications with Bazel
+site_author: rrl-personal-projects
+site_url: https://rrl-personal-projects.github.io/bazel-tutorial/
+
+repo_name: rrl-personal-projects/bazel-tutorial
+repo_url: https://github.com/rrl-personal-projects/bazel-tutorial
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: quickstart.md
+    - Installation: installation.md
+  - Tutorials:
+    - Basic Services: basic-tutorial.md
+    - Economic Dashboard: economic-dashboard.md
+  - Concepts:
+    - Bazel Fundamentals: concepts.md
+    - Dependencies: dependencies.md
+    - Build Query: query.md
+  - Reference:
+    - Testing Guide: testing.md
+    - Contributing: contributing.md
+
+plugins:
+  - search
+  - glightbox
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rrl-personal-projects/bazel-tutorial
