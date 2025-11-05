@@ -22,7 +22,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/health", healthHandler)
-	
+
 	port := ":8080"
 	log.Printf("Go service starting on http://localhost%s", port)
 	log.Fatal(http.ListenAndServe(port, nil))
