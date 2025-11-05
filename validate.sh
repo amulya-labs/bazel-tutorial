@@ -1,7 +1,7 @@
 #!/bin/bash
 # validate.sh - Script to validate the Bazel tutorial setup
 
-set -e
+set -euo pipefail
 
 echo "🧪 Validating Bazel Tutorial Setup..."
 echo ""
