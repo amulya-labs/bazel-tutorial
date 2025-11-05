@@ -50,10 +50,12 @@ To add a new service (e.g., Java, Rust, Node.js):
 ### Improving Documentation
 
 Documentation lives in:
-- `README.md` - Main overview
-- `docs/QUICKSTART.md` - Getting started guide
-- `docs/CONCEPTS.md` - Deep dive into concepts
-- `docs/DEPENDENCIES.md` - Managing dependencies
+- `docs/index.md` - Main landing page
+- `docs/quickstart.md` - Getting started guide
+- `docs/concepts.md` - Deep dive into concepts
+- `docs/dependencies.md` - Managing dependencies
+- `docs/query.md` - Build graph exploration
+- `docs/testing.md` - Testing guide
 
 Guidelines:
 - Keep explanations beginner-friendly
