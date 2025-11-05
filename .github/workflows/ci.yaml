@@ -24,7 +24,7 @@ concurrency:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: [self-hosted, Linux, bazel, small, cpu]
+    runs-on: [self-hosted, Linux, bazel, small]
     
     permissions:
       contents: read
