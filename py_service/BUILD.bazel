@@ -1,0 +1,31 @@
+# Load Python rules for building Python binaries and tests
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
+load("@pip_deps//:requirements.bzl", "requirement")
+
+# py_binary defines an executable Python program
+# This target can be run with: bazel run //py_service:server
+py_binary(
+    name = "server",
+    srcs = ["main.py"],  # Source files to run
+    deps = [
+        # Dependencies from requirements.txt are loaded via pip_parse
+        requirement("fastapi"),
+        requirement("uvicorn"),
+    ],
+    visibility = ["//visibility:public"],  # Makes this target visible to other packages
+)
+
+# py_test defines a Python test target
+# This target can be tested with: bazel test //py_service:py_service_test
+py_test(
+    name = "py_service_test",
+    srcs = [
+        "test_main.py",  # Test file
+        "main.py",       # Include main.py so tests can import from it
+    ],
+    deps = [
+        requirement("fastapi"),
+        requirement("uvicorn"),
+        requirement("httpx"),  # Required by TestClient
+    ],
+)

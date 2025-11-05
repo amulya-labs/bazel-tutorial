@@ -8,7 +8,7 @@ You’ll learn how to:
 
 Build and test apps in Python and Go
 
-Use Bazel’s WORKSPACE and BUILD.bazel files
+Use Bazel’s MODULE.bazel and BUILD.bazel files
 
 Leverage caching, parallelism, and hermetic builds
 
@@ -26,12 +26,16 @@ You’ll build, test, and run them independently — and learn how Bazel manages
 
 🏗️ Repository Structure
 bazel-multilang-tutorial/
-├── WORKSPACE               # Defines external dependencies and Bazel rules
+├── MODULE.bazel            # Defines external dependencies using Bzlmod (new standard)
+├── .bazelversion           # Specifies the Bazel version to use
+├── .bazelrc                # Bazel configuration options
 ├── go_service/             # Go service + BUILD.bazel
 │   ├── main.go
+│   ├── main_test.go
 │   └── BUILD.bazel
 ├── py_service/             # Python service + BUILD.bazel
 │   ├── main.py
+│   ├── test_main.py
 │   ├── requirements.txt
 │   └── BUILD.bazel
 ├── tests/                  # Cross-service tests
@@ -64,26 +68,29 @@ bazel run //go_service:server
 bazel test //...
 
 📦 Understanding Bazel Files
-🧰 WORKSPACE
+🧰 MODULE.bazel
 
-Defines external dependencies and language rules.
+The new standard for defining external dependencies using Bzlmod (Bazel Module system).
 For example:
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-# Go rules
-http_archive(
-    name = "io_bazel_rules_go",
-    urls = ["https://github.com/bazelbuild/rules_go/releases/download/v0.47.0/rules_go-v0.47.0.tar.gz"],
-    sha256 = "...",
+```python
+module(
+    name = "bazel_multilang_tutorial",
+    version = "1.0.0",
 )
 
 # Python rules
-http_archive(
-    name = "rules_python",
-    urls = ["https://github.com/bazelbuild/rules_python/releases/download/0.31.0/rules_python-0.31.0.tar.gz"],
-    sha256 = "...",
-)
+bazel_dep(name = "rules_python", version = "0.31.0")
+
+# Go rules
+bazel_dep(name = "rules_go", version = "0.46.0")
+```
+
+**Why MODULE.bazel instead of WORKSPACE?**
+- Cleaner dependency management
+- Better version resolution
+- More maintainable for large projects
+- The new Bazel standard (Bzlmod)
 
 🧱 BUILD.bazel
 
@@ -139,22 +146,90 @@ Enable remote cache (optional, advanced).
 
 🧠 Key Takeaways
 
-Bazel provides deterministic builds — same inputs → same outputs.
+✅ Bazel provides deterministic builds — same inputs → same outputs.
 
-It understands dependencies deeply, so it rebuilds only what changed.
+✅ It understands dependencies deeply, so it rebuilds only what changed.
 
-It can build different languages together, reproducibly.
+✅ It can build different languages together, reproducibly.
 
-Ideal for large repos, CI optimization, and polyglot systems.
+✅ **Bzlmod (MODULE.bazel)** is the new standard, replacing WORKSPACE.
+
+✅ Ideal for large repos, CI optimization, and polyglot systems.
+
+📖 Detailed Documentation
+
+This repository includes comprehensive guides:
+
+- **[Quick Start Guide](docs/QUICKSTART.md)** - Get up and running quickly
+- **[Bazel Concepts](docs/CONCEPTS.md)** - Deep dive into Bazel fundamentals
+- **[Adding Dependencies](docs/DEPENDENCIES.md)** - How to add Python, Go, and other dependencies
+- **[Query Guide](docs/QUERY.md)** - Explore the build graph with `bazel query`
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**"command not found: bazel"**
+- Install Bazel: https://bazel.build/install
+- Or use Bazelisk (recommended): https://github.com/bazelbuild/bazelisk
+
+**"Failed to fetch external repository"**
+- Check your internet connection
+- Run `bazel sync` to re-fetch dependencies
+- Check MODULE.bazel for typos
+
+**Builds are slow**
+- First build downloads all dependencies (slow)
+- Subsequent builds use cache (fast!)
+- Enable remote caching for team collaboration
+
+**Need help?**
+- Check [docs/QUICKSTART.md](docs/QUICKSTART.md) for detailed setup
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
+- Open an issue for bugs or questions
 
 📚 Further Reading
 
-Bazel Basics
+📘 Official Documentation
 
-rules_python
+[Bazel Basics](https://bazel.build/basics)
 
-rules_go
+[Bzlmod Guide](https://bazel.build/external/overview#bzlmod) - The new MODULE.bazel system
 
-Bazel Query Guide
+[rules_python](https://github.com/bazelbuild/rules_python)
 
-Bazel Remote Caching
+[rules_go](https://github.com/bazelbuild/rules_go)
+
+[Bazel Query Guide](https://bazel.build/query/guide)
+
+[Bazel Remote Caching](https://bazel.build/remote/caching)
+
+🎯 Tutorial Guides
+
+Check the [docs/](docs/) folder for detailed guides:
+- [QUICKSTART.md](docs/QUICKSTART.md) - Installation and basic commands
+- [CONCEPTS.md](docs/CONCEPTS.md) - Understanding Bazel fundamentals
+- [DEPENDENCIES.md](docs/DEPENDENCIES.md) - Managing dependencies
+- [QUERY.md](docs/QUERY.md) - Exploring the build graph
+
+## ✅ Validation
+
+To verify your setup is working correctly, run:
+
+```bash
+./validate.sh
+```
+
+This script will:
+- Check if Bazel is installed
+- Validate repository structure
+- Build all targets
+- Run all tests
+
+## 🤝 Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Adding new services
+- Improving documentation
+- Adding tests
+- Submitting pull requests

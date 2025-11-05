@@ -1,0 +1,44 @@
+name: Bazel CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Bazelisk
+      uses: bazelbuild/setup-bazelisk@v2
+      
+    - name: Mount Bazel cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/bazel
+          ~/.cache/bazelisk
+        key: ${{ runner.os }}-bazel-${{ hashFiles('MODULE.bazel', '.bazelversion', '**/*.bazel', '**/*.bzl') }}
+        restore-keys: |
+          ${{ runner.os }}-bazel-
+    
+    - name: Build all targets
+      run: bazel build //...
+      
+    - name: Run all tests
+      run: bazel test //...
+      
+    - name: Verify Go service
+      run: bazel build //go_service:server
+      
+    - name: Verify Python service
+      run: bazel build //py_service:server
