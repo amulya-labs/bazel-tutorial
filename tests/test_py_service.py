@@ -7,7 +7,7 @@ import sys
 def test_python_service_builds():
     """Test that the Python service builds successfully."""
     try:
-        result = subprocess.run(
+        subprocess.run(
             ["bazel", "build", "//py_service:server"],
             capture_output=True,
             text=True,
