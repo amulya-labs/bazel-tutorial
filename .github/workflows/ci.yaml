@@ -33,8 +33,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup Bazelisk
-      uses: bazelbuild/setup-bazelisk@v2
+    - name: Verify Bazel Versions
+      run: |
+        bazelisk --version
+        bazel --version
     
     - name: Build all targets
       run: bazel build //...
