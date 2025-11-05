@@ -8,7 +8,7 @@ You’ll learn how to:
 
 Build and test apps in Python and Go
 
-Use Bazel’s WORKSPACE and BUILD.bazel files
+Use Bazel’s MODULE.bazel and BUILD.bazel files
 
 Leverage caching, parallelism, and hermetic builds
 
@@ -163,6 +163,30 @@ This repository includes comprehensive guides:
 - **[Quick Start Guide](docs/QUICKSTART.md)** - Get up and running quickly
 - **[Bazel Concepts](docs/CONCEPTS.md)** - Deep dive into Bazel fundamentals
 - **[Adding Dependencies](docs/DEPENDENCIES.md)** - How to add Python, Go, and other dependencies
+- **[Query Guide](docs/QUERY.md)** - Explore the build graph with `bazel query`
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**"command not found: bazel"**
+- Install Bazel: https://bazel.build/install
+- Or use Bazelisk (recommended): https://github.com/bazelbuild/bazelisk
+
+**"Failed to fetch external repository"**
+- Check your internet connection
+- Run `bazel sync` to re-fetch dependencies
+- Check MODULE.bazel for typos
+
+**Builds are slow**
+- First build downloads all dependencies (slow)
+- Subsequent builds use cache (fast!)
+- Enable remote caching for team collaboration
+
+**Need help?**
+- Check [docs/QUICKSTART.md](docs/QUICKSTART.md) for detailed setup
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
+- Open an issue for bugs or questions
 
 📚 Further Reading
 
@@ -186,3 +210,26 @@ Check the [docs/](docs/) folder for detailed guides:
 - [QUICKSTART.md](docs/QUICKSTART.md) - Installation and basic commands
 - [CONCEPTS.md](docs/CONCEPTS.md) - Understanding Bazel fundamentals
 - [DEPENDENCIES.md](docs/DEPENDENCIES.md) - Managing dependencies
+- [QUERY.md](docs/QUERY.md) - Exploring the build graph
+
+## ✅ Validation
+
+To verify your setup is working correctly, run:
+
+```bash
+./validate.sh
+```
+
+This script will:
+- Check if Bazel is installed
+- Validate repository structure
+- Build all targets
+- Run all tests
+
+## 🤝 Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Adding new services
+- Improving documentation
+- Adding tests
+- Submitting pull requests
