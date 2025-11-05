@@ -1,23 +1,26 @@
 """Integration test to verify Python service builds correctly."""
 
-import subprocess
+import os
 import sys
 
 
 def test_python_service_builds():
     """Test that the Python service builds successfully."""
-    try:
-        subprocess.run(
-            ["bazel", "build", "//py_service:server"],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        print("✓ Python service builds successfully")
+    # The binary is in the runfiles because it's declared as data dependency
+    server_path = "py_service/server"
+
+    if os.path.exists(server_path):
+        print(f"✓ Python service binary exists at {server_path}")
         return 0
-    except subprocess.CalledProcessError as e:
-        print("✗ Python service failed to build")
-        print(e.stderr)
+    else:
+        print("✗ Python service binary not found")
+        print(f"Looking for: {server_path}")
+        print("Current directory:", os.getcwd())
+        print("Available files:")
+        for root, dirs, files in os.walk("."):
+            for file in files:
+                if "server" in file:
+                    print(f"  {os.path.join(root, file)}")
         return 1
 
 
