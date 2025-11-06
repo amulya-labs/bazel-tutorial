@@ -45,7 +45,8 @@ function App() {
       setLoading(true)
 
       // Try static JSON first (for GitHub Pages deployment)
-      let response = await fetch('/data/summary.json')
+      // Use relative path to respect Vite's base configuration
+      let response = await fetch('data/summary.json')
 
       // Fall back to API if static file not found
       if (!response.ok && response.status === 404) {
@@ -68,7 +69,8 @@ function App() {
   const fetchSeriesData = async (code: string, range: string = '5y') => {
     try {
       // Try static JSON first (for GitHub Pages deployment)
-      let response = await fetch(`/data/series-${code}.json`)
+      // Use relative path to respect Vite's base configuration
+      let response = await fetch(`data/series-${code}.json`)
 
       // Fall back to API if static file not found
       if (!response.ok && response.status === 404) {
