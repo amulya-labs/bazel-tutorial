@@ -35,6 +35,7 @@ jobs:
       - name: Build documentation
         run: |
           mkdocs build --strict
+          touch site/.nojekyll
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
