@@ -3,6 +3,9 @@ site_description: A hands-on guide to building polyglot applications with Bazel
 site_author: rrl-personal-projects
 site_url: https://rrl-personal-projects.github.io/bazel-tutorial/
 
+# Enable directory URLs (e.g., /quickstart/ instead of /quickstart.html)
+use_directory_urls: true
+
 repo_name: rrl-personal-projects/bazel-tutorial
 repo_url: https://github.com/rrl-personal-projects/bazel-tutorial
 
