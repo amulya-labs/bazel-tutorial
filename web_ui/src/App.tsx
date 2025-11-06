@@ -188,7 +188,7 @@ function App() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
             <h1 style={{ margin: 0 }}>📊 Economic Indicators Dashboard</h1>
             <a
-              href="/bazel-tutorial/dashboard/"
+              href="/bazel-tutorial/"
               style={{
                 padding: '0.5rem 1rem',
                 background: 'rgba(255,255,255,0.2)',
