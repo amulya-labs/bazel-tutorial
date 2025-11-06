@@ -3,7 +3,7 @@
 from typing import Dict, Optional
 from datetime import datetime, timedelta
 
-from .db import EconDatabase
+from py_api.db import EconDatabase
 
 
 def get_summary(db: EconDatabase) -> Dict:

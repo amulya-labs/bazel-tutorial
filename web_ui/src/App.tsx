@@ -161,15 +161,28 @@ function App() {
         </div>
       </header>
       <main className="main">
-        <div className="dashboard-grid">
-          {summary?.indicators.map((indicator) => (
-            <IndicatorCard
-              key={indicator.code}
-              indicator={indicator}
-              onClick={() => handleCardClick(indicator.code)}
-            />
-          ))}
-        </div>
+        {summary && summary.indicators.length === 0 ? (
+          <div className="empty-state">
+            <h2>No Data Available</h2>
+            <p>The database is empty. Please populate it with economic data:</p>
+            <ol style={{ textAlign: 'left', margin: '1rem auto', maxWidth: '500px' }}>
+              <li>Get a free FRED API key at <a href="https://fred.stlouisfed.org/docs/api/api_key.html" target="_blank" rel="noopener noreferrer">https://fred.stlouisfed.org</a></li>
+              <li>Set the environment variable: <code>export FRED_API_KEY=your_key_here</code></li>
+              <li>Run: <code>bazel run //go_fetch:refresh</code></li>
+              <li>Refresh this page</li>
+            </ol>
+          </div>
+        ) : (
+          <div className="dashboard-grid">
+            {summary?.indicators.map((indicator) => (
+              <IndicatorCard
+                key={indicator.code}
+                indicator={indicator}
+                onClick={() => handleCardClick(indicator.code)}
+              />
+            ))}
+          </div>
+        )}
       </main>
     </div>
   )

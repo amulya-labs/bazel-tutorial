@@ -10,8 +10,8 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from .db import EconDatabase
-from . import handlers
+from py_api.db import EconDatabase
+from py_api import handlers
 
 
 # Initialize FastAPI app
