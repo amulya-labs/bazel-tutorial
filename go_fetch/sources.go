@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -40,12 +41,12 @@ type wbDataPoint struct {
 		ID    string `json:"id"`
 		Value string `json:"value"`
 	} `json:"country"`
-	Countryiso3code string  `json:"countryiso3code"`
-	Date            string  `json:"date"`
-	Value           float64 `json:"value"`
-	Unit            string  `json:"unit"`
-	ObsStatus       string  `json:"obs_status"`
-	Decimal         int     `json:"decimal"`
+	Countryiso3code string   `json:"countryiso3code"`
+	Date            string   `json:"date"`
+	Value           *float64 `json:"value"` // Pointer to distinguish null from 0
+	Unit            string   `json:"unit"`
+	ObsStatus       string   `json:"obs_status"`
+	Decimal         int      `json:"decimal"`
 }
 
 // NewWorldBankClient creates a new World Bank API client
@@ -69,10 +70,13 @@ func (c *WorldBankClient) FetchSeries(seriesID string) (*Series, []Observation, 
 	// Format: WB:INDICATOR:COUNTRY
 	// Example: WB:NY.GDP.MKTP.KD:USA
 
-	// For now, hardcode some common mappings
-	// In production, this would parse the seriesID properly
-	indicator := "NY.GDP.MKTP.KD" // Real GDP constant prices
-	country := "USA"              // United States
+	parts := strings.Split(seriesID, ":")
+	if len(parts) != 3 {
+		return nil, nil, fmt.Errorf("invalid World Bank series ID format: %s (expected WB:INDICATOR:COUNTRY)", seriesID)
+	}
+
+	indicator := parts[1] // e.g., NY.GDP.MKTP.KD
+	country := parts[2]   // e.g., USA, CHN, EMU, WLD
 
 	// Fetch metadata
 	series := &Series{
@@ -121,12 +125,12 @@ func (c *WorldBankClient) FetchSeries(seriesID string) (*Series, []Observation, 
 	// Convert to observations
 	observations := make([]Observation, 0, len(dataPoints))
 	for _, dp := range dataPoints {
-		if dp.Value != 0 { // Skip null values
+		if dp.Value != nil { // Skip null values (missing data)
 			// World Bank returns annual data by year only, convert to ISO date
 			dateStr := fmt.Sprintf("%s-01-01", dp.Date)
 			observations = append(observations, Observation{
 				Date:  dateStr,
-				Value: fmt.Sprintf("%f", dp.Value),
+				Value: fmt.Sprintf("%f", *dp.Value),
 			})
 		}
 	}
@@ -170,15 +174,15 @@ func (c *OECDClient) GetSourceName() string {
 
 // DataSourceFactory creates the appropriate data source client based on series ID prefix
 func DataSourceFactory(seriesID string, fredAPIKey string) (DataSource, string, error) {
-	// Determine source from series ID prefix
-	if len(seriesID) >= 3 && seriesID[:3] == "WB:" {
+	// Determine source from series ID prefix using idiomatic string matching
+	if strings.HasPrefix(seriesID, "WB:") {
 		// World Bank series
 		return NewWorldBankClient(), seriesID, nil
-	} else if len(seriesID) >= 5 && seriesID[:5] == "OECD:" {
+	} else if strings.HasPrefix(seriesID, "OECD:") {
 		// OECD series
 		return NewOECDClient(), seriesID, nil
 	} else {
-		// Default to FRED
+		// Default to FRED (no prefix)
 		return NewFREDClient(fredAPIKey), seriesID, nil
 	}
 }
