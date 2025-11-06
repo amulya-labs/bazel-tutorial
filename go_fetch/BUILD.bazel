@@ -35,9 +35,9 @@ go_library(
 go_binary(
     name = "refresh",
     srcs = ["main.go"],
+    embed = [":go_fetch_lib"],
     visibility = ["//visibility:public"],
     deps = [
-        ":go_fetch_lib",
         "@com_github_mattn_go_sqlite3//:go-sqlite3",
     ],
     # Allow environment variables to pass through for API key

@@ -21,20 +21,28 @@ genrule(
     ]),
     outs = ["dist/index.html"],
     cmd = """
-        # Change to web_ui directory
-        cd $$(dirname $$(dirname $(location package.json)))
-        
+        # Get the actual source directory path
+        SRC_DIR=$$(dirname $(location package.json))
+
+        # Get the output directory (absolute path)
+        OUT_DIR=$$(dirname $$(realpath $(location dist/index.html)))
+
+        # Change to the source directory
+        cd $$SRC_DIR
+
         # Install dependencies if needed
         if [ ! -d "node_modules" ]; then
             npm install
         fi
-        
+
         # Build the application
         npm run build
-        
+
         # Copy build output to Bazel output location
-        cp -r dist/* $$(dirname $(OUTS))
+        mkdir -p $$OUT_DIR
+        cp -r dist/* $$OUT_DIR/
     """,
+    local = True,
     visibility = ["//visibility:public"],
 )
 

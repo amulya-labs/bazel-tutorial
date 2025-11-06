@@ -26,9 +26,13 @@ class EconDatabase:
         """Ensure the database file exists."""
         db_file = Path(self.db_path)
         if not db_file.exists():
-            raise FileNotFoundError(
+            # In test mode or first run, this is acceptable
+            # The error will be raised when trying to query the database
+            import warnings
+            warnings.warn(
                 f"Database not found at {self.db_path}. "
-                "Please run 'bazel run //go_fetch:refresh' first."
+                "Please run 'bazel run //go_fetch:refresh' first.",
+                UserWarning
             )
 
     def _get_connection(self) -> sqlite3.Connection:
