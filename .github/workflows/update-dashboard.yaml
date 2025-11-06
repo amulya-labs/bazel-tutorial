@@ -18,9 +18,7 @@ on:
   workflow_dispatch:  # Allow manual triggering
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: write  # Only need to commit data updates
 
 concurrency:
   group: "dashboard-update"
@@ -81,43 +79,12 @@ jobs:
           fi
         id: commit
 
-  build-and-deploy:
-    name: Build and Deploy Dashboard
-    needs: update-data
-    runs-on: [self-hosted, Linux, bazel, small]
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: main  # Ensure we get the latest commit with updated data
-          token: ${{ secrets.WORKFLOW_PAT }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: web_ui/package-lock.json
-
-      - name: Install dependencies
-        working-directory: web_ui
-        run: npm ci
-
-      - name: Build React dashboard
-        working-directory: web_ui
-        run: npm run build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./web_ui/dist
-          retention-days: 1  # Clean up old artifacts quickly
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Notify deployment
+        if: steps.commit.outputs.has_changes == 'true'
+        run: |
+          echo "✅ Economic data updated successfully!"
+          echo ""
+          echo "The documentation workflow will automatically rebuild and deploy"
+          echo "the dashboard with the new data on the next push to main."
+          echo ""
+          echo "Dashboard URL: https://rrl-personal-projects.github.io/bazel-tutorial/dashboard/"

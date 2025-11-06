@@ -3,7 +3,7 @@
 !!! success "🎯 View Live Dashboard"
     The Economic Indicators Dashboard is deployed live on GitHub Pages:
 
-    **[🚀 Open Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+    **[🚀 Open Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/dashboard/)**
 
     The dashboard automatically updates daily with fresh economic data from FRED API.
 

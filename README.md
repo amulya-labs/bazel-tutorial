@@ -10,7 +10,7 @@ A comprehensive, hands-on guide to building polyglot applications with Bazel —
 
 Experience the Economic Indicators Dashboard deployed on GitHub Pages:
 
-**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/dashboard/)**
 
 - **Real economic data** from the Federal Reserve (FRED API)
 - **Auto-updates daily** via GitHub Actions

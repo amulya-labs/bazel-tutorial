@@ -4,7 +4,7 @@ React + TypeScript frontend for the Economic Indicators Dashboard.
 
 ## 🌐 Live Demo
 
-**[View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+**[View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/dashboard/)**
 
 ## Architecture
 

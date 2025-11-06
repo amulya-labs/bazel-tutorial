@@ -36,11 +36,33 @@ jobs:
         run: |
           mkdocs build --strict
           touch site/.nojekyll
-      
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web_ui/package-lock.json
+
+      - name: Install dashboard dependencies
+        working-directory: web_ui
+        run: npm ci
+
+      - name: Build dashboard
+        working-directory: web_ui
+        run: npm run build
+
+      - name: Copy dashboard to docs site
+        run: |
+          mkdir -p site/dashboard
+          cp -r web_ui/dist/* site/dashboard/
+          echo "Dashboard built and copied to site/dashboard/"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./site
+          retention-days: 1
 
   deploy:
     environment:
