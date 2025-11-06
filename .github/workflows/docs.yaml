@@ -54,9 +54,9 @@ jobs:
 
       - name: Copy dashboard to docs site
         run: |
-          mkdir -p site/dashboard
-          cp -r web_ui/dist/* site/dashboard/
-          echo "Dashboard built and copied to site/dashboard/"
+          mkdir -p site/app
+          cp -r web_ui/dist/* site/app/
+          echo "Dashboard built and copied to site/app/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

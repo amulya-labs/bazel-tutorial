@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/bazel-tutorial/dashboard/',  // GitHub Pages subdirectory for dashboard
+  base: '/bazel-tutorial/app/',  // GitHub Pages subdirectory for dashboard
   server: {
     port: 3000,
     proxy: {

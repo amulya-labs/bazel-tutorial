@@ -10,6 +10,7 @@ __pycache__/
 
 # Virtual environments
 venv/
+.venv/
 ENV/
 env/
 
@@ -44,3 +45,4 @@ node_modules/
 # MkDocs build artifacts
 /site/
 .cache/
+/docs/app/
