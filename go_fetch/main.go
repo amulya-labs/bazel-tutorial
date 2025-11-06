@@ -16,14 +16,47 @@ var (
 	dbPath     = flag.String("db", "./data/econ.db", "Path to SQLite database")
 	exportJSON = flag.String("export-json", "", "Export data to JSON files in specified directory")
 
-	// Series to fetch from FRED
+	// Series to fetch from FRED - High-ROI Global Economic Indicators (30-Year Baseline)
+	// These indicators provide comprehensive coverage of growth, inflation, liquidity,
+	// sentiment, and risk since ~1990.
 	defaultSeries = []string{
-		"CPIAUCSL",  // CPI (Headline)
-		"CPILFESL",  // Core CPI
-		"UNRATE",    // Unemployment Rate
-		"FEDFUNDS",  // Federal Funds Rate
-		"DGS10",     // 10-Year Treasury Yield
-		"M2SL",      // M2 Money Stock
+		// 1️⃣ Real GDP (constant prices) - Growth / cycle
+		"GDPC1",     // US Real GDP (Billions of Chained 2012 Dollars), Quarterly, 1947→
+		
+		// 2️⃣ CPI (Consumer Price Index) - Inflation
+		"CPIAUCSL",  // US CPI All Urban Consumers (Index 1982-84=100), Monthly, 1947→
+		"CPILFESL",  // US Core CPI Less Food & Energy (Index 1982-84=100), Monthly, 1957→
+		
+		// 3️⃣ Unemployment Rate - Labor market
+		"UNRATE",    // US Unemployment Rate (Percent), Monthly, 1948→
+		
+		// 4️⃣ Fed Funds Rate - Monetary policy stance
+		"FEDFUNDS",  // Federal Funds Effective Rate (Percent), Monthly, 1954→
+		
+		// 5️⃣ 10Y – 2Y Treasury Spread - Recession signal / yield curve
+		"T10Y2Y",    // 10-Year Treasury Minus 2-Year Treasury (Percent), Daily, 1976→
+		"DGS10",     // 10-Year Treasury Constant Maturity Rate (Percent), Daily, 1962→
+		"DGS2",      // 2-Year Treasury Constant Maturity Rate (Percent), Daily, 1976→
+		
+		// 6️⃣ M2 Money Supply - Liquidity / credit conditions
+		"M2SL",      // M2 Money Stock (Billions of Dollars), Monthly, 1959→
+		
+		// 7️⃣ Brent Crude Oil Price - Inflation driver & demand proxy
+		"POILBREUSDM", // Global Price of Brent Crude (Dollars per Barrel), Monthly, 1987→
+		
+		// 8️⃣ Manufacturing PMI - Business confidence / early cycle
+		// Note: ISM Manufacturing PMI is available from FRED
+		"MANEMP",    // Manufacturing Employment (Thousands), Monthly, 1939→
+		// ISM PMI data would be ideal but requires separate source (not in FRED)
+		
+		// 9️⃣ Consumer Sentiment Index - Household confidence
+		"UMCSENT",   // University of Michigan Consumer Sentiment (Index 1966:Q1=100), Monthly, 1978→
+		
+		// 🔟 Global Trade Volume Index - Global demand flow
+		// Note: CPB Netherlands World Trade Monitor not available in FRED
+		// Using US-specific trade proxy as alternative
+		"IMPCH",     // Real Imports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→
+		"EXPCH",     // Real Exports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→
 	}
 )
 
