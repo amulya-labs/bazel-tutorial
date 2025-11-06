@@ -34,9 +34,11 @@ This is a **teaching repository** that shows:
 ### Components
 
 1. **[`go_fetch/`](https://github.com/rrl-personal-projects/bazel-tutorial/tree/main/go_fetch)** - Go service that fetches economic indicators from FRED API
-   - Fetches 6 core indicators (CPI, Unemployment, Fed Funds, etc.)
+   - Fetches **14 FRED series** covering **10 high-ROI macro indicators** with 30-year baseline
    - Stores data in SQLite database ([`store_sqlite.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/store_sqlite.go))
    - FRED API client ([`fred.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/fred.go))
+   - Rich metadata and categorization ([`metadata.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/metadata.go))
+   - Comprehensive data dictionary ([`indicators.md`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/indicators.md))
    - Includes mock HTTP tests ([`fred_test.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/fred_test.go))
    - Bazel build config: [`BUILD.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/BUILD.bazel)
 
@@ -186,16 +188,40 @@ bazel query 'deps(//py_api:server)'
 
 ## 📊 Available Indicators
 
-The dashboard tracks 6 core economic indicators from FRED:
+The dashboard tracks **10 core high-ROI macroeconomic indicators** (14 FRED series total) with 30-year baseline coverage:
 
-| Code | Name | Unit |
-|------|------|------|
-| `CPIAUCSL` | Consumer Price Index (Headline) | Index 1982-1984=100 |
-| `CPILFESL` | Core CPI | Index 1982-1984=100 |
-| `UNRATE` | Unemployment Rate | Percent |
-| `FEDFUNDS` | Federal Funds Rate | Percent |
-| `DGS10` | 10-Year Treasury Yield | Percent |
-| `M2SL` | M2 Money Stock | Billions of Dollars |
+### Core Indicators
+
+| # | Indicator | FRED Codes | Category | Coverage |
+|---|-----------|------------|----------|----------|
+| 1️⃣ | Real GDP | `GDPC1` | Growth | 1947→ |
+| 2️⃣ | CPI (Inflation) | `CPIAUCSL`, `CPILFESL` | Inflation | 1947→ |
+| 3️⃣ | Unemployment Rate | `UNRATE` | Labor Market | 1948→ |
+| 4️⃣ | Fed Funds Rate | `FEDFUNDS` | Monetary Policy | 1954→ |
+| 5️⃣ | Treasury Yield Curve | `T10Y2Y`, `DGS10`, `DGS2` | Yield Curve | 1976→ |
+| 6️⃣ | M2 Money Supply | `M2SL` | Liquidity | 1959→ |
+| 7️⃣ | Brent Crude Oil | `POILBREUSDM` | Commodities | 1987→ |
+| 8️⃣ | Manufacturing | `MANEMP` | Manufacturing | 1939→ |
+| 9️⃣ | Consumer Sentiment | `UMCSENT` | Sentiment | 1978→ |
+| 🔟 | Global Trade | `IMPCH`, `EXPCH` | Trade | 1947→ |
+
+**Coverage:** All indicators have data back to 1990 or earlier ✅
+
+**Detailed Specifications:** See [`go_fetch/indicators.md`](../go_fetch/indicators.md) for complete data dictionary
+
+### Economic Categories
+
+Indicators are organized by economic domain:
+
+- **Growth:** Real GDP
+- **Inflation:** Headline CPI, Core CPI, Oil Prices
+- **Labor Market:** Unemployment Rate
+- **Monetary Policy:** Federal Funds Rate
+- **Yield Curve:** 10Y-2Y Spread, Treasury Yields
+- **Liquidity:** M2 Money Supply
+- **Manufacturing:** Employment
+- **Sentiment:** Consumer Confidence
+- **Trade:** Real Imports/Exports
 
 ---
 

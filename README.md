@@ -91,7 +91,9 @@ A full-stack polyglot application demonstrating real-world Bazel usage:
 - 📊 Go service fetches economic data from FRED API
 - 🐍 Python FastAPI serves REST endpoints with computed metrics
 - ⚛️ React frontend with interactive charts and responsive design
-- 📈 Tracks 6 core economic indicators (CPI, Unemployment, Fed Funds, etc.)
+- 📈 Tracks **10 high-ROI macroeconomic indicators** (14 FRED series, 30-year baseline)
+- 🏷️ Organized by economic categories (Growth, Inflation, Labor, Monetary Policy, etc.)
+- 📚 Comprehensive data dictionary with rich metadata
 
 **Quick Start:**
 ```bash
