@@ -1,5 +1,16 @@
 name: Update Economic Dashboard
 
+# This workflow fetches economic data from FRED API, exports to JSON files,
+# commits them to the repository, and deploys to GitHub Pages.
+#
+# REQUIRED SECRETS:
+# - FRED_API_KEY: API key from https://fred.stlouisfed.org/docs/api/api_key.html
+# - WORKFLOW_PAT: Personal Access Token with 'repo' and 'workflow' permissions
+#   This PAT is needed to bypass branch protection rules when committing data updates.
+#   Create at: https://github.com/settings/tokens
+#   Required permissions: repo, workflow
+#   Add as repository secret: Settings → Secrets and variables → Actions → New repository secret
+
 on:
   schedule:
     # Run daily at 12:00 UTC (after markets close)
@@ -24,7 +35,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.WORKFLOW_PAT }}
 
       - name: Verify Bazel installation
         run: |
@@ -51,7 +62,7 @@ jobs:
           echo "Summary preview:"
           head -20 web_ui/public/data/summary.json
 
-      - name: Commit updated data
+      - name: Commit and push updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -62,10 +73,13 @@ jobs:
           # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             git commit -m "Update economic data $(date -u +%Y-%m-%d)"
             git push
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
+        id: commit
 
   build-and-deploy:
     name: Build and Deploy Dashboard
@@ -81,6 +95,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main  # Ensure we get the latest commit with updated data
+          token: ${{ secrets.WORKFLOW_PAT }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

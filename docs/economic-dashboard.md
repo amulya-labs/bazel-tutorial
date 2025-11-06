@@ -281,20 +281,40 @@ Want to deploy your own version on GitHub Pages? Here's how:
 
 Fork [bazel-tutorial](https://github.com/rrl-personal-projects/bazel-tutorial) to your GitHub account.
 
-### Step 2: Configure GitHub Secrets
+### Step 2: Create a Personal Access Token (PAT)
+
+The workflow needs a PAT to bypass branch protection rules when committing data updates.
+
+1. Go to: https://github.com/settings/tokens/new
+2. Configure the token:
+   - **Note**: `bazel-tutorial-workflow` (or any descriptive name)
+   - **Expiration**: Choose desired expiration (recommend 90 days or longer)
+   - **Select scopes**:
+     - ✅ `repo` (Full control of private repositories)
+     - ✅ `workflow` (Update GitHub Action workflows)
+3. Click **Generate token**
+4. **Copy the token** (you won't see it again!)
+
+### Step 3: Configure GitHub Secrets
 
 1. Go to your fork's **Settings** → **Secrets and variables** → **Actions**
-2. Add a new repository secret:
+2. Add two repository secrets:
+
+   **First secret:**
    - **Name**: `FRED_API_KEY`
    - **Value**: Your FRED API key ([get one free here](https://fred.stlouisfed.org/docs/api/api_key.html))
 
-### Step 3: Enable GitHub Pages
+   **Second secret:**
+   - **Name**: `WORKFLOW_PAT`
+   - **Value**: The Personal Access Token you created above
+
+### Step 4: Enable GitHub Pages
 
 1. Go to **Settings** → **Pages**
 2. Under **Source**, select **GitHub Actions**
 3. The workflow will automatically deploy your dashboard
 
-### Step 4: Trigger the Workflow
+### Step 5: Trigger the Workflow
 
 1. Go to **Actions** tab
 2. Select **Update Economic Dashboard** workflow

@@ -83,6 +83,11 @@ The `.github/workflows/update-dashboard.yaml` workflow:
 4. Builds the React app with `npm run build`
 5. Deploys to GitHub Pages
 
+**Required Secrets:**
+- `FRED_API_KEY` - API key from https://fred.stlouisfed.org
+- `WORKFLOW_PAT` - Personal Access Token with `repo` and `workflow` permissions
+  (needed to bypass branch protection rules when committing data updates)
+
 ### Manual Deployment
 
 ```bash
