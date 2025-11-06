@@ -214,11 +214,12 @@ The dashboard tracks **10 core high-ROI macroeconomic indicators** (14 FRED seri
 Indicators are organized by economic domain:
 
 - **Growth:** Real GDP
-- **Inflation:** Headline CPI, Core CPI, Oil Prices
+- **Inflation:** Headline CPI, Core CPI
 - **Labor Market:** Unemployment Rate
 - **Monetary Policy:** Federal Funds Rate
 - **Yield Curve:** 10Y-2Y Spread, Treasury Yields
 - **Liquidity:** M2 Money Supply
+- **Commodities:** Oil Prices (also relevant for inflation analysis)
 - **Manufacturing:** Employment
 - **Sentiment:** Consumer Confidence
 - **Trade:** Real Imports/Exports

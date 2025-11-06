@@ -211,7 +211,7 @@ This document defines the **10 core macroeconomic indicators** fetched and versi
 | **Source** | University of Michigan via FRED |
 | **FRED URL** | https://fred.stlouisfed.org/series/UMCSENT |
 
-**Description** Measures consumer confidence and expectations for the economy. Leading indicator of consumer spending.
+**Description:** Measures consumer confidence and expectations for the economy. Leading indicator of consumer spending.
 
 ---
 

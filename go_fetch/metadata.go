@@ -203,12 +203,12 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 func GetIndicatorCategories() map[string][]string {
 	return map[string][]string{
 		"Growth":          {"GDPC1"},
-		"Inflation":       {"CPIAUCSL", "CPILFESL", "POILBREUSDM"},
+		"Inflation":       {"CPIAUCSL", "CPILFESL"},
 		"Labor Market":    {"UNRATE"},
 		"Monetary Policy": {"FEDFUNDS"},
 		"Yield Curve":     {"T10Y2Y", "DGS10", "DGS2"},
 		"Liquidity":       {"M2SL"},
-		"Commodities":     {"POILBREUSDM"},
+		"Commodities":     {"POILBREUSDM"}, // Primary category (also relevant for inflation)
 		"Manufacturing":   {"MANEMP"},
 		"Sentiment":       {"UMCSENT"},
 		"Trade":           {"IMPCH", "EXPCH"},
