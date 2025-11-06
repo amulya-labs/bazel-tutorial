@@ -43,55 +43,65 @@ class EconDatabase:
 
     def get_all_series(self) -> List[Dict[str, str]]:
         """Get metadata for all available series.
-        
+
         Returns:
             List of dictionaries containing series metadata
         """
-        with self._get_connection() as conn:
-            cursor = conn.execute(
-                "SELECT id, name, unit, source FROM series ORDER BY id"
-            )
-            return [dict(row) for row in cursor.fetchall()]
+        try:
+            with self._get_connection() as conn:
+                cursor = conn.execute(
+                    "SELECT id, name, unit, source FROM series ORDER BY id"
+                )
+                return [dict(row) for row in cursor.fetchall()]
+        except sqlite3.OperationalError:
+            # Database doesn't exist or tables not created yet
+            return []
 
     def get_series_metadata(self, series_id: str) -> Optional[Dict[str, str]]:
         """Get metadata for a specific series.
-        
+
         Args:
             series_id: The series identifier (e.g., 'CPIAUCSL')
-            
+
         Returns:
             Dictionary with series metadata or None if not found
         """
-        with self._get_connection() as conn:
-            cursor = conn.execute(
-                "SELECT id, name, unit, source FROM series WHERE id = ?",
-                (series_id,)
-            )
-            row = cursor.fetchone()
-            return dict(row) if row else None
+        try:
+            with self._get_connection() as conn:
+                cursor = conn.execute(
+                    "SELECT id, name, unit, source FROM series WHERE id = ?",
+                    (series_id,)
+                )
+                row = cursor.fetchone()
+                return dict(row) if row else None
+        except sqlite3.OperationalError:
+            return None
 
     def get_latest_observation(self, series_id: str) -> Optional[Tuple[str, float]]:
         """Get the most recent observation for a series.
-        
+
         Args:
             series_id: The series identifier
-            
+
         Returns:
             Tuple of (date, value) or None if not found
         """
-        with self._get_connection() as conn:
-            cursor = conn.execute(
-                """
-                SELECT date, value 
-                FROM observations 
-                WHERE series_id = ?
-                ORDER BY date DESC
-                LIMIT 1
-                """,
-                (series_id,)
-            )
-            row = cursor.fetchone()
-            return (row["date"], row["value"]) if row else None
+        try:
+            with self._get_connection() as conn:
+                cursor = conn.execute(
+                    """
+                    SELECT date, value
+                    FROM observations
+                    WHERE series_id = ?
+                    ORDER BY date DESC
+                    LIMIT 1
+                    """,
+                    (series_id,)
+                )
+                row = cursor.fetchone()
+                return (row["date"], row["value"]) if row else None
+        except sqlite3.OperationalError:
+            return None
 
     def get_observation_at_date(self, series_id: str, target_date: str) -> Optional[float]:
         """Get the observation value closest to a target date.
@@ -118,70 +128,76 @@ class EconDatabase:
             return row["value"] if row else None
 
     def get_observations(
-        self, 
-        series_id: str, 
+        self,
+        series_id: str,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         """Get observations for a series within a date range.
-        
+
         Args:
             series_id: The series identifier
             start_date: Start date in YYYY-MM-DD format (optional)
             end_date: End date in YYYY-MM-DD format (optional)
-            
+
         Returns:
             List of observations with date and value
         """
-        query = "SELECT date, value FROM observations WHERE series_id = ?"
-        params = [series_id]
+        try:
+            query = "SELECT date, value FROM observations WHERE series_id = ?"
+            params = [series_id]
 
-        if start_date:
-            query += " AND date >= ?"
-            params.append(start_date)
-        
-        if end_date:
-            query += " AND date <= ?"
-            params.append(end_date)
-        
-        query += " ORDER BY date"
+            if start_date:
+                query += " AND date >= ?"
+                params.append(start_date)
 
-        with self._get_connection() as conn:
-            cursor = conn.execute(query, params)
-            return [{"date": row["date"], "value": row["value"]} for row in cursor.fetchall()]
+            if end_date:
+                query += " AND date <= ?"
+                params.append(end_date)
+
+            query += " ORDER BY date"
+
+            with self._get_connection() as conn:
+                cursor = conn.execute(query, params)
+                return [{"date": row["date"], "value": row["value"]} for row in cursor.fetchall()]
+        except sqlite3.OperationalError:
+            return []
 
     def calculate_delta_mom(self, series_id: str) -> Optional[float]:
         """Calculate month-over-month percentage change.
-        
+
         Args:
             series_id: The series identifier
-            
+
         Returns:
             Percentage change or None if insufficient data
         """
-        with self._get_connection() as conn:
-            cursor = conn.execute(
-                """
-                SELECT value 
-                FROM observations 
-                WHERE series_id = ?
-                ORDER BY date DESC
-                LIMIT 2
-                """,
-                (series_id,)
-            )
-            rows = cursor.fetchall()
-            
-            if len(rows) < 2:
-                return None
-            
-            current = rows[0]["value"]
-            previous = rows[1]["value"]
-            
-            if previous == 0:
-                return None
-            
-            return ((current - previous) / previous) * 100
+        try:
+            with self._get_connection() as conn:
+                cursor = conn.execute(
+                    """
+                    SELECT value
+                    FROM observations
+                    WHERE series_id = ?
+                    ORDER BY date DESC
+                    LIMIT 2
+                    """,
+                    (series_id,)
+                )
+                rows = cursor.fetchall()
+
+                if len(rows) < 2:
+                    return None
+
+                current = rows[0]["value"]
+                previous = rows[1]["value"]
+
+                if previous == 0:
+                    return None
+
+                return ((current - previous) / previous) * 100
+        except sqlite3.OperationalError:
+            return None
 
     def calculate_delta_yoy(self, series_id: str) -> Optional[float]:
         """Calculate year-over-year percentage change.
@@ -214,18 +230,21 @@ class EconDatabase:
 
     def get_last_refresh(self) -> Optional[Dict[str, Any]]:
         """Get information about the last data refresh.
-        
+
         Returns:
             Dictionary with refresh metadata or None
         """
-        with self._get_connection() as conn:
-            cursor = conn.execute(
-                """
-                SELECT source, started_at, finished_at, ok, message
-                FROM refresh_log
-                ORDER BY started_at DESC
-                LIMIT 1
-                """
-            )
-            row = cursor.fetchone()
-            return dict(row) if row else None
+        try:
+            with self._get_connection() as conn:
+                cursor = conn.execute(
+                    """
+                    SELECT source, started_at, finished_at, ok, message
+                    FROM refresh_log
+                    ORDER BY started_at DESC
+                    LIMIT 1
+                    """
+                )
+                row = cursor.fetchone()
+                return dict(row) if row else None
+        except sqlite3.OperationalError:
+            return None
