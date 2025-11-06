@@ -1,7 +1,14 @@
 # Bazel Multi-Language Tutorial
 
-!!! tip "🎯 Run the Live Dashboard"
-    Experience the full Economic Indicators Dashboard:
+!!! success "🎯 View Live Dashboard"
+    The Economic Indicators Dashboard is deployed live on GitHub Pages:
+
+    **[🚀 Open Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+
+    The dashboard automatically updates daily with fresh economic data from FRED API.
+
+!!! tip "Run Locally"
+    Want to run it yourself?
 
     1. Clone the repo and set your FRED API key
     2. Run `./run_all.sh`

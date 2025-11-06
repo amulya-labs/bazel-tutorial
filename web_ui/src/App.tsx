@@ -43,7 +43,15 @@ function App() {
   const fetchSummary = async () => {
     try {
       setLoading(true)
-      const response = await fetch('/api/econ/summary')
+
+      // Try static JSON first (for GitHub Pages deployment)
+      let response = await fetch('/data/summary.json')
+
+      // Fall back to API if static file not found
+      if (!response.ok && response.status === 404) {
+        response = await fetch('/api/econ/summary')
+      }
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -59,7 +67,14 @@ function App() {
 
   const fetchSeriesData = async (code: string, range: string = '5y') => {
     try {
-      const response = await fetch(`/api/econ/series?code=${code}&range=${range}`)
+      // Try static JSON first (for GitHub Pages deployment)
+      let response = await fetch(`/data/series-${code}.json`)
+
+      // Fall back to API if static file not found
+      if (!response.ok && response.status === 404) {
+        response = await fetch(`/api/econ/series?code=${code}&range=${range}`)
+      }
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }

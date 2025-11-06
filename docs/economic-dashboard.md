@@ -57,6 +57,29 @@ This is a **teaching repository** that shows:
 
 ---
 
+## 🌐 Live Demo
+
+The Economic Indicators Dashboard is deployed live on GitHub Pages:
+
+**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+
+- **Automatic updates**: Data refreshes daily at 12:00 UTC via GitHub Actions
+- **Static hosting**: Fully client-side React app with pre-generated JSON data
+- **Zero backend**: No API servers required - all data served as static files
+- **Free hosting**: Powered by GitHub Pages and GitHub Actions
+
+### How it Works
+
+1. **GitHub Actions workflow** runs daily (schedule) or manually (workflow_dispatch)
+2. **Bazel builds** the Go fetch service and fetches latest FRED data
+3. **JSON export** generates static data files (`summary.json`, `series-*.json`)
+4. **React build** creates optimized production bundle with data files
+5. **GitHub Pages** serves the static site
+
+See [`.github/workflows/update-dashboard.yaml`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/.github/workflows/update-dashboard.yaml) for the complete workflow.
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -247,6 +270,61 @@ bazel build //...
 # Only Python targets rebuild!
 bazel build //...
 ```
+
+---
+
+## 🚀 Deploy Your Own Dashboard
+
+Want to deploy your own version on GitHub Pages? Here's how:
+
+### Step 1: Fork the Repository
+
+Fork [bazel-tutorial](https://github.com/rrl-personal-projects/bazel-tutorial) to your GitHub account.
+
+### Step 2: Configure GitHub Secrets
+
+1. Go to your fork's **Settings** → **Secrets and variables** → **Actions**
+2. Add a new repository secret:
+   - **Name**: `FRED_API_KEY`
+   - **Value**: Your FRED API key ([get one free here](https://fred.stlouisfed.org/docs/api/api_key.html))
+
+### Step 3: Enable GitHub Pages
+
+1. Go to **Settings** → **Pages**
+2. Under **Source**, select **GitHub Actions**
+3. The workflow will automatically deploy your dashboard
+
+### Step 4: Trigger the Workflow
+
+1. Go to **Actions** tab
+2. Select **Update Economic Dashboard** workflow
+3. Click **Run workflow** → **Run workflow**
+
+Within a few minutes, your dashboard will be live at:
+```
+https://YOUR-USERNAME.github.io/bazel-tutorial/
+```
+
+### Customization Options
+
+**Change update frequency**: Edit `.github/workflows/update-dashboard.yaml`:
+```yaml
+schedule:
+  # Run hourly instead of daily
+  - cron: '0 * * * *'
+```
+
+**Add more indicators**: Edit `go_fetch/main.go`:
+```go
+defaultSeries = []string{
+    "CPIAUCSL",
+    "UNRATE",
+    "GDPC1",  // Add GDP
+    "DEXUSEU", // Add EUR/USD exchange rate
+}
+```
+
+**Customize UI**: Edit `web_ui/src/App.tsx` and `web_ui/src/App.css`
 
 ---
 

@@ -1,0 +1,66 @@
+{
+  "indicators": [
+    {
+      "code": "CPIAUCSL",
+      "name": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
+      "unit": "Index 1982-1984=100",
+      "source": "FRED",
+      "last_updated": "2025-09-01",
+      "value": 324.368,
+      "delta_mom": 0.31,
+      "delta_yoy": 3.02
+    },
+    {
+      "code": "CPILFESL",
+      "name": "Consumer Price Index for All Urban Consumers: All Items Less Food and Energy in U.S. City Average",
+      "unit": "Index 1982-1984=100",
+      "source": "FRED",
+      "last_updated": "2025-09-01",
+      "value": 330.542,
+      "delta_mom": 0.23,
+      "delta_yoy": 3.03
+    },
+    {
+      "code": "DGS10",
+      "name": "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis",
+      "unit": "Percent",
+      "source": "FRED",
+      "last_updated": "2025-11-04",
+      "value": 4.1,
+      "delta_mom": -0.72,
+      "delta_yoy": -4.86
+    },
+    {
+      "code": "FEDFUNDS",
+      "name": "Federal Funds Effective Rate",
+      "unit": "Percent",
+      "source": "FRED",
+      "last_updated": "2025-10-01",
+      "value": 4.09,
+      "delta_mom": -3.07,
+      "delta_yoy": -15.31
+    },
+    {
+      "code": "M2SL",
+      "name": "M2",
+      "unit": "Billions of Dollars",
+      "source": "FRED",
+      "last_updated": "2025-09-01",
+      "value": 22212.5,
+      "delta_mom": 0.47,
+      "delta_yoy": 4.49
+    },
+    {
+      "code": "UNRATE",
+      "name": "Unemployment Rate",
+      "unit": "Percent",
+      "source": "FRED",
+      "last_updated": "2025-08-01",
+      "value": 4.3,
+      "delta_mom": 2.38,
+      "delta_yoy": 2.38
+    }
+  ],
+  "count": 6,
+  "last_refresh": "2025-11-06T13:45:36Z"
+}

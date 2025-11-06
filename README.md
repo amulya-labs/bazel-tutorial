@@ -4,6 +4,27 @@ A comprehensive, hands-on guide to building polyglot applications with Bazel —
 
 **📚 [Full Documentation →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
 
+---
+
+## 🎯 Live Demo
+
+Experience the Economic Indicators Dashboard deployed on GitHub Pages:
+
+**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+
+- **Real economic data** from the Federal Reserve (FRED API)
+- **Auto-updates daily** via GitHub Actions
+- **Zero backend** - fully static, client-side React app
+- **Free hosting** on GitHub Pages
+
+This demonstrates how Bazel can build a complete polyglot application that:
+- Fetches data with **Go**
+- Exports to JSON with **Bazel**
+- Displays in **React/TypeScript**
+- Deploys automatically with **GitHub Actions**
+
+---
+
 ## 🎯 What You'll Learn
 
 This repository demonstrates real-world Bazel usage across multiple languages:

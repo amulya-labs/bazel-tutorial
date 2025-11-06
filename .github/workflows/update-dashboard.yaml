@@ -1,0 +1,107 @@
+name: Update Economic Dashboard
+
+on:
+  schedule:
+    # Run daily at 12:00 UTC (after markets close)
+    - cron: '0 12 * * *'
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "dashboard-update"
+  cancel-in-progress: false
+
+jobs:
+  update-data:
+    name: Fetch and Export Economic Data
+    runs-on: [self-hosted, Linux, bazel, small]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Bazel installation
+        run: |
+          bazelisk --version
+          bazel --version
+
+      - name: Fetch economic data from FRED
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          # Create data directory
+          mkdir -p data
+
+          # Fetch data and export to JSON
+          bazel run //go_fetch:refresh -- \
+            --db="${PWD}/data/econ.db" \
+            --export-json="${PWD}/web_ui/public/data"
+
+      - name: Verify JSON files were created
+        run: |
+          echo "Checking generated JSON files:"
+          ls -lh web_ui/public/data/
+          echo ""
+          echo "Summary preview:"
+          head -20 web_ui/public/data/summary.json
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Add the JSON files
+          git add web_ui/public/data/*.json
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update economic data $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+  build-and-deploy:
+    name: Build and Deploy Dashboard
+    needs: update-data
+    runs-on: [self-hosted, Linux, bazel, small]
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main  # Ensure we get the latest commit with updated data
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web_ui/package-lock.json
+
+      - name: Install dependencies
+        working-directory: web_ui
+        run: npm ci
+
+      - name: Build React dashboard
+        working-directory: web_ui
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./web_ui/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

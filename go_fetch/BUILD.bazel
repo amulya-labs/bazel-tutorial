@@ -10,6 +10,7 @@ gazelle(name = "gazelle")
 go_library(
     name = "go_fetch_lib",
     srcs = [
+        "export.go",
         "fred.go",
         "store_sqlite.go",
     ],
