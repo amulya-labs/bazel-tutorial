@@ -79,6 +79,119 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			FREDURL:     "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD?locations=1W",
 		},
 
+		// 2️⃣ Global Inflation (World Bank)
+		"WB:FP.CPI.TOTL.ZG:WLD": {
+			Code:        "WB:FP.CPI.TOTL.ZG:WLD",
+			Name:        "Global CPI Inflation (World Bank)",
+			Unit:        "Annual %",
+			Frequency:   "Annual",
+			Category:    "Inflation",
+			Description: "Global consumer price index inflation, measures worldwide inflationary pressure",
+			StartYear:   1960,
+			ProxyFor:    "Global Inflation / Monetary Tightness",
+			FREDURL:     "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=1W",
+		},
+
+		"WB:FP.CPI.TOTL.ZG:CHN": {
+			Code:        "WB:FP.CPI.TOTL.ZG:CHN",
+			Name:        "China CPI Inflation (World Bank)",
+			Unit:        "Annual %",
+			Frequency:   "Annual",
+			Category:    "Inflation",
+			Description: "China consumer price index inflation",
+			StartYear:   1960,
+			ProxyFor:    "China Inflation",
+			FREDURL:     "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=CN",
+		},
+
+		"WB:FP.CPI.TOTL.ZG:EMU": {
+			Code:        "WB:FP.CPI.TOTL.ZG:EMU",
+			Name:        "Euro Area CPI Inflation (World Bank)",
+			Unit:        "Annual %",
+			Frequency:   "Annual",
+			Category:    "Inflation",
+			Description: "Euro Area consumer price index inflation (proxy for HICP)",
+			StartYear:   1960,
+			ProxyFor:    "Euro Area Inflation / ECB Policy Driver",
+			FREDURL:     "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=EU",
+		},
+
+		// 5️⃣ China M2 Money Supply (World Bank)
+		"WB:FM.LBL.BMNY.CN:CHN": {
+			Code:        "WB:FM.LBL.BMNY.CN:CHN",
+			Name:        "China Broad Money (M2) - World Bank",
+			Unit:        "Current LCU",
+			Frequency:   "Annual",
+			Category:    "Liquidity",
+			Description: "China M2 money supply, major global liquidity driver",
+			StartYear:   1960,
+			ProxyFor:    "China Credit Expansion / Global Liquidity",
+			FREDURL:     "https://data.worldbank.org/indicator/FM.LBL.BMNY.CN?locations=CN",
+		},
+
+		// 🔟 Global Credit to Private Sector
+		"WB:FS.AST.PRVT.GD.ZS:WLD": {
+			Code:        "WB:FS.AST.PRVT.GD.ZS:WLD",
+			Name:        "Global Credit to Private Sector (% of GDP)",
+			Unit:        "% of GDP",
+			Frequency:   "Annual",
+			Category:    "Liquidity",
+			Description: "Global domestic credit to private sector, indicates leverage buildup and financial cycle risk",
+			StartYear:   1960,
+			ProxyFor:    "Global Leverage / Financial Cycle Risk",
+			FREDURL:     "https://data.worldbank.org/indicator/FS.AST.PRVT.GD.ZS?locations=1W",
+		},
+
+		// 3️⃣ 9️⃣ Global Trade (World Bank)
+		"WB:NE.EXP.GNFS.ZS:WLD": {
+			Code:        "WB:NE.EXP.GNFS.ZS:WLD",
+			Name:        "Global Exports of Goods and Services (% of GDP)",
+			Unit:        "% of GDP",
+			Frequency:   "Annual",
+			Category:    "Trade",
+			Description: "Global exports as percentage of GDP, proxy for world trade volume and demand",
+			StartYear:   1960,
+			ProxyFor:    "Global Trade Volume / Cross-Border Demand",
+			FREDURL:     "https://data.worldbank.org/indicator/NE.EXP.GNFS.ZS?locations=1W",
+		},
+
+		"WB:NE.IMP.GNFS.ZS:WLD": {
+			Code:        "WB:NE.IMP.GNFS.ZS:WLD",
+			Name:        "Global Imports of Goods and Services (% of GDP)",
+			Unit:        "% of GDP",
+			Frequency:   "Annual",
+			Category:    "Trade",
+			Description: "Global imports as percentage of GDP, measures cross-border demand",
+			StartYear:   1960,
+			ProxyFor:    "Global Trade Volume / Import Demand",
+			FREDURL:     "https://data.worldbank.org/indicator/NE.IMP.GNFS.ZS?locations=1W",
+		},
+
+		// 11️⃣ Global Energy & Emissions (World Bank)
+		"WB:EG.USE.PCAP.KG.OE:WLD": {
+			Code:        "WB:EG.USE.PCAP.KG.OE:WLD",
+			Name:        "Global Energy Use per Capita",
+			Unit:        "kg of oil equivalent per capita",
+			Frequency:   "Annual",
+			Category:    "Commodities",
+			Description: "Global energy consumption per capita, proxy for industrial activity and growth",
+			StartYear:   1960,
+			ProxyFor:    "Industrial Activity / Long-term Growth",
+			FREDURL:     "https://data.worldbank.org/indicator/EG.USE.PCAP.KG.OE?locations=1W",
+		},
+
+		"WB:EN.ATM.CO2E.KT:WLD": {
+			Code:        "WB:EN.ATM.CO2E.KT:WLD",
+			Name:        "Global CO2 Emissions",
+			Unit:        "kilotons",
+			Frequency:   "Annual",
+			Category:    "Commodities",
+			Description: "Global CO2 emissions, proxy for industrial activity and growth/inflation pressure",
+			StartYear:   1960,
+			ProxyFor:    "Industrial Activity / Environmental Impact",
+			FREDURL:     "https://data.worldbank.org/indicator/EN.ATM.CO2E.KT?locations=1W",
+		},
+
 		// 2️⃣ CPI - Headline
 		"CPIAUCSL": {
 			Code:        "CPIAUCSL",
@@ -252,15 +365,15 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 func GetIndicatorCategories() map[string][]string {
 	return map[string][]string{
 		"Growth":          {"GDPC1", "WB:NY.GDP.MKTP.KD:USA", "WB:NY.GDP.MKTP.KD:CHN", "WB:NY.GDP.MKTP.KD:EMU", "WB:NY.GDP.MKTP.KD:WLD"},
-		"Inflation":       {"CPIAUCSL", "CPILFESL"},
+		"Inflation":       {"CPIAUCSL", "CPILFESL", "WB:FP.CPI.TOTL.ZG:WLD", "WB:FP.CPI.TOTL.ZG:CHN", "WB:FP.CPI.TOTL.ZG:EMU"},
 		"Labor Market":    {"UNRATE"},
 		"Monetary Policy": {"FEDFUNDS"},
 		"Yield Curve":     {"T10Y2Y", "DGS10", "DGS2"},
-		"Liquidity":       {"M2SL"},
-		"Commodities":     {"POILBREUSDM"}, // Primary category (also relevant for inflation)
+		"Liquidity":       {"M2SL", "WB:FM.LBL.BMNY.CN:CHN", "WB:FS.AST.PRVT.GD.ZS:WLD"},
+		"Commodities":     {"POILBREUSDM", "WB:EG.USE.PCAP.KG.OE:WLD", "WB:EN.ATM.CO2E.KT:WLD"},
 		"Manufacturing":   {"MANEMP"},
 		"Sentiment":       {"UMCSENT"},
-		"Trade":           {"IMPCH", "EXPCH"},
+		"Trade":           {"IMPCH", "EXPCH", "WB:NE.EXP.GNFS.ZS:WLD", "WB:NE.IMP.GNFS.ZS:WLD"},
 	}
 }
 

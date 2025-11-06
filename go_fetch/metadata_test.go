@@ -8,15 +8,19 @@ import (
 func TestIndicatorMetadata(t *testing.T) {
 	metadata := GetIndicatorMetadata()
 
-	// Verify we have metadata for all 18 series (14 FRED + 4 World Bank)
+	// Verify we have metadata for all 27 series (14 FRED + 13 World Bank)
 	expectedSeries := []string{
-		// FRED series
+		// FRED series (14)
 		"GDPC1", "CPIAUCSL", "CPILFESL", "UNRATE", "FEDFUNDS",
 		"T10Y2Y", "DGS10", "DGS2", "M2SL", "POILBREUSDM",
 		"MANEMP", "UMCSENT", "IMPCH", "EXPCH",
-		// World Bank series
+		// World Bank series (13)
 		"WB:NY.GDP.MKTP.KD:USA", "WB:NY.GDP.MKTP.KD:CHN",
 		"WB:NY.GDP.MKTP.KD:EMU", "WB:NY.GDP.MKTP.KD:WLD",
+		"WB:FP.CPI.TOTL.ZG:WLD", "WB:FP.CPI.TOTL.ZG:CHN", "WB:FP.CPI.TOTL.ZG:EMU",
+		"WB:FM.LBL.BMNY.CN:CHN", "WB:FS.AST.PRVT.GD.ZS:WLD",
+		"WB:NE.EXP.GNFS.ZS:WLD", "WB:NE.IMP.GNFS.ZS:WLD",
+		"WB:EG.USE.PCAP.KG.OE:WLD", "WB:EN.ATM.CO2E.KT:WLD",
 	}
 
 	for _, code := range expectedSeries {
@@ -101,9 +105,9 @@ func TestCoreIndicators(t *testing.T) {
 }
 
 func TestDefaultSeries(t *testing.T) {
-	// Verify defaultSeries matches what we expect (14 FRED + 4 World Bank = 18)
-	if len(defaultSeries) != 18 {
-		t.Errorf("Expected 18 series in defaultSeries, got %d", len(defaultSeries))
+	// Verify defaultSeries matches what we expect (14 FRED + 13 World Bank = 27)
+	if len(defaultSeries) != 27 {
+		t.Errorf("Expected 27 series in defaultSeries, got %d", len(defaultSeries))
 	}
 
 	// Verify all series in defaultSeries have metadata
