@@ -24,7 +24,7 @@ permissions:
 
 concurrency:
   group: "dashboard-update"
-  cancel-in-progress: false
+  cancel-in-progress: true  # Cancel old runs when new one starts
 
 jobs:
   update-data:
@@ -116,6 +116,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./web_ui/dist
+          retention-days: 1  # Clean up old artifacts quickly
 
       - name: Deploy to GitHub Pages
         id: deployment
