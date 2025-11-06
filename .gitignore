@@ -36,6 +36,7 @@ Thumbs.db
 # Node modules and build artifacts
 node_modules/
 /web_ui/dist/
+/web_ui/bazel-*
 /web_ui/node_modules/
 *.log
 .env

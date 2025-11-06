@@ -24,14 +24,39 @@ if [ -z "$FRED_API_KEY" ]; then
 fi
 
 # Step 1: Refresh data
-echo "Step 1: Refreshing economic data..."
-echo "Running: bazel run //go_fetch:refresh"
+echo "Step 1: Checking economic data..."
 echo ""
 
-if bazel run //go_fetch:refresh; then
-    echo "✅ Data refresh complete"
+# Use absolute path for database
+DB_PATH="$(pwd)/data/econ.db"
+export ECON_DB_PATH="$DB_PATH"
+
+# Check if database exists and is less than 1 hour old
+SKIP_REFRESH=false
+if [ -f "$DB_PATH" ]; then
+    # Get current time and file modification time in seconds since epoch
+    CURRENT_TIME=$(date +%s)
+    FILE_TIME=$(stat -c %Y "$DB_PATH" 2>/dev/null || stat -f %m "$DB_PATH" 2>/dev/null)
+    AGE_SECONDS=$((CURRENT_TIME - FILE_TIME))
+    AGE_MINUTES=$((AGE_SECONDS / 60))
+
+    if [ $AGE_SECONDS -lt 3600 ]; then
+        echo "✅ Using cached data (last updated $AGE_MINUTES minutes ago)"
+        SKIP_REFRESH=true
+    else
+        echo "⏰ Data is older than 1 hour, refreshing..."
+    fi
 else
-    echo "⚠️  Data refresh failed or skipped"
+    echo "📥 No cached data found, fetching from FRED..."
+fi
+
+if [ "$SKIP_REFRESH" = false ]; then
+    echo "Running: bazel run //go_fetch:refresh"
+    if bazel run //go_fetch:refresh -- --db="$DB_PATH"; then
+        echo "✅ Data refresh complete"
+    else
+        echo "⚠️  Data refresh failed or skipped"
+    fi
 fi
 
 echo ""
