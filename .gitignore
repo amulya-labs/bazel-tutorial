@@ -34,6 +34,10 @@ Thumbs.db
 /data/*.db-shm
 /data/*.db-wal
 
+# Temporary configuration files
+.bazelrc.local
+.netrc
+
 # Node modules and build artifacts
 node_modules/
 /web_ui/dist/
