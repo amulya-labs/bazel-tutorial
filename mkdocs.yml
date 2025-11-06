@@ -6,6 +6,9 @@ site_url: https://rrl-personal-projects.github.io/bazel-tutorial/
 # Enable directory URLs (e.g., /quickstart/ instead of /quickstart.html)
 use_directory_urls: true
 
+# Note: The React app in docs/app/ will be copied as-is to site/app/
+# MkDocs automatically copies non-markdown files
+
 repo_name: rrl-personal-projects/bazel-tutorial
 repo_url: https://github.com/rrl-personal-projects/bazel-tutorial
 

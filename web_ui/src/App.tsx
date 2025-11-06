@@ -121,9 +121,26 @@ function App() {
       <div className="app">
         <header className="header">
           <div className="header-content">
-            <button onClick={handleBackClick} className="back-button">
-              ← Back to Dashboard
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+              <button onClick={handleBackClick} className="back-button">
+                ← Back to Dashboard
+              </button>
+              <a
+                href="/bazel-tutorial/"
+                style={{
+                  padding: '0.5rem 1rem',
+                  background: 'rgba(255,255,255,0.2)',
+                  color: 'white',
+                  textDecoration: 'none',
+                  borderRadius: '4px',
+                  fontSize: '0.9rem',
+                  fontWeight: 500,
+                  border: '1px solid rgba(255,255,255,0.3)'
+                }}
+              >
+                ← Back to Docs
+              </a>
+            </div>
             <h1>{selectedSeries.name}</h1>
           </div>
         </header>
@@ -168,7 +185,24 @@ function App() {
     <div className="app">
       <header className="header">
         <div className="header-content">
-          <h1>📊 Economic Indicators Dashboard</h1>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+            <h1 style={{ margin: 0 }}>📊 Economic Indicators Dashboard</h1>
+            <a
+              href="/bazel-tutorial/dashboard/"
+              style={{
+                padding: '0.5rem 1rem',
+                background: 'rgba(255,255,255,0.2)',
+                color: 'white',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}
+            >
+              ← Back to Docs
+            </a>
+          </div>
           <p className="subtitle">Real-time economic data from FRED</p>
           {summary?.last_refresh && (
             <p className="refresh-time">
