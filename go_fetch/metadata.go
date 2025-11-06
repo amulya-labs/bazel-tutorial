@@ -29,7 +29,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Economic Growth / Business Cycle",
 			FREDURL:     "https://fred.stlouisfed.org/series/GDPC1",
 		},
-		
+
 		// 2️⃣ CPI - Headline
 		"CPIAUCSL": {
 			Code:        "CPIAUCSL",
@@ -42,7 +42,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Inflation",
 			FREDURL:     "https://fred.stlouisfed.org/series/CPIAUCSL",
 		},
-		
+
 		// 2️⃣ CPI - Core
 		"CPILFESL": {
 			Code:        "CPILFESL",
@@ -55,7 +55,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Core Inflation",
 			FREDURL:     "https://fred.stlouisfed.org/series/CPILFESL",
 		},
-		
+
 		// 3️⃣ Unemployment Rate
 		"UNRATE": {
 			Code:        "UNRATE",
@@ -68,7 +68,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Labor Market Health",
 			FREDURL:     "https://fred.stlouisfed.org/series/UNRATE",
 		},
-		
+
 		// 4️⃣ Fed Funds Rate
 		"FEDFUNDS": {
 			Code:        "FEDFUNDS",
@@ -81,7 +81,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Monetary Policy Stance",
 			FREDURL:     "https://fred.stlouisfed.org/series/FEDFUNDS",
 		},
-		
+
 		// 5️⃣ Treasury Yield Curve - 10Y-2Y Spread
 		"T10Y2Y": {
 			Code:        "T10Y2Y",
@@ -94,7 +94,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Recession Signal / Yield Curve Shape",
 			FREDURL:     "https://fred.stlouisfed.org/series/T10Y2Y",
 		},
-		
+
 		"DGS10": {
 			Code:        "DGS10",
 			Name:        "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity",
@@ -106,7 +106,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Long-term Interest Rates",
 			FREDURL:     "https://fred.stlouisfed.org/series/DGS10",
 		},
-		
+
 		"DGS2": {
 			Code:        "DGS2",
 			Name:        "Market Yield on U.S. Treasury Securities at 2-Year Constant Maturity",
@@ -118,7 +118,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Short-term Interest Rates",
 			FREDURL:     "https://fred.stlouisfed.org/series/DGS2",
 		},
-		
+
 		// 6️⃣ M2 Money Supply
 		"M2SL": {
 			Code:        "M2SL",
@@ -131,7 +131,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Liquidity / Credit Conditions",
 			FREDURL:     "https://fred.stlouisfed.org/series/M2SL",
 		},
-		
+
 		// 7️⃣ Brent Crude Oil Price
 		"POILBREUSDM": {
 			Code:        "POILBREUSDM",
@@ -144,7 +144,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Inflation Driver & Global Demand",
 			FREDURL:     "https://fred.stlouisfed.org/series/POILBREUSDM",
 		},
-		
+
 		// 8️⃣ Manufacturing Activity
 		"MANEMP": {
 			Code:        "MANEMP",
@@ -157,7 +157,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Business Confidence / Early Cycle Indicator",
 			FREDURL:     "https://fred.stlouisfed.org/series/MANEMP",
 		},
-		
+
 		// 9️⃣ Consumer Sentiment
 		"UMCSENT": {
 			Code:        "UMCSENT",
@@ -170,7 +170,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Household Confidence",
 			FREDURL:     "https://fred.stlouisfed.org/series/UMCSENT",
 		},
-		
+
 		// 🔟 Global Trade - Imports
 		"IMPCH": {
 			Code:        "IMPCH",
@@ -183,7 +183,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Global Demand Flow / International Trade",
 			FREDURL:     "https://fred.stlouisfed.org/series/IMPCH",
 		},
-		
+
 		// 🔟 Global Trade - Exports
 		"EXPCH": {
 			Code:        "EXPCH",

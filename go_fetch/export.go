@@ -415,7 +415,7 @@ func (s *SQLiteStore) GetLastRefresh() (*string, error) {
 func exportMetadata(outputDir string) error {
 	metadata := GetIndicatorMetadata()
 	categories := GetIndicatorCategories()
-	
+
 	// Create metadata export structure
 	type MetadataExport struct {
 		Indicators map[string]IndicatorMetadata `json:"indicators"`
@@ -424,7 +424,7 @@ func exportMetadata(outputDir string) error {
 		Version    string                       `json:"version"`
 		Generated  string                       `json:"generated"`
 	}
-	
+
 	export := MetadataExport{
 		Indicators: metadata,
 		Categories: categories,
@@ -432,7 +432,7 @@ func exportMetadata(outputDir string) error {
 		Version:    "1.0.0",
 		Generated:  time.Now().Format(time.RFC3339),
 	}
-	
+
 	filePath := filepath.Join(outputDir, "metadata.json")
 	return writeJSON(filePath, export)
 }
