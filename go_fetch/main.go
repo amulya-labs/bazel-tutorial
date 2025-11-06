@@ -16,47 +16,54 @@ var (
 	dbPath     = flag.String("db", "./data/econ.db", "Path to SQLite database")
 	exportJSON = flag.String("export-json", "", "Export data to JSON files in specified directory")
 
-	// Series to fetch from FRED - High-ROI Global Economic Indicators (30-Year Baseline)
+	// Series to fetch - High-ROI Global Economic Indicators (30-Year Baseline)
 	// These indicators provide comprehensive coverage of growth, inflation, liquidity,
 	// sentiment, and risk since ~1990.
+	//
+	// Supports multiple data sources:
+	// - FRED series: use code directly (e.g., "GDPC1")
+	// - World Bank: prefix with "WB:" (e.g., "WB:NY.GDP.MKTP.KD:USA")
+	// - OECD: prefix with "OECD:" (e.g., "OECD:MEI.LRUNTTTT.USA.M")
 	defaultSeries = []string{
 		// 1️⃣ Real GDP (constant prices) - Growth / cycle
-		"GDPC1", // US Real GDP (Billions of Chained 2012 Dollars), Quarterly, 1947→
+		"GDPC1", // US Real GDP (Billions of Chained 2012 Dollars), Quarterly, 1947→ [FRED]
+
+		// 🌍 Global GDP from World Bank
+		"WB:NY.GDP.MKTP.KD:USA", // US Real GDP from World Bank, Annual, 1960→
+		"WB:NY.GDP.MKTP.KD:CHN", // China Real GDP, Annual, 1960→
+		"WB:NY.GDP.MKTP.KD:EMU", // Euro Area Real GDP, Annual, 1960→
+		"WB:NY.GDP.MKTP.KD:WLD", // World Real GDP, Annual, 1960→
 
 		// 2️⃣ CPI (Consumer Price Index) - Inflation
-		"CPIAUCSL", // US CPI All Urban Consumers (Index 1982-84=100), Monthly, 1947→
-		"CPILFESL", // US Core CPI Less Food & Energy (Index 1982-84=100), Monthly, 1957→
+		"CPIAUCSL", // US CPI All Urban Consumers (Index 1982-84=100), Monthly, 1947→ [FRED]
+		"CPILFESL", // US Core CPI Less Food & Energy (Index 1982-84=100), Monthly, 1957→ [FRED]
 
 		// 3️⃣ Unemployment Rate - Labor market
-		"UNRATE", // US Unemployment Rate (Percent), Monthly, 1948→
+		"UNRATE", // US Unemployment Rate (Percent), Monthly, 1948→ [FRED]
 
 		// 4️⃣ Fed Funds Rate - Monetary policy stance
-		"FEDFUNDS", // Federal Funds Effective Rate (Percent), Monthly, 1954→
+		"FEDFUNDS", // Federal Funds Effective Rate (Percent), Monthly, 1954→ [FRED]
 
 		// 5️⃣ 10Y – 2Y Treasury Spread - Recession signal / yield curve
-		"T10Y2Y", // 10-Year Treasury Minus 2-Year Treasury (Percent), Daily, 1976→
-		"DGS10",  // 10-Year Treasury Constant Maturity Rate (Percent), Daily, 1962→
-		"DGS2",   // 2-Year Treasury Constant Maturity Rate (Percent), Daily, 1976→
+		"T10Y2Y", // 10-Year Treasury Minus 2-Year Treasury (Percent), Daily, 1976→ [FRED]
+		"DGS10",  // 10-Year Treasury Constant Maturity Rate (Percent), Daily, 1962→ [FRED]
+		"DGS2",   // 2-Year Treasury Constant Maturity Rate (Percent), Daily, 1976→ [FRED]
 
 		// 6️⃣ M2 Money Supply - Liquidity / credit conditions
-		"M2SL", // M2 Money Stock (Billions of Dollars), Monthly, 1959→
+		"M2SL", // M2 Money Stock (Billions of Dollars), Monthly, 1959→ [FRED]
 
 		// 7️⃣ Brent Crude Oil Price - Inflation driver & demand proxy
-		"POILBREUSDM", // Global Price of Brent Crude (Dollars per Barrel), Monthly, 1987→
+		"POILBREUSDM", // Global Price of Brent Crude (Dollars per Barrel), Monthly, 1987→ [FRED]
 
 		// 8️⃣ Manufacturing PMI - Business confidence / early cycle
-		// Note: ISM Manufacturing PMI is available from FRED
-		"MANEMP", // Manufacturing Employment (Thousands), Monthly, 1939→
-		// ISM PMI data would be ideal but requires separate source (not in FRED)
+		"MANEMP", // Manufacturing Employment (Thousands), Monthly, 1939→ [FRED]
 
 		// 9️⃣ Consumer Sentiment Index - Household confidence
-		"UMCSENT", // University of Michigan Consumer Sentiment (Index 1966:Q1=100), Monthly, 1978→
+		"UMCSENT", // University of Michigan Consumer Sentiment (Index 1966:Q1=100), Monthly, 1978→ [FRED]
 
 		// 🔟 Global Trade Volume Index - Global demand flow
-		// Note: CPB Netherlands World Trade Monitor not available in FRED
-		// Using US-specific trade proxy as alternative
-		"IMPCH", // Real Imports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→
-		"EXPCH", // Real Exports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→
+		"IMPCH", // Real Imports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→ [FRED]
+		"EXPCH", // Real Exports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→ [FRED]
 	}
 )
 
@@ -93,29 +100,34 @@ func main() {
 	log.Printf("Starting economic data refresh at %s", time.Now().Format(time.RFC3339))
 	log.Printf("Database: %s", *dbPath)
 
-	// Create FRED client
-	client := NewFREDClient(*apiKey)
-
 	// Log refresh start
-	refreshID, err := store.LogRefreshStart("FRED")
+	refreshID, err := store.LogRefreshStart("Multi-Source")
 	if err != nil {
 		log.Printf("Warning: Failed to log refresh start: %v", err)
 	}
 
-	// Fetch each series
+	// Fetch each series using appropriate data source
 	successCount := 0
 	errorCount := 0
 	for _, seriesID := range defaultSeries {
 		log.Printf("Fetching series: %s", seriesID)
 
-		series, observations, err := client.FetchSeries(seriesID)
+		// Create appropriate client based on series ID
+		client, actualSeriesID, err := DataSourceFactory(seriesID, *apiKey)
 		if err != nil {
-			log.Printf("Error fetching %s: %v", seriesID, err)
+			log.Printf("Error creating client for %s: %v", seriesID, err)
 			errorCount++
 			continue
 		}
 
-		// Store series metadata
+		series, observations, err := client.FetchSeries(actualSeriesID)
+		if err != nil {
+			log.Printf("Error fetching %s from %s: %v", seriesID, client.GetSourceName(), err)
+			errorCount++
+			continue
+		}
+
+		// Store series metadata with source information
 		if err := store.StoreSeries(series); err != nil {
 			log.Printf("Error storing series metadata for %s: %v", seriesID, err)
 			errorCount++

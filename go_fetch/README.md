@@ -2,16 +2,39 @@
 
 ## Overview
 
-The `go_fetch` service fetches high-ROI global economic indicators from the [FRED API](https://fred.stlouisfed.org/) and stores them in a SQLite database. It supports 30-year baselines for comprehensive macroeconomic analysis.
+The `go_fetch` service fetches high-ROI global economic indicators from **multiple data sources** (FRED, World Bank, OECD, and more) and stores them in a SQLite database. It supports 30-year baselines for comprehensive macroeconomic analysis.
 
 ## Features
 
-✅ **14 FRED series** covering 10 core economic indicators  
+✅ **Multi-source support** - FRED, World Bank WDI, OECD (coming soon)  
+✅ **18 series** covering 10 core economic indicators (14 FRED + 4 World Bank)  
+✅ **Global coverage** - US, China, Euro Area, and World GDP  
 ✅ **30-year baseline** coverage (≈1990 → present)  
 ✅ **SQLite storage** for fast local queries  
 ✅ **JSON export** for static hosting and Git versioning  
 ✅ **Rich metadata** with categories, descriptions, and proxy mappings  
 ✅ **Automated deltas** (MoM and YoY calculations)  
+
+## Supported Data Sources
+
+### 🇺🇸 FRED (Federal Reserve Economic Data)
+- **Status:** ✅ Fully Implemented
+- **Coverage:** United States
+- **API Key:** Required (free)
+- **Series:** Use code directly (e.g., `GDPC1`)
+
+### 🌍 World Bank WDI (World Development Indicators)
+- **Status:** ✅ Implemented
+- **Coverage:** 200+ countries, global aggregates
+- **API Key:** Not required
+- **Series:** Prefix with `WB:` (e.g., `WB:NY.GDP.MKTP.KD:USA`)
+
+### 🏛️ OECD API
+- **Status:** 🚧 Coming Soon
+- **Coverage:** OECD member countries
+- **Series:** Will use `OECD:` prefix
+
+**See [global-sources.md](./global-sources.md) for complete documentation**
 
 ## Quick Start
 
@@ -23,10 +46,10 @@ The `go_fetch` service fetches high-ROI global economic indicators from the [FRE
 ### Fetch Data
 
 ```bash
-# Set your FRED API key
+# Set your FRED API key (World Bank doesn't need one)
 export FRED_API_KEY=your_key_here
 
-# Fetch all indicators
+# Fetch all indicators from all sources
 bazel run //go_fetch:refresh
 
 # Data stored in ./data/econ.db

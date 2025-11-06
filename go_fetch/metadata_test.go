@@ -8,11 +8,15 @@ import (
 func TestIndicatorMetadata(t *testing.T) {
 	metadata := GetIndicatorMetadata()
 
-	// Verify we have metadata for all 14 series
+	// Verify we have metadata for all 18 series (14 FRED + 4 World Bank)
 	expectedSeries := []string{
+		// FRED series
 		"GDPC1", "CPIAUCSL", "CPILFESL", "UNRATE", "FEDFUNDS",
 		"T10Y2Y", "DGS10", "DGS2", "M2SL", "POILBREUSDM",
 		"MANEMP", "UMCSENT", "IMPCH", "EXPCH",
+		// World Bank series
+		"WB:NY.GDP.MKTP.KD:USA", "WB:NY.GDP.MKTP.KD:CHN",
+		"WB:NY.GDP.MKTP.KD:EMU", "WB:NY.GDP.MKTP.KD:WLD",
 	}
 
 	for _, code := range expectedSeries {
@@ -97,9 +101,9 @@ func TestCoreIndicators(t *testing.T) {
 }
 
 func TestDefaultSeries(t *testing.T) {
-	// Verify defaultSeries matches what we expect
-	if len(defaultSeries) != 14 {
-		t.Errorf("Expected 14 series in defaultSeries, got %d", len(defaultSeries))
+	// Verify defaultSeries matches what we expect (14 FRED + 4 World Bank = 18)
+	if len(defaultSeries) != 18 {
+		t.Errorf("Expected 18 series in defaultSeries, got %d", len(defaultSeries))
 	}
 
 	// Verify all series in defaultSeries have metadata

@@ -152,3 +152,8 @@ func (c *FREDClient) fetchObservations(seriesID string) ([]Observation, error) {
 
 	return observations, nil
 }
+
+// GetSourceName returns the name of this data source
+func (c *FREDClient) GetSourceName() string {
+	return "FRED"
+}

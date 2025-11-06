@@ -17,7 +17,7 @@ type IndicatorMetadata struct {
 // GetIndicatorMetadata returns metadata for all configured indicators
 func GetIndicatorMetadata() map[string]IndicatorMetadata {
 	return map[string]IndicatorMetadata{
-		// 1️⃣ Real GDP
+		// 1️⃣ Real GDP - US (FRED)
 		"GDPC1": {
 			Code:        "GDPC1",
 			Name:        "Real Gross Domestic Product",
@@ -28,6 +28,55 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			StartYear:   1947,
 			ProxyFor:    "Economic Growth / Business Cycle",
 			FREDURL:     "https://fred.stlouisfed.org/series/GDPC1",
+		},
+
+		// 1️⃣ Real GDP - Global (World Bank)
+		"WB:NY.GDP.MKTP.KD:USA": {
+			Code:        "WB:NY.GDP.MKTP.KD:USA",
+			Name:        "Real GDP - United States (World Bank)",
+			Unit:        "Constant 2015 US$",
+			Frequency:   "Annual",
+			Category:    "Growth",
+			Description: "Real GDP in constant 2015 prices from World Bank",
+			StartYear:   1960,
+			ProxyFor:    "Economic Growth / Business Cycle",
+			FREDURL:     "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD?locations=US",
+		},
+
+		"WB:NY.GDP.MKTP.KD:CHN": {
+			Code:        "WB:NY.GDP.MKTP.KD:CHN",
+			Name:        "Real GDP - China (World Bank)",
+			Unit:        "Constant 2015 US$",
+			Frequency:   "Annual",
+			Category:    "Growth",
+			Description: "Real GDP in constant 2015 prices from World Bank",
+			StartYear:   1960,
+			ProxyFor:    "Economic Growth / Business Cycle - China",
+			FREDURL:     "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD?locations=CN",
+		},
+
+		"WB:NY.GDP.MKTP.KD:EMU": {
+			Code:        "WB:NY.GDP.MKTP.KD:EMU",
+			Name:        "Real GDP - Euro Area (World Bank)",
+			Unit:        "Constant 2015 US$",
+			Frequency:   "Annual",
+			Category:    "Growth",
+			Description: "Real GDP in constant 2015 prices from World Bank",
+			StartYear:   1960,
+			ProxyFor:    "Economic Growth / Business Cycle - Euro Area",
+			FREDURL:     "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD?locations=EU",
+		},
+
+		"WB:NY.GDP.MKTP.KD:WLD": {
+			Code:        "WB:NY.GDP.MKTP.KD:WLD",
+			Name:        "Real GDP - World (World Bank)",
+			Unit:        "Constant 2015 US$",
+			Frequency:   "Annual",
+			Category:    "Growth",
+			Description: "Global real GDP in constant 2015 prices from World Bank",
+			StartYear:   1960,
+			ProxyFor:    "Global Economic Growth",
+			FREDURL:     "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD?locations=1W",
 		},
 
 		// 2️⃣ CPI - Headline
@@ -202,7 +251,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 // GetIndicatorCategories returns a map of categories to indicator codes
 func GetIndicatorCategories() map[string][]string {
 	return map[string][]string{
-		"Growth":          {"GDPC1"},
+		"Growth":          {"GDPC1", "WB:NY.GDP.MKTP.KD:USA", "WB:NY.GDP.MKTP.KD:CHN", "WB:NY.GDP.MKTP.KD:EMU", "WB:NY.GDP.MKTP.KD:WLD"},
 		"Inflation":       {"CPIAUCSL", "CPILFESL"},
 		"Labor Market":    {"UNRATE"},
 		"Monetary Policy": {"FEDFUNDS"},
