@@ -28,19 +28,19 @@ bazel-tutorial/
 ├── .bazelversion           # Specifies the Bazel version to use
 ├── .bazelrc                # Bazel configuration options
 ├── go_service/             # Go service + BUILD.bazel
-│   ├── main.go
-│   ├── main_test.go
-│   └── BUILD.bazel
+│   ├── main.go            → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_service/main.go
+│   ├── main_test.go       → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_service/main_test.go
+│   └── BUILD.bazel        → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_service/BUILD.bazel
 ├── py_service/             # Python service + BUILD.bazel
-│   ├── main.py
-│   ├── test_main.py
-│   ├── requirements.txt
-│   └── BUILD.bazel
+│   ├── main.py            → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_service/main.py
+│   ├── test_main.py       → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_service/test_main.py
+│   ├── requirements.txt   → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_service/requirements.txt
+│   └── BUILD.bazel        → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_service/BUILD.bazel
 ├── tests/                  # Cross-service tests
 │   ├── test_go_service.sh
 │   ├── test_py_service.py
-│   └── BUILD.bazel
-└── .github/workflows/ci.yaml  # Bazel build/test on GitHub Actions
+│   └── BUILD.bazel        → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/tests/BUILD.bazel
+└── .github/workflows/ci.yaml  → View: https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/.github/workflows/ci.yaml
 ```
 
 ## Quick Start

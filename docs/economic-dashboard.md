@@ -33,21 +33,27 @@ This is a **teaching repository** that shows:
 
 ### Components
 
-1. **`go_fetch/`** - Go service that fetches economic indicators from FRED API
+1. **[`go_fetch/`](https://github.com/rrl-personal-projects/bazel-tutorial/tree/main/go_fetch)** - Go service that fetches economic indicators from FRED API
    - Fetches 6 core indicators (CPI, Unemployment, Fed Funds, etc.)
-   - Stores data in SQLite database
-   - Includes mock HTTP tests
+   - Stores data in SQLite database ([`store_sqlite.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/store_sqlite.go))
+   - FRED API client ([`fred.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/fred.go))
+   - Includes mock HTTP tests ([`fred_test.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/fred_test.go))
+   - Bazel build config: [`BUILD.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/BUILD.bazel)
 
-2. **`py_api/`** - Python FastAPI REST service
-   - Reads from SQLite database
-   - Computes MoM/YoY deltas
+2. **[`py_api/`](https://github.com/rrl-personal-projects/bazel-tutorial/tree/main/py_api)** - Python FastAPI REST service
+   - Reads from SQLite database ([`db.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/db.py))
+   - Computes MoM/YoY deltas ([`handlers.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/handlers.py))
+   - FastAPI server ([`main.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/main.py))
    - Exposes normalized JSON endpoints
-   - Includes fixture-based tests
+   - Includes fixture-based tests ([`test_api.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/test_api.py))
+   - Bazel build config: [`BUILD.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/BUILD.bazel)
 
-3. **`web_ui/`** - React + TypeScript + Vite frontend
-   - Dashboard view with indicator cards
+3. **[`web_ui/`](https://github.com/rrl-personal-projects/bazel-tutorial/tree/main/web_ui)** - React + TypeScript + Vite frontend
+   - Dashboard view with indicator cards ([`App.tsx`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/web_ui/src/App.tsx))
+   - Chart component ([`LineChart.tsx`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/web_ui/src/components/LineChart.tsx))
    - Detailed series view with charts
    - Responsive design
+   - Bazel build config: [`BUILD.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/web_ui/BUILD.bazel)
 
 ---
 
@@ -96,6 +102,13 @@ npm run dev
 ```
 
 Open http://localhost:3000 in your browser 🎉
+
+!!! success "📊 View Live Dashboard"
+    Once running, access the dashboard at:
+
+    - **Dashboard UI**: [http://localhost:3000](http://localhost:3000) - Interactive charts and indicators
+    - **API Server**: [http://localhost:8000](http://localhost:8000) - REST API
+    - **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs) - Swagger/OpenAPI documentation
 
 #### Option 2: Run Components Individually
 
@@ -185,7 +198,7 @@ API documentation: http://localhost:8000/docs
 
 ## 🧱 Bazel Concepts
 
-### MODULE.bazel
+### [`MODULE.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/MODULE.bazel)
 
 This file defines external dependencies using **Bzlmod** (Bazel's modern dependency system):
 
@@ -241,7 +254,7 @@ bazel build //...
 
 ### Adding a New Economic Indicator
 
-1. **Update `go_fetch/main.go`** - Add series code to `defaultSeries`
+1. **Update [`go_fetch/main.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/main.go#L19-L26)** - Add series code to `defaultSeries`
    ```go
    defaultSeries = []string{
        "CPIAUCSL",
@@ -259,7 +272,7 @@ bazel build //...
 
 ### Adding Go Dependencies
 
-1. Add to `go_fetch/go.mod`:
+1. Add to [`go_fetch/go.mod`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/go.mod):
    ```go
    require github.com/some/package v1.0.0
    ```
@@ -272,12 +285,12 @@ bazel build //...
 
 ### Adding Python Dependencies
 
-1. Add to `py_api/requirements.txt`:
+1. Add to [`py_api/requirements.txt`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/requirements.txt):
    ```
    requests==2.31.0
    ```
 
-2. Update MODULE.bazel pip.parse section
+2. Update [`MODULE.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/MODULE.bazel) pip.parse section
 
 3. Rebuild:
    ```bash

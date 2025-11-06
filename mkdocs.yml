@@ -80,3 +80,7 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/rrl-personal-projects/bazel-tutorial
+
+  # Announcement banner for running the dashboard
+  # Note: Material for MkDocs supports announcement bars in the paid version
+  # For now, this is documented prominently on the homepage and economic-dashboard page

@@ -1,5 +1,15 @@
 # Bazel Multi-Language Tutorial
 
+!!! tip "🎯 Run the Live Dashboard"
+    Experience the full Economic Indicators Dashboard:
+
+    1. Clone the repo and set your FRED API key
+    2. Run `./run_all.sh`
+    3. Start the UI: `cd web_ui && npm run dev`
+    4. Open [http://localhost:3000](http://localhost:3000)
+
+    **[📖 Full Setup Instructions →](economic-dashboard.md#quick-start)**
+
 A comprehensive, hands-on guide to building polyglot applications with Bazel — Google's fast, reproducible, and scalable build system.
 
 ## 🎯 What You'll Learn
