@@ -61,7 +61,7 @@ This is a **teaching repository** that shows:
 
 The Economic Indicators Dashboard is deployed live on GitHub Pages:
 
-**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/dashboard/)**
+**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/app/)**
 
 - **Automatic updates**: Data refreshes daily at 12:00 UTC via GitHub Actions
 - **Static hosting**: Fully client-side React app with pre-generated JSON data
