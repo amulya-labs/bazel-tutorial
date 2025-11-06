@@ -1,0 +1,2 @@
+# Use HTTP instead of HTTPS for Bazel Central Registry (workaround for SSL issues)
+common --registry=https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/
