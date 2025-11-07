@@ -1,0 +1,37 @@
+.time-range-selector {
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.time-range-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #4a5568;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.time-range-button:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.time-range-button.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.time-range-button.active:hover {
+  background: #5a67d8;
+  border-color: #5a67d8;
+}

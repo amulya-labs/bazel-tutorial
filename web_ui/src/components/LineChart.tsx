@@ -1,9 +1,5 @@
 import { LineChart as RechartsLineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-
-interface Observation {
-  date: string
-  value: number
-}
+import { Observation } from '../types'
 
 interface LineChartProps {
   data: Observation[]
