@@ -12,6 +12,9 @@ go_library(
     srcs = [
         "export.go",
         "fred.go",
+        "metadata.go",
+        "retry.go",
+        "sources.go",
         "store_sqlite.go",
     ],
     importpath = "github.com/rrl-personal-projects/bazel-tutorial/go_fetch",
@@ -53,6 +56,24 @@ go_binary(
 go_test(
     name = "fred_test",
     srcs = ["fred_test.go"],
+    embed = [":go_fetch_lib"],
+    deps = [],
+)
+
+# go_test for metadata functions
+# Run with: bazel test //go_fetch:metadata_test
+go_test(
+    name = "metadata_test",
+    srcs = ["metadata_test.go"],
+    embed = [":go_fetch_lib"],
+    deps = [],
+)
+
+# go_test for multi-source support (World Bank, etc.)
+# Run with: bazel test //go_fetch:sources_test
+go_test(
+    name = "sources_test",
+    srcs = ["sources_test.go"],
     embed = [":go_fetch_lib"],
     deps = [],
 )
