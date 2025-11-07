@@ -184,7 +184,7 @@ function App() {
   }
 
   // Filter and sort indicators (memoized for performance)
-  const allIndicators = summary?.indicators || []
+  const allIndicators = useMemo(() => summary?.indicators || [], [summary])
 
   const sortedIndicators = useMemo(() => {
     const filtered = filterIndicatorsByRegion(allIndicators, regionFilter)
