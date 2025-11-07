@@ -1,15 +1,5 @@
+import { Indicator } from '../types'
 import './IndicatorCard.css'
-
-interface Indicator {
-  code: string
-  name: string
-  unit: string
-  source: string
-  last_updated: string
-  value: number
-  delta_mom: number | null
-  delta_yoy: number | null
-}
 
 interface IndicatorCardProps {
   indicator: Indicator

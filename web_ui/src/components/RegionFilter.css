@@ -1,0 +1,68 @@
+.region-filter {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.region-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.region-button:hover {
+  border-color: #cbd5e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.region-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.region-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.region-button.active .region-label {
+  color: white;
+}
+
+.region-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: inherit;
+}
+
+.region-button.active .region-count {
+  color: white;
+}
+
+.region-button:not(.active) .region-count {
+  color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .region-filter {
+    flex-direction: column;
+  }
+
+  .region-button {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

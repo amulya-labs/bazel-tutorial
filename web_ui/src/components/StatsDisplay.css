@@ -1,0 +1,64 @@
+.stats-display {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  border: 1px solid #e2e8f0;
+}
+
+.stats-message {
+  color: #718096;
+  font-style: italic;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 120px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #718096;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.stat-value.positive {
+  color: #48bb78;
+}
+
+.stat-value.negative {
+  color: #f56565;
+}
+
+.stat-value.neutral {
+  color: #718096;
+}
+
+.stat-unit {
+  font-size: 0.875rem;
+  color: #718096;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .stats-display {
+    gap: 1rem;
+  }
+
+  .stat-item {
+    min-width: 100px;
+  }
+}

@@ -16,6 +16,35 @@
   padding: 0 1rem;
 }
 
+.header-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.header-navigation h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.docs-link {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.2s;
+}
+
+.docs-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-2px);
+}
+
 .header h1 {
   margin: 0 0 0.5rem 0;
   font-size: 2rem;
@@ -130,11 +159,18 @@
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
-  
-  .header h1 {
+
+  .header h1,
+  .header-navigation h1 {
     font-size: 1.5rem;
   }
-  
+
+  .header-navigation {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
   .series-info {
     grid-template-columns: 1fr;
   }
