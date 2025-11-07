@@ -108,7 +108,7 @@ func (c *WorldBankClient) FetchSeries(seriesID string) (*Series, []Observation, 
 	}
 
 	if len(result) < 2 {
-		return nil, nil, fmt.Errorf("unexpected response format from World Bank API")
+		return nil, nil, fmt.Errorf("unexpected response format from World Bank API (got %d elements, expected 2)", len(result))
 	}
 
 	// Parse the data points
