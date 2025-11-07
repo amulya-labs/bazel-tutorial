@@ -73,6 +73,7 @@ nav:
     - Build Query: query.md
   - Reference:
     - Testing Guide: testing.md
+    - Implementation Summary: implementation-summary.md
     - Contributing: contributing.md
 
 plugins:

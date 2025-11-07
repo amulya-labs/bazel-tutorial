@@ -61,3 +61,25 @@ jobs:
     
     - name: Run Python API tests
       run: bazel test //py_api:api_test
+
+  validate-docs:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install mkdocs dependencies
+      run: |
+        pip install -r docs-requirements.txt
+
+    - name: Validate mkdocs build
+      run: |
+        mkdocs build --strict

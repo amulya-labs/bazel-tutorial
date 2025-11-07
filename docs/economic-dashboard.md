@@ -207,7 +207,7 @@ The dashboard tracks **10 core high-ROI macroeconomic indicators** (14 FRED seri
 
 **Coverage:** All indicators have data back to 1990 or earlier ✅
 
-**Detailed Specifications:** See [`go_fetch/indicators.md`](../go_fetch/indicators.md) for complete data dictionary
+**Detailed Specifications:** See [`go_fetch/indicators.md`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/indicators.md) for complete data dictionary
 
 ### Economic Categories
 
