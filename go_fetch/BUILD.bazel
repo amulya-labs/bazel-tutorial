@@ -55,7 +55,10 @@ go_binary(
 # This ensures tests are hermetic and don't depend on network access
 go_test(
     name = "fred_test",
-    srcs = ["fred_test.go"],
+    srcs = [
+        "fred_test.go",
+        "test_helpers.go",
+    ],
     embed = [":go_fetch_lib"],
     deps = [],
 )
@@ -64,7 +67,10 @@ go_test(
 # Run with: bazel test //go_fetch:metadata_test
 go_test(
     name = "metadata_test",
-    srcs = ["metadata_test.go"],
+    srcs = [
+        "metadata_test.go",
+        "test_helpers.go",
+    ],
     embed = [":go_fetch_lib"],
     deps = [],
 )
@@ -73,7 +79,10 @@ go_test(
 # Run with: bazel test //go_fetch:sources_test
 go_test(
     name = "sources_test",
-    srcs = ["sources_test.go"],
+    srcs = [
+        "sources_test.go",
+        "test_helpers.go",
+    ],
     embed = [":go_fetch_lib"],
     deps = [],
 )
