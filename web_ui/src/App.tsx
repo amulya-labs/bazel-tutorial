@@ -30,6 +30,22 @@ function App() {
   const [regionFilter, setRegionFilter] = useState<RegionFilterType>('all')
   const [timeRange, setTimeRange] = useState<TimeRange>('5Y')
 
+  // Filter and sort indicators (memoized for performance)
+  // NOTE: These must be called before any early returns (Rules of Hooks)
+  const allIndicators = useMemo(() => summary?.indicators || [], [summary])
+
+  const sortedIndicators = useMemo(() => {
+    const filtered = filterIndicatorsByRegion(allIndicators, regionFilter)
+    return sortIndicatorsByCategory(filtered)
+  }, [allIndicators, regionFilter])
+
+  // Calculate counts for region filter (memoized for performance)
+  const regionCounts = useMemo(() => ({
+    all: allIndicators.length,
+    us: allIndicators.filter(isUSIndicator).length,
+    world: allIndicators.filter(isWorldIndicator).length,
+  }), [allIndicators])
+
   useEffect(() => {
     fetchSummary()
   }, [])
@@ -182,21 +198,6 @@ function App() {
       </div>
     )
   }
-
-  // Filter and sort indicators (memoized for performance)
-  const allIndicators = useMemo(() => summary?.indicators || [], [summary])
-
-  const sortedIndicators = useMemo(() => {
-    const filtered = filterIndicatorsByRegion(allIndicators, regionFilter)
-    return sortIndicatorsByCategory(filtered)
-  }, [allIndicators, regionFilter])
-
-  // Calculate counts for region filter (memoized for performance)
-  const regionCounts = useMemo(() => ({
-    all: allIndicators.length,
-    us: allIndicators.filter(isUSIndicator).length,
-    world: allIndicators.filter(isWorldIndicator).length,
-  }), [allIndicators])
 
   return (
     <div className="app">
