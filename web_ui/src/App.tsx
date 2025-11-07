@@ -147,7 +147,7 @@ function App() {
               <button onClick={handleBackClick} className="back-button">
                 ← Back to Dashboard
               </button>
-              <a href={import.meta.env.BASE_URL} className="docs-link">
+              <a href="/bazel-tutorial/" className="docs-link">
                 ← Back to Docs
               </a>
             </div>
@@ -205,7 +205,7 @@ function App() {
         <div className="header-content">
           <div className="header-navigation">
             <h1>📊 Economic Indicators Dashboard</h1>
-            <a href={import.meta.env.BASE_URL} className="docs-link">
+            <a href="/bazel-tutorial/" className="docs-link">
               ← Back to Docs
             </a>
           </div>
