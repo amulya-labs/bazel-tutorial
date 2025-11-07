@@ -15,16 +15,7 @@ var (
 	apiKey     = flag.String("api-key", os.Getenv("FRED_API_KEY"), "FRED API key")
 	dbPath     = flag.String("db", "./data/econ.db", "Path to SQLite database")
 	exportJSON = flag.String("export-json", "", "Export data to JSON files in specified directory")
-
-	// Series to fetch from FRED
-	defaultSeries = []string{
-		"CPIAUCSL",  // CPI (Headline)
-		"CPILFESL",  // Core CPI
-		"UNRATE",    // Unemployment Rate
-		"FEDFUNDS",  // Federal Funds Rate
-		"DGS10",     // 10-Year Treasury Yield
-		"M2SL",      // M2 Money Stock
-	}
+	// Note: defaultSeries is now defined in metadata.go as part of the library
 )
 
 func main() {
@@ -60,56 +51,92 @@ func main() {
 	log.Printf("Starting economic data refresh at %s", time.Now().Format(time.RFC3339))
 	log.Printf("Database: %s", *dbPath)
 
-	// Create FRED client
-	client := NewFREDClient(*apiKey)
-
 	// Log refresh start
-	refreshID, err := store.LogRefreshStart("FRED")
+	refreshID, err := store.LogRefreshStart("Multi-Source")
 	if err != nil {
 		log.Printf("Warning: Failed to log refresh start: %v", err)
 	}
 
-	// Fetch each series
+	// Initialize retry configuration
+	retryConfig := DefaultRetryConfig()
+
+	// Fetch each series using appropriate data source
+	startTime := time.Now()
 	successCount := 0
 	errorCount := 0
-	for _, seriesID := range defaultSeries {
-		log.Printf("Fetching series: %s", seriesID)
 
-		series, observations, err := client.FetchSeries(seriesID)
+	for _, seriesID := range defaultSeries {
+		seriesStartTime := time.Now()
+		log.Printf("[%s] Fetching series: %s", seriesID, seriesID)
+
+		// Create appropriate client based on series ID
+		client, actualSeriesID, err := DataSourceFactory(seriesID, *apiKey)
 		if err != nil {
-			log.Printf("Error fetching %s: %v", seriesID, err)
+			log.Printf("[%s] ERROR: Failed to create client: %v", seriesID, err)
 			errorCount++
 			continue
 		}
 
-		// Store series metadata
+		// Fetch with retry logic
+		var series *Series
+		var observations []Observation
+
+		err = RetryWithBackoff(retryConfig, func() error {
+			var fetchErr error
+			series, observations, fetchErr = client.FetchSeries(actualSeriesID)
+			return fetchErr
+		})
+
+		if err != nil {
+			log.Printf("[%s] ERROR: Failed to fetch from %s: %v", seriesID, client.GetSourceName(), err)
+			errorCount++
+			continue
+		}
+
+		duration := time.Since(seriesStartTime)
+		log.Printf("[%s] SUCCESS: Fetched %d observations from %s in %v",
+			seriesID, len(observations), client.GetSourceName(), duration)
+
+		// Store series metadata with source information
 		if err := store.StoreSeries(series); err != nil {
-			log.Printf("Error storing series metadata for %s: %v", seriesID, err)
+			log.Printf("[%s] ERROR: Failed to store series metadata: %v", seriesID, err)
 			errorCount++
 			continue
 		}
 
 		// Store observations
 		if err := store.StoreObservations(seriesID, observations); err != nil {
-			log.Printf("Error storing observations for %s: %v", seriesID, err)
+			log.Printf("[%s] ERROR: Failed to store observations: %v", seriesID, err)
 			errorCount++
 			continue
 		}
 
-		log.Printf("Successfully stored %d observations for %s", len(observations), seriesID)
 		successCount++
 	}
 
-	// Log refresh completion
+	// Log refresh completion with summary statistics
+	totalDuration := time.Since(startTime)
 	message := fmt.Sprintf("Fetched %d/%d series successfully", successCount, len(defaultSeries))
+
+	log.Printf("========================================")
+	log.Printf("REFRESH SUMMARY:")
+	log.Printf("  Total series: %d", len(defaultSeries))
+	log.Printf("  Successful: %d", successCount)
+	log.Printf("  Failed: %d", errorCount)
+	log.Printf("  Total duration: %v", totalDuration)
+	log.Printf("  Avg time per series: %v", totalDuration/time.Duration(len(defaultSeries)))
+	log.Printf("========================================")
+
 	if err := store.LogRefreshEnd(refreshID, errorCount == 0, message); err != nil {
 		log.Printf("Warning: Failed to log refresh end: %v", err)
 	}
 
-	log.Printf("Refresh complete: %s", message)
 	if errorCount > 0 {
+		log.Printf("Refresh completed with errors")
 		os.Exit(1)
 	}
+
+	log.Printf("Refresh completed successfully")
 
 	// Export JSON if requested
 	if *exportJSON != "" {

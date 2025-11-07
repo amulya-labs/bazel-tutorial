@@ -15,6 +15,8 @@ type IndicatorSummary struct {
 	Name        string   `json:"name"`
 	Unit        string   `json:"unit"`
 	Source      string   `json:"source"`
+	Category    string   `json:"category,omitempty"`
+	ProxyFor    string   `json:"proxy_for,omitempty"`
 	LastUpdated string   `json:"last_updated"`
 	Value       float64  `json:"value"`
 	DeltaMoM    *float64 `json:"delta_mom"`
@@ -56,6 +58,11 @@ func ExportJSON(store *SQLiteStore, outputDir string) error {
 		return fmt.Errorf("failed to create output directory: %w", err)
 	}
 
+	// Export metadata
+	if err := exportMetadata(outputDir); err != nil {
+		return fmt.Errorf("failed to export metadata: %w", err)
+	}
+
 	// Export summary
 	if err := exportSummary(store, outputDir); err != nil {
 		return fmt.Errorf("failed to export summary: %w", err)
@@ -85,6 +92,7 @@ func exportSummary(store *SQLiteStore, outputDir string) error {
 	}
 
 	indicators := []IndicatorSummary{}
+	metadata := GetIndicatorMetadata()
 
 	for _, s := range series {
 		// Get latest observation
@@ -97,11 +105,22 @@ func exportSummary(store *SQLiteStore, outputDir string) error {
 		deltaMoM := calculateDeltaMoM(store, s.ID)
 		deltaYoY := calculateDeltaYoY(store, s.ID)
 
+		// Get metadata if available
+		meta, hasMetadata := metadata[s.ID]
+		category := ""
+		proxyFor := ""
+		if hasMetadata {
+			category = meta.Category
+			proxyFor = meta.ProxyFor
+		}
+
 		indicator := IndicatorSummary{
 			Code:        s.ID,
 			Name:        s.Title,
 			Unit:        s.Units,
 			Source:      "FRED",
+			Category:    category,
+			ProxyFor:    proxyFor,
 			LastUpdated: date,
 			Value:       value,
 			DeltaMoM:    roundFloat(deltaMoM, 2),
@@ -390,4 +409,30 @@ func (s *SQLiteStore) GetLastRefresh() (*string, error) {
 	}
 
 	return &finishedAt, nil
+}
+
+// exportMetadata generates metadata.json with rich indicator information
+func exportMetadata(outputDir string) error {
+	metadata := GetIndicatorMetadata()
+	categories := GetIndicatorCategories()
+
+	// Create metadata export structure
+	type MetadataExport struct {
+		Indicators map[string]IndicatorMetadata `json:"indicators"`
+		Categories map[string][]string          `json:"categories"`
+		CoreSeries []string                     `json:"core_series"`
+		Version    string                       `json:"version"`
+		Generated  string                       `json:"generated"`
+	}
+
+	export := MetadataExport{
+		Indicators: metadata,
+		Categories: categories,
+		CoreSeries: GetCoreIndicators(),
+		Version:    "1.0.0",
+		Generated:  time.Now().Format(time.RFC3339),
+	}
+
+	filePath := filepath.Join(outputDir, "metadata.json")
+	return writeJSON(filePath, export)
 }
