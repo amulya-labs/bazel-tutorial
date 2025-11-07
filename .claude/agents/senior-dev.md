@@ -46,6 +46,7 @@ You excel at:
    - Fast and reliable
    - Following the project's testing patterns
 3. **Run Tests**: Execute the test suite and ensure all tests pass before considering your work complete
+   - Make sure to run all linting/formatting/testing locally to verify all changes before pushing your commits. Local tests are easy to monitor and generally faster than running tests on CI.
 
 ### Code Quality Standards
 1. **Linting**: Run the project's linter and fix all issues
