@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import IndicatorCard from './components/IndicatorCard'
 import LineChart from './components/LineChart'
 import TimeRangeSelector from './components/TimeRangeSelector'
@@ -60,7 +60,7 @@ function App() {
     }
   }
 
-  const fetchSeriesData = async (code: string, range: string = '10y') => {
+  const fetchSeriesData = async (code: string) => {
     try {
       // Try static JSON first (for GitHub Pages deployment)
       // Use relative path to respect Vite's base configuration
@@ -68,7 +68,7 @@ function App() {
 
       // Fall back to API if static file not found
       if (!response.ok && response.status === 404) {
-        response = await fetch(`/api/econ/series?code=${code}&range=${range}`)
+        response = await fetch(`/api/econ/series?code=${code}`)
       }
 
       if (!response.ok) {
@@ -131,7 +131,7 @@ function App() {
               <button onClick={handleBackClick} className="back-button">
                 ← Back to Dashboard
               </button>
-              <a href="/bazel-tutorial/" className="docs-link">
+              <a href={import.meta.env.BASE_URL} className="docs-link">
                 ← Back to Docs
               </a>
             </div>
@@ -183,17 +183,20 @@ function App() {
     )
   }
 
-  // Filter and sort indicators
+  // Filter and sort indicators (memoized for performance)
   const allIndicators = summary?.indicators || []
-  const filteredIndicators = filterIndicatorsByRegion(allIndicators, regionFilter)
-  const sortedIndicators = sortIndicatorsByCategory(filteredIndicators)
 
-  // Calculate counts for region filter
-  const regionCounts = {
+  const sortedIndicators = useMemo(() => {
+    const filtered = filterIndicatorsByRegion(allIndicators, regionFilter)
+    return sortIndicatorsByCategory(filtered)
+  }, [allIndicators, regionFilter])
+
+  // Calculate counts for region filter (memoized for performance)
+  const regionCounts = useMemo(() => ({
     all: allIndicators.length,
     us: allIndicators.filter(isUSIndicator).length,
     world: allIndicators.filter(isWorldIndicator).length,
-  }
+  }), [allIndicators])
 
   return (
     <div className="app">
@@ -201,7 +204,7 @@ function App() {
         <div className="header-content">
           <div className="header-navigation">
             <h1>📊 Economic Indicators Dashboard</h1>
-            <a href="/bazel-tutorial/" className="docs-link">
+            <a href={import.meta.env.BASE_URL} className="docs-link">
               ← Back to Docs
             </a>
           </div>

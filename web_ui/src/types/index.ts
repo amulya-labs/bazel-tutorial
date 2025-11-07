@@ -38,7 +38,7 @@ export interface TimeRangeStats {
   min: number
   max: number
   avg: number
-  change: number // Percentage change from start to end
+  change: number | null // Percentage change from start to end (null if undefined/infinite)
   changeAbsolute: number // Absolute change from start to end
   startValue: number
   endValue: number

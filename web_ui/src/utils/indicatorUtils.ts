@@ -13,6 +13,11 @@ export interface IndicatorCategory {
 }
 
 /**
+ * Global commodity indicators that don't belong to a specific country
+ */
+const GLOBAL_COMMODITY_INDICATORS = ['POILBREUSDM'] as const
+
+/**
  * Determines if an indicator is US-specific based on its code and name
  */
 export function isUSIndicator(indicator: Indicator): boolean {
@@ -26,9 +31,8 @@ export function isUSIndicator(indicator: Indicator): boolean {
 
   // FRED indicators are typically US-specific unless they're global commodities
   if (!code.includes('WB:') && !code.includes('OECD:')) {
-    // Global commodities and trade indicators
-    const globalIndicators = ['POILBREUSDM'] // Brent crude is global
-    if (globalIndicators.includes(code)) {
+    // Check if this is a global commodity indicator
+    if (GLOBAL_COMMODITY_INDICATORS.includes(code as any)) {
       return false
     }
     return true
@@ -64,8 +68,8 @@ export function isWorldIndicator(indicator: Indicator): boolean {
     return true
   }
 
-  // Global commodities
-  if (code === 'POILBREUSDM') {
+  // Check if this is a global commodity indicator
+  if (GLOBAL_COMMODITY_INDICATORS.includes(code as any)) {
     return true
   }
 

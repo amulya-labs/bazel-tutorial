@@ -32,8 +32,8 @@ function StatsDisplay({ stats, unit }: StatsDisplayProps) {
       </div>
       <div className="stat-item">
         <span className="stat-label">Change</span>
-        <span className={`stat-value ${stats.change > 0 ? 'positive' : stats.change < 0 ? 'negative' : 'neutral'}`}>
-          {formatPercentChange(stats.change)}
+        <span className={`stat-value ${stats.change !== null ? (stats.change > 0 ? 'positive' : stats.change < 0 ? 'negative' : 'neutral') : 'neutral'}`}>
+          {stats.change !== null ? formatPercentChange(stats.change) : 'N/A'}
         </span>
       </div>
       <div className="stat-item">

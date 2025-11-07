@@ -6,6 +6,7 @@ import { Observation, TimeRange, TimeRangeStats } from '../types'
 
 /**
  * Filters observations based on the selected time range
+ * Calculates the cutoff date from the most recent observation, not the current system date
  */
 export function filterObservationsByTimeRange(
   observations: Observation[],
@@ -15,25 +16,42 @@ export function filterObservationsByTimeRange(
     return observations
   }
 
-  const now = new Date()
-  const cutoffDate = new Date()
+  // Find the most recent observation date to calculate the cutoff from
+  const mostRecentDate = new Date(observations[observations.length - 1].date)
+
+  // Calculate how many months or years to subtract
+  let monthsToSubtract = 0
+  let yearsToSubtract = 0
 
   switch (timeRange) {
     case '1M':
-      cutoffDate.setMonth(now.getMonth() - 1)
+      monthsToSubtract = 1
       break
     case '3M':
-      cutoffDate.setMonth(now.getMonth() - 3)
+      monthsToSubtract = 3
       break
     case '6M':
-      cutoffDate.setMonth(now.getMonth() - 6)
+      monthsToSubtract = 6
       break
     case '1Y':
-      cutoffDate.setFullYear(now.getFullYear() - 1)
+      yearsToSubtract = 1
       break
     case '5Y':
-      cutoffDate.setFullYear(now.getFullYear() - 5)
+      yearsToSubtract = 5
       break
+  }
+
+  // Calculate cutoff date using more robust arithmetic
+  const cutoffDate = new Date(mostRecentDate)
+  if (yearsToSubtract > 0) {
+    cutoffDate.setFullYear(cutoffDate.getFullYear() - yearsToSubtract)
+  } else if (monthsToSubtract > 0) {
+    // Handle month subtraction more carefully to avoid overflow issues
+    const targetMonth = cutoffDate.getMonth() - monthsToSubtract
+    const targetYear = cutoffDate.getFullYear() + Math.floor(targetMonth / 12)
+    const normalizedMonth = ((targetMonth % 12) + 12) % 12
+    cutoffDate.setFullYear(targetYear)
+    cutoffDate.setMonth(normalizedMonth)
   }
 
   return observations.filter(obs => new Date(obs.date) >= cutoffDate)
@@ -55,7 +73,8 @@ export function calculateStats(observations: Observation[]): TimeRangeStats | nu
   const startValue = observations[0].value
   const endValue = observations[observations.length - 1].value
   const changeAbsolute = endValue - startValue
-  const change = startValue !== 0 ? (changeAbsolute / startValue) * 100 : 0
+  // Return null for undefined percentage change (division by zero)
+  const change = startValue !== 0 ? (changeAbsolute / startValue) * 100 : null
 
   return {
     min,
