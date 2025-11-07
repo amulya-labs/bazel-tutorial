@@ -7,7 +7,7 @@ The `go_fetch` service fetches high-ROI global economic indicators from **multip
 ## Features
 
 ✅ **Multi-source support** - FRED, World Bank WDI, OECD (coming soon)  
-✅ **18 series** covering 10 core economic indicators (14 FRED + 4 World Bank)  
+✅ **27 series** covering 10 core economic indicators (14 FRED + 13 World Bank)  
 ✅ **Global coverage** - US, China, Euro Area, and World GDP  
 ✅ **30-year baseline** coverage (≈1990 → present)  
 ✅ **SQLite storage** for fast local queries  

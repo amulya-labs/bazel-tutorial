@@ -179,8 +179,8 @@ func DataSourceFactory(seriesID string, fredAPIKey string) (DataSource, string, 
 		// World Bank series
 		return NewWorldBankClient(), seriesID, nil
 	} else if strings.HasPrefix(seriesID, "OECD:") {
-		// OECD series
-		return NewOECDClient(), seriesID, nil
+		// OECD series not yet implemented
+		return nil, seriesID, fmt.Errorf("OECD data source not yet implemented")
 	} else {
 		// Default to FRED (no prefix)
 		return NewFREDClient(fredAPIKey), seriesID, nil
