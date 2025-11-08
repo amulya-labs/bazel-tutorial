@@ -25,16 +25,6 @@
       "delta_yoy": 3.03
     },
     {
-      "code": "DGS10",
-      "name": "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis",
-      "unit": "Percent",
-      "source": "FRED",
-      "last_updated": "2025-11-04",
-      "value": 4.1,
-      "delta_mom": -0.72,
-      "delta_yoy": -4.86
-    },
-    {
       "code": "FEDFUNDS",
       "name": "Federal Funds Effective Rate",
       "unit": "Percent",
@@ -299,6 +289,6 @@
       "delta_yoy": 2.86
     }
   ],
-  "count": 25,
-  "last_refresh": "2025-11-08T01:02:48Z"
+  "count": 24,
+  "last_refresh": "2025-11-08T12:31:50Z"
 }

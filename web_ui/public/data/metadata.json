@@ -36,7 +36,7 @@
     "GDPC1": {
       "Code": "GDPC1",
       "Name": "Real Gross Domestic Product",
-      "Unit": "Billions of Chained 2012 Dollars",
+      "Unit": "Billions of Chained 2017 Dollars",
       "Frequency": "Quarterly",
       "Category": "Growth",
       "Description": "Real GDP measures economic output adjusted for inflation",
@@ -327,5 +327,5 @@
     "NFCI"
   ],
   "version": "1.0.0",
-  "generated": "2025-11-07T17:02:48-08:00"
+  "generated": "2025-11-08T12:31:50Z"
 }
