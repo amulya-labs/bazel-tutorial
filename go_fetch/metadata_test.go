@@ -8,19 +8,19 @@ import (
 func TestIndicatorMetadata(t *testing.T) {
 	metadata := GetIndicatorMetadata()
 
-	// Verify we have metadata for all 27 series (14 FRED + 13 World Bank)
+	// Verify we have metadata for all 24 series (11 FRED + 13 World Bank)
 	expectedSeries := []string{
-		// FRED series (14)
+		// FRED series (11)
 		"GDPC1", "CPIAUCSL", "CPILFESL", "UNRATE", "FEDFUNDS",
-		"T10Y2Y", "DGS10", "DGS2", "M2SL", "POILBREUSDM",
-		"MANEMP", "UMCSENT", "IMPCH", "EXPCH",
+		"T10Y2Y", "M2SL", "POILBREUSDM",
+		"IPMAN", "UMCSENT", "T5YIE", "NFCI",
 		// World Bank series (13)
 		"WB:NY.GDP.MKTP.KD:USA", "WB:NY.GDP.MKTP.KD:CHN",
 		"WB:NY.GDP.MKTP.KD:EMU", "WB:NY.GDP.MKTP.KD:WLD",
 		"WB:FP.CPI.TOTL.ZG:WLD", "WB:FP.CPI.TOTL.ZG:CHN", "WB:FP.CPI.TOTL.ZG:EMU",
 		"WB:FM.LBL.BMNY.CN:CHN", "WB:FS.AST.PRVT.GD.ZS:WLD",
 		"WB:NE.EXP.GNFS.ZS:WLD", "WB:NE.IMP.GNFS.ZS:WLD",
-		"WB:EG.USE.PCAP.KG.OE:WLD", "WB:EN.ATM.CO2E.KT:WLD",
+		"WB:EG.USE.PCAP.KG.OE:WLD",
 	}
 
 	for _, code := range expectedSeries {
@@ -54,7 +54,8 @@ func TestIndicatorMetadata(t *testing.T) {
 		}
 
 		// Verify 30-year baseline (data since 1990 or earlier)
-		if meta.StartYear > 1990 {
+		// Exception: T5YIE (inflation expectations) starts 2003 but is the best available measure
+		if meta.StartYear > 1990 && code != "T5YIE" {
 			t.Errorf("Series %s does not meet 30-year baseline: starts in %d", code, meta.StartYear)
 		}
 	}
@@ -68,7 +69,7 @@ func TestIndicatorCategories(t *testing.T) {
 	expectedCategories := []string{
 		"Growth", "Inflation", "Labor Market", "Monetary Policy",
 		"Yield Curve", "Liquidity", "Commodities", "Manufacturing",
-		"Sentiment", "Trade",
+		"Sentiment", "Trade", "Financial Conditions",
 	}
 
 	for _, cat := range expectedCategories {
@@ -88,9 +89,9 @@ func TestIndicatorCategories(t *testing.T) {
 func TestCoreIndicators(t *testing.T) {
 	coreIndicators := GetCoreIndicators()
 
-	// Should have exactly 10 core indicators (one per category)
-	if len(coreIndicators) != 10 {
-		t.Errorf("Expected 10 core indicators, got %d", len(coreIndicators))
+	// Should have exactly 11 core indicators (one per category)
+	if len(coreIndicators) != 11 {
+		t.Errorf("Expected 11 core indicators, got %d", len(coreIndicators))
 	}
 
 	// Verify all core indicators exist in metadata
@@ -105,9 +106,9 @@ func TestCoreIndicators(t *testing.T) {
 }
 
 func TestDefaultSeries(t *testing.T) {
-	// Verify defaultSeries matches what we expect (14 FRED + 13 World Bank = 27)
-	if len(defaultSeries) != 27 {
-		t.Errorf("Expected 27 series in defaultSeries, got %d", len(defaultSeries))
+	// Verify defaultSeries matches what we expect (11 FRED + 13 World Bank = 24)
+	if len(defaultSeries) != 24 {
+		t.Errorf("Expected 24 series in defaultSeries, got %d", len(defaultSeries))
 	}
 
 	// Verify all series in defaultSeries have metadata
