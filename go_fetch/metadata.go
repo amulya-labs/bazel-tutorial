@@ -10,23 +10,16 @@ package main
 // - World Bank: prefix with "WB:" (e.g., "WB:NY.GDP.MKTP.KD:USA")
 // - OECD: prefix with "OECD:" (e.g., "OECD:MEI.LRUNTTTT.USA.M")
 var defaultSeries = []string{
+	// ===========================================
+	// U.S. INDICATORS (FRED)
+	// ===========================================
+
 	// 1️⃣ Real GDP (constant prices) - Growth / cycle
 	"GDPC1", // US Real GDP (Billions of Chained 2012 Dollars), Quarterly, 1947→ [FRED]
-
-	// 🌍 Global GDP from World Bank
-	"WB:NY.GDP.MKTP.KD:WLD", // 1️⃣ World Real GDP (constant 2015 USD), Annual, 1960→
-	"WB:NY.GDP.MKTP.KD:USA", // US Real GDP from World Bank, Annual, 1960→
-	"WB:NY.GDP.MKTP.KD:CHN", // 4️⃣ China Real GDP, Annual, 1960→
-	"WB:NY.GDP.MKTP.KD:EMU", // 6️⃣ Euro Area Real GDP, Annual, 1960→
 
 	// 2️⃣ CPI (Consumer Price Index) - Inflation
 	"CPIAUCSL", // US CPI All Urban Consumers (Index 1982-84=100), Monthly, 1947→ [FRED]
 	"CPILFESL", // US Core CPI Less Food & Energy (Index 1982-84=100), Monthly, 1957→ [FRED]
-
-	// 🌍 Global Inflation from World Bank
-	"WB:FP.CPI.TOTL.ZG:WLD", // 2️⃣ Global CPI (inflation, annual %), Annual, 1960→
-	"WB:FP.CPI.TOTL.ZG:CHN", // China CPI inflation, Annual, 1960→
-	"WB:FP.CPI.TOTL.ZG:EMU", // 7️⃣ Euro Area CPI inflation (proxy for HICP), Annual, 1960→
 
 	// 3️⃣ Unemployment Rate - Labor market
 	"UNRATE", // US Unemployment Rate (Percent), Monthly, 1948→ [FRED]
@@ -36,32 +29,50 @@ var defaultSeries = []string{
 
 	// 5️⃣ 10Y – 2Y Treasury Spread - Recession signal / yield curve
 	"T10Y2Y", // 10-Year Treasury Minus 2-Year Treasury (Percent), Daily, 1976→ [FRED]
-	"DGS10",  // 10-Year Treasury Constant Maturity Rate (Percent), Daily, 1962→ [FRED]
-	"DGS2",   // 2-Year Treasury Constant Maturity Rate (Percent), Daily, 1976→ [FRED]
 
 	// 6️⃣ M2 Money Supply - Liquidity / credit conditions
-	"M2SL",                     // US M2 Money Stock (Billions of Dollars), Monthly, 1959→ [FRED]
-	"WB:FM.LBL.BMNY.CN:CHN",    // 5️⃣ China Broad Money (M2), Annual, 1960→
-	"WB:FS.AST.PRVT.GD.ZS:WLD", // 🔟 Global Credit to Private Sector (% of GDP), Annual, 1960→
+	"M2SL", // US M2 Money Stock (Billions of Dollars), Monthly, 1959→ [FRED]
 
 	// 7️⃣ Brent Crude Oil Price - Inflation driver & demand proxy
 	"POILBREUSDM", // Global Price of Brent Crude (Dollars per Barrel), Monthly, 1987→ [FRED]
 
-	// 8️⃣ Manufacturing PMI - Business confidence / early cycle
-	"MANEMP", // Manufacturing Employment (Thousands), Monthly, 1939→ [FRED]
+	// 8️⃣ Industrial Production: Manufacturing - Manufacturing activity
+	"IPMAN", // Industrial Production: Manufacturing NAICS (Index 2017=100), Monthly, 1972→ [FRED]
 
 	// 9️⃣ Consumer Sentiment Index - Household confidence
 	"UMCSENT", // University of Michigan Consumer Sentiment (Index 1966:Q1=100), Monthly, 1978→ [FRED]
 
-	// 🔟 Global Trade Volume Index - Global demand flow
-	"IMPCH",                 // Real Imports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→ [FRED]
-	"EXPCH",                 // Real Exports of Goods & Services (Billions of Chained 2012 Dollars), Quarterly, 1947→ [FRED]
-	"WB:NE.EXP.GNFS.ZS:WLD", // 3️⃣ 9️⃣ Global Exports (% of GDP), Annual, 1960→
+	// 🔟 Inflation Expectations - Market-based inflation forecast
+	"T5YIE", // 5-Year Breakeven Inflation Rate (Percent), Daily, 2003→ [FRED]
+
+	// 1️⃣1️⃣ Financial Conditions Index - Financial stress/tightness
+	"NFCI", // Chicago Fed National Financial Conditions Index, Weekly, 1971→ [FRED]
+
+	// ===========================================
+	// GLOBAL INDICATORS (World Bank)
+	// ===========================================
+
+	// 🌍 Global GDP from World Bank
+	"WB:NY.GDP.MKTP.KD:WLD", // World Real GDP (constant 2015 USD), Annual, 1960→
+	"WB:NY.GDP.MKTP.KD:USA", // US Real GDP from World Bank, Annual, 1960→
+	"WB:NY.GDP.MKTP.KD:CHN", // China Real GDP, Annual, 1960→
+	"WB:NY.GDP.MKTP.KD:EMU", // Euro Area Real GDP, Annual, 1960→
+
+	// 🌍 Global Inflation from World Bank
+	"WB:FP.CPI.TOTL.ZG:WLD", // Global CPI (inflation, annual %), Annual, 1960→
+	"WB:FP.CPI.TOTL.ZG:CHN", // China CPI inflation, Annual, 1960→
+	"WB:FP.CPI.TOTL.ZG:EMU", // Euro Area CPI inflation (proxy for HICP), Annual, 1960→
+
+	// 🌍 Global Money Supply & Credit
+	"WB:FM.LBL.BMNY.CN:CHN",    // China Broad Money (M2), Annual, 1960→
+	"WB:FS.AST.PRVT.GD.ZS:WLD", // Global Credit to Private Sector (% of GDP), Annual, 1960→
+
+	// 🌍 Global Trade Volume Index - Global demand flow
+	"WB:NE.EXP.GNFS.ZS:WLD", // Global Exports (% of GDP), Annual, 1960→
 	"WB:NE.IMP.GNFS.ZS:WLD", // Global Imports (% of GDP), Annual, 1960→
 
-	// 11️⃣ Global Energy Consumption - Industrial activity proxy
-	"WB:EG.USE.PCAP.KG.OE:WLD", // 11️⃣ Global Energy Use per capita (kg of oil equivalent), Annual, 1960→
-	"WB:EN.ATM.CO2E.KT:WLD",    // Global CO2 emissions (kt), Annual, 1960→
+	// 🌍 Global Energy Consumption - Industrial activity proxy
+	"WB:EG.USE.PCAP.KG.OE:WLD", // Global Energy Use per capita (kg of oil equivalent), Annual, 1960→
 }
 
 // IndicatorMetadata provides rich metadata about economic indicators
@@ -84,7 +95,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 		"GDPC1": {
 			Code:        "GDPC1",
 			Name:        "Real Gross Domestic Product",
-			Unit:        "Billions of Chained 2012 Dollars",
+			Unit:        "Billions of Chained 2017 Dollars",
 			Frequency:   "Quarterly",
 			Category:    "Growth",
 			Description: "Real GDP measures economic output adjusted for inflation",
@@ -243,18 +254,6 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			FREDURL:     "https://data.worldbank.org/indicator/EG.USE.PCAP.KG.OE?locations=1W",
 		},
 
-		"WB:EN.ATM.CO2E.KT:WLD": {
-			Code:        "WB:EN.ATM.CO2E.KT:WLD",
-			Name:        "Global CO2 Emissions",
-			Unit:        "kilotons",
-			Frequency:   "Annual",
-			Category:    "Commodities",
-			Description: "Global CO2 emissions, proxy for industrial activity and growth/inflation pressure",
-			StartYear:   1960,
-			ProxyFor:    "Industrial Activity / Environmental Impact",
-			FREDURL:     "https://data.worldbank.org/indicator/EN.ATM.CO2E.KT?locations=1W",
-		},
-
 		// 2️⃣ CPI - Headline
 		"CPIAUCSL": {
 			Code:        "CPIAUCSL",
@@ -320,30 +319,6 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			FREDURL:     "https://fred.stlouisfed.org/series/T10Y2Y",
 		},
 
-		"DGS10": {
-			Code:        "DGS10",
-			Name:        "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity",
-			Unit:        "Percent",
-			Frequency:   "Daily",
-			Category:    "Yield Curve",
-			Description: "10-year Treasury yield, long-term interest rate benchmark",
-			StartYear:   1962,
-			ProxyFor:    "Long-term Interest Rates",
-			FREDURL:     "https://fred.stlouisfed.org/series/DGS10",
-		},
-
-		"DGS2": {
-			Code:        "DGS2",
-			Name:        "Market Yield on U.S. Treasury Securities at 2-Year Constant Maturity",
-			Unit:        "Percent",
-			Frequency:   "Daily",
-			Category:    "Yield Curve",
-			Description: "2-year Treasury yield, short-term interest rate benchmark",
-			StartYear:   1976,
-			ProxyFor:    "Short-term Interest Rates",
-			FREDURL:     "https://fred.stlouisfed.org/series/DGS2",
-		},
-
 		// 6️⃣ M2 Money Supply
 		"M2SL": {
 			Code:        "M2SL",
@@ -370,17 +345,17 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			FREDURL:     "https://fred.stlouisfed.org/series/POILBREUSDM",
 		},
 
-		// 8️⃣ Manufacturing Activity
-		"MANEMP": {
-			Code:        "MANEMP",
-			Name:        "All Employees, Manufacturing",
-			Unit:        "Thousands of Persons",
+		// 8️⃣ Industrial Production: Manufacturing
+		"IPMAN": {
+			Code:        "IPMAN",
+			Name:        "Industrial Production: Manufacturing (NAICS)",
+			Unit:        "Index 2017=100, Seasonally Adjusted",
 			Frequency:   "Monthly",
 			Category:    "Manufacturing",
-			Description: "Total manufacturing employment, proxy for industrial activity",
-			StartYear:   1939,
-			ProxyFor:    "Business Confidence / Early Cycle Indicator",
-			FREDURL:     "https://fred.stlouisfed.org/series/MANEMP",
+			Description: "Manufacturing production index - measures real output of the manufacturing sector",
+			StartYear:   1972,
+			ProxyFor:    "Manufacturing Activity / Industrial Output",
+			FREDURL:     "https://fred.stlouisfed.org/series/IPMAN",
 		},
 
 		// 9️⃣ Consumer Sentiment
@@ -396,30 +371,30 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			FREDURL:     "https://fred.stlouisfed.org/series/UMCSENT",
 		},
 
-		// 🔟 Global Trade - Imports
-		"IMPCH": {
-			Code:        "IMPCH",
-			Name:        "Real Imports of Goods and Services",
-			Unit:        "Billions of Chained 2012 Dollars",
-			Frequency:   "Quarterly",
-			Category:    "Trade",
-			Description: "Real imports adjusted for inflation, proxy for global trade",
-			StartYear:   1947,
-			ProxyFor:    "Global Demand Flow / International Trade",
-			FREDURL:     "https://fred.stlouisfed.org/series/IMPCH",
+		// 🔟 Inflation Expectations
+		"T5YIE": {
+			Code:        "T5YIE",
+			Name:        "5-Year Breakeven Inflation Rate",
+			Unit:        "Percent",
+			Frequency:   "Daily",
+			Category:    "Inflation",
+			Description: "Market-based measure of expected inflation derived from 5-Year Treasury securities and Treasury Inflation-Protected Securities (TIPS)",
+			StartYear:   2003,
+			ProxyFor:    "Market Inflation Expectations / Forward Inflation Outlook",
+			FREDURL:     "https://fred.stlouisfed.org/series/T5YIE",
 		},
 
-		// 🔟 Global Trade - Exports
-		"EXPCH": {
-			Code:        "EXPCH",
-			Name:        "Real Exports of Goods and Services",
-			Unit:        "Billions of Chained 2012 Dollars",
-			Frequency:   "Quarterly",
-			Category:    "Trade",
-			Description: "Real exports adjusted for inflation, proxy for global trade",
-			StartYear:   1947,
-			ProxyFor:    "Global Demand Flow / International Trade",
-			FREDURL:     "https://fred.stlouisfed.org/series/EXPCH",
+		// 1️⃣1️⃣ Financial Conditions Index
+		"NFCI": {
+			Code:        "NFCI",
+			Name:        "Chicago Fed National Financial Conditions Index",
+			Unit:        "Index (0 = average conditions)",
+			Frequency:   "Weekly",
+			Category:    "Financial Conditions",
+			Description: "Index of financial stress - positive values indicate tighter than average financial conditions, negative values indicate looser conditions",
+			StartYear:   1971,
+			ProxyFor:    "Financial Market Stress / Credit Availability",
+			FREDURL:     "https://fred.stlouisfed.org/series/NFCI",
 		},
 	}
 }
@@ -427,20 +402,21 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 // GetIndicatorCategories returns a map of categories to indicator codes
 func GetIndicatorCategories() map[string][]string {
 	return map[string][]string{
-		"Growth":          {"GDPC1", "WB:NY.GDP.MKTP.KD:USA", "WB:NY.GDP.MKTP.KD:CHN", "WB:NY.GDP.MKTP.KD:EMU", "WB:NY.GDP.MKTP.KD:WLD"},
-		"Inflation":       {"CPIAUCSL", "CPILFESL", "WB:FP.CPI.TOTL.ZG:WLD", "WB:FP.CPI.TOTL.ZG:CHN", "WB:FP.CPI.TOTL.ZG:EMU"},
-		"Labor Market":    {"UNRATE"},
-		"Monetary Policy": {"FEDFUNDS"},
-		"Yield Curve":     {"T10Y2Y", "DGS10", "DGS2"},
-		"Liquidity":       {"M2SL", "WB:FM.LBL.BMNY.CN:CHN", "WB:FS.AST.PRVT.GD.ZS:WLD"},
-		"Commodities":     {"POILBREUSDM", "WB:EG.USE.PCAP.KG.OE:WLD", "WB:EN.ATM.CO2E.KT:WLD"},
-		"Manufacturing":   {"MANEMP"},
-		"Sentiment":       {"UMCSENT"},
-		"Trade":           {"IMPCH", "EXPCH", "WB:NE.EXP.GNFS.ZS:WLD", "WB:NE.IMP.GNFS.ZS:WLD"},
+		"Growth":               {"GDPC1", "WB:NY.GDP.MKTP.KD:USA", "WB:NY.GDP.MKTP.KD:CHN", "WB:NY.GDP.MKTP.KD:EMU", "WB:NY.GDP.MKTP.KD:WLD"},
+		"Inflation":            {"CPIAUCSL", "CPILFESL", "T5YIE", "WB:FP.CPI.TOTL.ZG:WLD", "WB:FP.CPI.TOTL.ZG:CHN", "WB:FP.CPI.TOTL.ZG:EMU"},
+		"Labor Market":         {"UNRATE"},
+		"Monetary Policy":      {"FEDFUNDS"},
+		"Yield Curve":          {"T10Y2Y"},
+		"Liquidity":            {"M2SL", "WB:FM.LBL.BMNY.CN:CHN", "WB:FS.AST.PRVT.GD.ZS:WLD"},
+		"Commodities":          {"POILBREUSDM", "WB:EG.USE.PCAP.KG.OE:WLD"},
+		"Manufacturing":        {"IPMAN"},
+		"Sentiment":            {"UMCSENT"},
+		"Trade":                {"WB:NE.EXP.GNFS.ZS:WLD", "WB:NE.IMP.GNFS.ZS:WLD"},
+		"Financial Conditions": {"NFCI"},
 	}
 }
 
-// GetCoreIndicators returns the primary indicators (one per category)
+// GetCoreIndicators returns the primary U.S. indicators (one per category)
 func GetCoreIndicators() []string {
 	return []string{
 		"GDPC1",       // Growth
@@ -450,8 +426,9 @@ func GetCoreIndicators() []string {
 		"T10Y2Y",      // Yield Curve
 		"M2SL",        // Liquidity
 		"POILBREUSDM", // Commodities
-		"MANEMP",      // Manufacturing
+		"IPMAN",       // Manufacturing
 		"UMCSENT",     // Sentiment
-		"IMPCH",       // Trade
+		"T5YIE",       // Inflation Expectations
+		"NFCI",        // Financial Conditions
 	}
 }

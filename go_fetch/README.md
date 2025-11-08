@@ -6,8 +6,8 @@ The `go_fetch` service fetches high-ROI global economic indicators from **multip
 
 ## Features
 
-✅ **Multi-source support** - FRED, World Bank WDI, OECD (coming soon)  
-✅ **27 series** covering 10 core economic indicators (14 FRED + 13 World Bank)  
+✅ **Multi-source support** - FRED, World Bank WDI, OECD (coming soon)
+✅ **24 series** covering 10 core economic indicators (11 FRED + 13 World Bank)
 ✅ **Global coverage** - US, China, Euro Area, and World GDP  
 ✅ **30-year baseline** coverage (≈1990 → present)  
 ✅ **SQLite storage** for fast local queries  
@@ -78,7 +78,7 @@ bazel run //go_fetch:refresh -- --export-json=./docs/app/data
 
 ### 10 Core Economic Indicators
 
-The service fetches 14 FRED series covering 10 high-ROI macro indicators:
+The service fetches 11 FRED series covering 10 high-ROI macro indicators:
 
 | # | Indicator | FRED Codes | Frequency | Coverage |
 |---|-----------|------------|-----------|----------|
@@ -86,12 +86,13 @@ The service fetches 14 FRED series covering 10 high-ROI macro indicators:
 | 2️⃣ | CPI (Inflation) | `CPIAUCSL`, `CPILFESL` | Monthly | 1947→ |
 | 3️⃣ | Unemployment Rate | `UNRATE` | Monthly | 1948→ |
 | 4️⃣ | Fed Funds Rate | `FEDFUNDS` | Monthly | 1954→ |
-| 5️⃣ | Treasury Yield Curve | `T10Y2Y`, `DGS10`, `DGS2` | Daily | 1976→ |
+| 5️⃣ | Treasury Yield Curve | `T10Y2Y` | Daily | 1976→ |
 | 6️⃣ | M2 Money Supply | `M2SL` | Monthly | 1959→ |
 | 7️⃣ | Brent Crude Oil Price | `POILBREUSDM` | Monthly | 1987→ |
-| 8️⃣ | Manufacturing Activity | `MANEMP` | Monthly | 1939→ |
+| 8️⃣ | Industrial Production | `IPMAN` | Monthly | 1972→ |
 | 9️⃣ | Consumer Sentiment | `UMCSENT` | Monthly | 1978→ |
-| 🔟 | Global Trade | `IMPCH`, `EXPCH` | Quarterly | 1947→ |
+| 🔟 | Inflation Expectations | `T5YIE` | Daily | 2003→ |
+| 1️⃣1️⃣ | Financial Conditions | `NFCI` | Weekly | 1971→ |
 
 **Full specifications:** See [indicators.md](./indicators.md)
 
