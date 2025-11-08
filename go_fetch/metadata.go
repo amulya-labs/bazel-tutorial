@@ -95,7 +95,7 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 		"GDPC1": {
 			Code:        "GDPC1",
 			Name:        "Real Gross Domestic Product",
-			Unit:        "Billions of Chained 2012 Dollars",
+			Unit:        "Billions of Chained 2017 Dollars",
 			Frequency:   "Quarterly",
 			Category:    "Growth",
 			Description: "Real GDP measures economic output adjusted for inflation",
@@ -318,7 +318,6 @@ func GetIndicatorMetadata() map[string]IndicatorMetadata {
 			ProxyFor:    "Recession Signal / Yield Curve Shape",
 			FREDURL:     "https://fred.stlouisfed.org/series/T10Y2Y",
 		},
-
 
 		// 6️⃣ M2 Money Supply
 		"M2SL": {

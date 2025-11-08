@@ -147,6 +147,8 @@ function App() {
               <button onClick={handleBackClick} className="back-button">
                 ← Back to Dashboard
               </button>
+              {/* Hardcoded to /bazel-tutorial/ (docs root) instead of BASE_URL (/bazel-tutorial/app/).
+                  This is intentional - we want to link to the documentation index, not the app base. */}
               <a href="/bazel-tutorial/" className="docs-link">
                 ← Back to Docs
               </a>
@@ -205,6 +207,8 @@ function App() {
         <div className="header-content">
           <div className="header-navigation">
             <h1>📊 Economic Indicators Dashboard</h1>
+            {/* Hardcoded to /bazel-tutorial/ (docs root) instead of BASE_URL (/bazel-tutorial/app/).
+                This is intentional - we want to link to the documentation index, not the app base. */}
             <a href="/bazel-tutorial/" className="docs-link">
               ← Back to Docs
             </a>
