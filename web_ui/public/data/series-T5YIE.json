@@ -3,10 +3,10 @@
   "name": "5-Year Breakeven Inflation Rate",
   "unit": "Percent",
   "source": "FRED",
-  "last_updated": "2025-11-07",
-  "latest_value": 2.36,
-  "delta_mom": -0.41,
-  "delta_yoy": -1.66,
+  "last_updated": "2025-11-13",
+  "latest_value": 2.37,
+  "delta_mom": 0,
+  "delta_yoy": -2.06,
   "observations": [
     {
       "date": "2003-01-02",
@@ -22879,8 +22879,20 @@
     {
       "date": "2025-11-07",
       "value": 2.36
+    },
+    {
+      "date": "2025-11-10",
+      "value": 2.38
+    },
+    {
+      "date": "2025-11-12",
+      "value": 2.37
+    },
+    {
+      "date": "2025-11-13",
+      "value": 2.37
     }
   ],
-  "count": 5718,
+  "count": 5721,
   "range": "max"
 }

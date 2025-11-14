@@ -79,10 +79,10 @@
       "source": "FRED",
       "category": "Financial Conditions",
       "proxy_for": "Financial Market Stress / Credit Availability",
-      "last_updated": "2025-10-31",
-      "value": -0.51456,
-      "delta_mom": -0.79,
-      "delta_yoy": 14.6
+      "last_updated": "2025-11-07",
+      "value": -0.53493,
+      "delta_mom": 0.44,
+      "delta_yoy": 16.81
     },
     {
       "code": "POILBREUSDM",
@@ -103,10 +103,10 @@
       "source": "FRED",
       "category": "Yield Curve",
       "proxy_for": "Recession Signal / Yield Curve Shape",
-      "last_updated": "2025-11-07",
-      "value": 0.56,
-      "delta_mom": 3.7,
-      "delta_yoy": 460
+      "last_updated": "2025-11-13",
+      "value": 0.53,
+      "delta_mom": 1.92,
+      "delta_yoy": 211.76
     },
     {
       "code": "T5YIE",
@@ -115,10 +115,10 @@
       "source": "FRED",
       "category": "Inflation",
       "proxy_for": "Market Inflation Expectations / Forward Inflation Outlook",
-      "last_updated": "2025-11-07",
-      "value": 2.36,
-      "delta_mom": -0.41,
-      "delta_yoy": -1.66
+      "last_updated": "2025-11-13",
+      "value": 2.37,
+      "delta_mom": 0,
+      "delta_yoy": -2.06
     },
     {
       "code": "UMCSENT",
@@ -290,5 +290,5 @@
     }
   ],
   "count": 24,
-  "last_refresh": "2025-11-10T12:37:51Z"
+  "last_refresh": "2025-11-14T22:04:10Z"
 }
