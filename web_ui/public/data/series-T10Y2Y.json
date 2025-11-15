@@ -3,10 +3,10 @@
   "name": "10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity",
   "unit": "Percent",
   "source": "FRED",
-  "last_updated": "2025-11-13",
-  "latest_value": 0.53,
-  "delta_mom": 1.92,
-  "delta_yoy": 211.76,
+  "last_updated": "2025-11-14",
+  "latest_value": 0.52,
+  "delta_mom": -1.88,
+  "delta_yoy": 477.78,
   "observations": [
     {
       "date": "1976-06-01",
@@ -49447,8 +49447,12 @@
     {
       "date": "2025-11-13",
       "value": 0.53
+    },
+    {
+      "date": "2025-11-14",
+      "value": 0.52
     }
   ],
-  "count": 12360,
+  "count": 12361,
   "range": "max"
 }
