@@ -103,10 +103,10 @@
       "source": "FRED",
       "category": "Yield Curve",
       "proxy_for": "Recession Signal / Yield Curve Shape",
-      "last_updated": "2025-11-14",
-      "value": 0.52,
-      "delta_mom": -1.88,
-      "delta_yoy": 477.78
+      "last_updated": "2025-11-18",
+      "value": 0.54,
+      "delta_mom": 1.89,
+      "delta_yoy": 315.38
     },
     {
       "code": "T5YIE",
@@ -115,10 +115,10 @@
       "source": "FRED",
       "category": "Inflation",
       "proxy_for": "Market Inflation Expectations / Forward Inflation Outlook",
-      "last_updated": "2025-11-14",
-      "value": 2.38,
-      "delta_mom": 0.42,
-      "delta_yoy": -0.82
+      "last_updated": "2025-11-18",
+      "value": 2.36,
+      "delta_mom": -0.41,
+      "delta_yoy": -2.06
     },
     {
       "code": "UMCSENT",
@@ -290,5 +290,5 @@
     }
   ],
   "count": 24,
-  "last_refresh": "2025-11-17T12:37:10Z"
+  "last_refresh": "2025-11-19T12:37:36Z"
 }
