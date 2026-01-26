@@ -27,7 +27,9 @@ concurrency:
 jobs:
   update-data:
     name: Fetch and Export Economic Data
-    runs-on: [self-hosted, Linux, bazel, small]
+    runs-on: [self-hosted, linux, cpu, small]
+    container:
+      image: gcr.io/bazel-public/bazel:latest
 
     steps:
       - name: Checkout code

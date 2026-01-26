@@ -24,8 +24,10 @@ concurrency:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: [self-hosted, Linux, bazel, small]
-    
+    runs-on: [self-hosted, linux, cpu, small]
+    container:
+      image: gcr.io/bazel-public/bazel:latest
+
     permissions:
       contents: read
     
