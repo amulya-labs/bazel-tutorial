@@ -46,24 +46,6 @@ jobs:
       
     - name: Run all tests
       run: bazel test //...
-      
-    - name: Verify Go service
-      run: bazel build //go_service:server
-      
-    - name: Verify Python service
-      run: bazel build //py_service:server
-    
-    - name: Verify Go fetch service
-      run: bazel build //go_fetch:refresh
-    
-    - name: Verify Python API service
-      run: bazel build //py_api:server
-    
-    - name: Run Go fetch tests
-      run: bazel test //go_fetch:fred_test
-    
-    - name: Run Python API tests
-      run: bazel test //py_api:api_test
 
   validate-docs:
     name: Validate Documentation
