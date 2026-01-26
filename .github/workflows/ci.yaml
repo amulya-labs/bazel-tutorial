@@ -24,10 +24,12 @@ concurrency:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, cpu, small]
     container:
       image: gcr.io/bazel-public/bazel:6.4.0
       options: --user root
+      volumes:
+        - /var/cache/bazel:/root/.cache/bazel
 
     permissions:
       contents: read
