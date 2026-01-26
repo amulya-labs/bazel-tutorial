@@ -28,6 +28,8 @@ jobs:
     container:
       image: gcr.io/bazel-public/bazel:6.4.0
       options: --user root
+      volumes:
+        - /var/cache/bazel:/root/.cache/bazel
 
     permissions:
       contents: read
@@ -43,8 +45,19 @@ jobs:
     - name: Build all targets
       run: bazel build //... -- -//web_ui:build
 
-    - name: Run all tests
-      run: bazel test //... -- -//web_ui:build
+    - name: Run all tests with coverage
+      run: |
+        bazel coverage --combined_report=lcov //... -- -//web_ui:build
+        # Copy coverage report to workspace for upload
+        cp bazel-out/_coverage/_coverage_report.dat coverage.lcov || true
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.lcov
+        fail_ci_if_error: false
+        verbose: true
 
   validate-docs:
     name: Validate Documentation

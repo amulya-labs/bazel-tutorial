@@ -51,9 +51,9 @@ To add a new service (e.g., Java, Rust, Node.js):
 
 Documentation lives in:
 - `README.md` - Main overview
-- `docs/QUICKSTART.md` - Getting started guide
-- `docs/CONCEPTS.md` - Deep dive into concepts
-- `docs/DEPENDENCIES.md` - Managing dependencies
+- `docs/quickstart.md` - Getting started guide
+- `docs/concepts.md` - Deep dive into concepts
+- `docs/dependencies.md` - Managing dependencies
 
 Guidelines:
 - Keep explanations beginner-friendly
