@@ -1,5 +1,9 @@
 # 🧱 Bazel Multi-Language Tutorial (with Economic Dashboard)
 
+[![CI](https://github.com/rrl-personal-projects/bazel-tutorial/actions/workflows/ci.yaml/badge.svg)](https://github.com/rrl-personal-projects/bazel-tutorial/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/gh/rrl-personal-projects/bazel-tutorial/branch/main/graph/badge.svg)](https://codecov.io/gh/rrl-personal-projects/bazel-tutorial)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A comprehensive, hands-on guide to building polyglot applications with Bazel — Google's fast, reproducible, and scalable build system.
 
 **📚 [Full Documentation →](https://rrl-personal-projects.github.io/bazel-tutorial/)**

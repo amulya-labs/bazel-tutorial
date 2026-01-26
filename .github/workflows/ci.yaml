@@ -24,7 +24,7 @@ concurrency:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: [self-hosted, linux, cpu, small]
+    runs-on: ubuntu-latest
     container:
       image: gcr.io/bazel-public/bazel:6.4.0
       options: --user root
@@ -43,8 +43,19 @@ jobs:
     - name: Build all targets
       run: bazel build //... -- -//web_ui:build
 
-    - name: Run all tests
-      run: bazel test //... -- -//web_ui:build
+    - name: Run all tests with coverage
+      run: |
+        bazel coverage //... -- -//web_ui:build --combined_report=lcov
+        # Copy coverage report to workspace for upload
+        cp bazel-out/_coverage/_coverage_report.dat coverage.lcov || true
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.lcov
+        fail_ci_if_error: false
+        verbose: true
 
   validate-docs:
     name: Validate Documentation
