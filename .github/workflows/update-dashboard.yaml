@@ -30,6 +30,7 @@ jobs:
     runs-on: [self-hosted, linux, cpu, small]
     container:
       image: gcr.io/bazel-public/bazel:latest
+      options: --user root
 
     steps:
       - name: Checkout code
