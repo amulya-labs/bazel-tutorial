@@ -26,7 +26,7 @@ jobs:
     name: Build and Test
     runs-on: [self-hosted, linux, cpu, small]
     container:
-      image: gcr.io/bazel-public/bazel:latest
+      image: gcr.io/bazel-public/bazel:6.4.0
       options: --user root
 
     permissions:
