@@ -24,43 +24,27 @@ concurrency:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: [self-hosted, Linux, bazel, small]
-    
+    runs-on: [self-hosted, linux, cpu, small]
+    container:
+      image: gcr.io/bazel-public/bazel:6.4.0
+      options: --user root
+
     permissions:
       contents: read
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
-    - name: Verify Bazel Versions
-      run: |
-        bazelisk --version
-        bazel --version
-    
+
+    - name: Verify Bazel version
+      run: bazel --version
+
+    # Exclude web_ui:build as it requires npm which isn't in the bazel container
     - name: Build all targets
-      run: bazel build //...
-      
+      run: bazel build //... -- -//web_ui:build
+
     - name: Run all tests
-      run: bazel test //...
-      
-    - name: Verify Go service
-      run: bazel build //go_service:server
-      
-    - name: Verify Python service
-      run: bazel build //py_service:server
-    
-    - name: Verify Go fetch service
-      run: bazel build //go_fetch:refresh
-    
-    - name: Verify Python API service
-      run: bazel build //py_api:server
-    
-    - name: Run Go fetch tests
-      run: bazel test //go_fetch:fred_test
-    
-    - name: Run Python API tests
-      run: bazel test //py_api:api_test
+      run: bazel test //... -- -//web_ui:build
 
   validate-docs:
     name: Validate Documentation
