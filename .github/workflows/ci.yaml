@@ -45,7 +45,7 @@ jobs:
 
     - name: Run all tests with coverage
       run: |
-        bazel coverage //... -- -//web_ui:build --combined_report=lcov
+        bazel coverage --combined_report=lcov //... -- -//web_ui:build
         # Copy coverage report to workspace for upload
         cp bazel-out/_coverage/_coverage_report.dat coverage.lcov || true
 
