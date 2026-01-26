@@ -39,9 +39,7 @@ jobs:
           token: ${{ secrets.WORKFLOW_PAT }}
 
       - name: Verify Bazel installation
-        run: |
-          bazelisk --version
-          bazel --version
+        run: bazel --version
 
       - name: Fetch economic data from FRED
         env:
