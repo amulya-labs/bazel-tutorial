@@ -27,7 +27,10 @@ concurrency:
 jobs:
   update-data:
     name: Fetch and Export Economic Data
-    runs-on: [self-hosted, Linux, bazel, small]
+    runs-on: [self-hosted, linux, cpu, small]
+    container:
+      image: gcr.io/bazel-public/bazel:6.4.0
+      options: --user root
 
     steps:
       - name: Checkout code
@@ -36,9 +39,7 @@ jobs:
           token: ${{ secrets.WORKFLOW_PAT }}
 
       - name: Verify Bazel installation
-        run: |
-          bazelisk --version
-          bazel --version
+        run: bazel --version
 
       - name: Fetch economic data from FRED
         env:
@@ -62,6 +63,7 @@ jobs:
 
       - name: Commit and push updated data
         run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
