@@ -22,8 +22,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
-    name: Build and Test
+  # Internal CI: runs on self-hosted runners for push events and non-fork PRs
+  build-and-test-internal:
+    name: Build and Test (Internal)
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, linux, cpu, small]
     container:
       image: gcr.io/bazel-public/bazel:6.4.0
@@ -58,6 +60,32 @@ jobs:
         files: ./coverage.lcov
         fail_ci_if_error: false
         verbose: true
+
+  # External CI: runs on GitHub-hosted runners for fork PRs
+  build-and-test-external:
+    name: Build and Test (External)
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    container:
+      image: gcr.io/bazel-public/bazel:6.4.0
+      options: --user root
+
+    permissions:
+      contents: read
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Verify Bazel version
+      run: bazel --version
+
+    # Exclude web_ui:build as it requires npm which isn't in the bazel container
+    - name: Build all targets
+      run: bazel build //... -- -//web_ui:build
+
+    - name: Run all tests
+      run: bazel test //... -- -//web_ui:build
 
   validate-docs:
     name: Validate Documentation
