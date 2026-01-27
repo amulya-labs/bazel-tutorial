@@ -24,7 +24,7 @@ concurrency:
 jobs:
   # Internal CI: runs on self-hosted runners for push events and non-fork PRs
   build-and-test-internal:
-    name: Build and Test (Internal)
+    name: Build and Test
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, linux, cpu, small]
     container:
@@ -63,7 +63,7 @@ jobs:
 
   # External CI: runs on GitHub-hosted runners for fork PRs
   build-and-test-external:
-    name: Build and Test (External)
+    name: Build and Test
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     container:
