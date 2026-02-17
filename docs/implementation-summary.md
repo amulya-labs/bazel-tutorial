@@ -231,7 +231,7 @@ cd go_fetch && go test -v
 ✅ Metadata and categories are consistent
 
 PASS
-ok  	github.com/rrl-personal-projects/bazel-tutorial/go_fetch	0.003s
+ok  	github.com/amulya-labs/bazel-tutorial/go_fetch	0.003s
 ```
 
 ### Build Verification

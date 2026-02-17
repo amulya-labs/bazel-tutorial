@@ -27,12 +27,10 @@ concurrency:
 jobs:
   update-data:
     name: Fetch and Export Economic Data
-    runs-on: [self-hosted, linux, cpu, small]
+    runs-on: ubuntu-latest
     container:
       image: gcr.io/bazel-public/bazel:6.4.0
       options: --user root
-      volumes:
-        - /var/cache/bazel:/root/.cache/bazel
 
     steps:
       - name: Checkout code
@@ -91,4 +89,4 @@ jobs:
           echo "The documentation workflow will automatically rebuild and deploy"
           echo "the dashboard with the new data on the next push to main."
           echo ""
-          echo "Dashboard URL: https://rrl-personal-projects.github.io/bazel-tutorial/app/"
+          echo "Dashboard URL: https://amulya-labs.github.io/bazel-tutorial/app/"

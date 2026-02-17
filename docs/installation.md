@@ -109,7 +109,7 @@ echo 'export FRED_API_KEY=your_actual_api_key_here' >> ~/.bashrc  # or ~/.zshrc
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/rrl-personal-projects/bazel-tutorial.git
+git clone https://github.com/amulya-labs/bazel-tutorial.git
 cd bazel-tutorial
 ```
 
@@ -202,4 +202,4 @@ For team collaboration, consider setting up remote caching:
 
 ---
 
-Need help? [Open an issue](https://github.com/rrl-personal-projects/bazel-tutorial/issues)
+Need help? [Open an issue](https://github.com/amulya-labs/bazel-tutorial/issues)

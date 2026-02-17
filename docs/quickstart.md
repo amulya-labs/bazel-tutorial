@@ -47,7 +47,7 @@ bazel --version
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/rrl-personal-projects/bazel-tutorial.git
+git clone https://github.com/amulya-labs/bazel-tutorial.git
 cd bazel-tutorial
 ```
 

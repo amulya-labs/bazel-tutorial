@@ -1,4 +1,4 @@
-module github.com/rrl-personal-projects/bazel-tutorial/go_fetch
+module github.com/amulya-labs/bazel-tutorial/go_fetch
 
 go 1.23
 

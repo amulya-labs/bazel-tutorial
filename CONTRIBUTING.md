@@ -4,7 +4,7 @@ Thank you for your interest in improving this Bazel tutorial! 🎉
 
 ## Ways to Contribute
 
-- **Report Issues**: Found a bug or unclear documentation? [Open an issue](https://github.com/rrl-personal-projects/bazel-tutorial/issues)
+- **Report Issues**: Found a bug or unclear documentation? [Open an issue](https://github.com/amulya-labs/bazel-tutorial/issues)
 - **Improve Documentation**: Fix typos, add examples, or clarify concepts
 - **Add Examples**: Create examples for additional languages or use cases
 - **Enhance Tests**: Add more comprehensive tests

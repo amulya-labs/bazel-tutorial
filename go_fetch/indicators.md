@@ -359,7 +359,7 @@ ORDER BY date;
 
 - **FRED API Documentation:** https://fred.stlouisfed.org/docs/api/
 - **FRED Series Search:** https://fred.stlouisfed.org/
-- **Bazel Tutorial Repo:** https://github.com/rrl-personal-projects/bazel-tutorial
+- **Bazel Tutorial Repo:** https://github.com/amulya-labs/bazel-tutorial
 - **Economic Dashboard Documentation:** /docs/economic-dashboard.md
 
 ---

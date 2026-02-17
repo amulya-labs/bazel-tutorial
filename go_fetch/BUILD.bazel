@@ -2,7 +2,7 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@gazelle//:def.bzl", "gazelle")
 
-# gazelle:prefix github.com/rrl-personal-projects/bazel-tutorial/go_fetch
+# gazelle:prefix github.com/amulya-labs/bazel-tutorial/go_fetch
 gazelle(name = "gazelle")
 
 # go_library defines a reusable Go library with the core logic
@@ -17,7 +17,7 @@ go_library(
         "sources.go",
         "store_sqlite.go",
     ],
-    importpath = "github.com/rrl-personal-projects/bazel-tutorial/go_fetch",
+    importpath = "github.com/amulya-labs/bazel-tutorial/go_fetch",
     visibility = ["//visibility:private"],
     deps = [
         "@com_github_mattn_go_sqlite3//:go-sqlite3",

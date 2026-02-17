@@ -22,25 +22,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Internal CI: runs on self-hosted runners for push events and non-fork PRs
-  # Uses persistent Bazel cache for faster builds and uploads coverage to Codecov
-  build-and-test-internal:
+  build-and-test:
     name: Build and Test
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
-    runs-on: [self-hosted, linux, cpu, small]
+    runs-on: ubuntu-latest
     container:
       image: gcr.io/bazel-public/bazel:6.4.0
       options: --user root
-      volumes:
-        - /var/cache/bazel:/root/.cache/bazel
 
     permissions:
       contents: read
 
     steps:
-    - name: Runner info
-      run: echo "Running on self-hosted runner with persistent Bazel cache"
-
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -53,7 +45,11 @@ jobs:
 
     - name: Run all tests with coverage
       run: |
-        bazel coverage --combined_report=lcov //... -- -//web_ui:build
+        # Use local strategy for Java to avoid cgroup worker issues in containers
+        bazel coverage --combined_report=lcov \
+          --strategy=Javac=local \
+          --strategy=JavaIjar=local \
+          //... -- -//web_ui:build
         # Copy coverage report to workspace for upload
         cp bazel-out/_coverage/_coverage_report.dat coverage.lcov || true
 
@@ -64,36 +60,6 @@ jobs:
         files: ./coverage.lcov
         fail_ci_if_error: false
         verbose: true
-
-  # External CI: runs on GitHub-hosted runners for fork PRs
-  # No persistent cache or Codecov upload (secrets not available to forks)
-  build-and-test-external:
-    name: Build and Test
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
-    runs-on: ubuntu-latest
-    container:
-      image: gcr.io/bazel-public/bazel:6.4.0
-      options: --user root
-
-    permissions:
-      contents: read
-
-    steps:
-    - name: Runner info
-      run: echo "Running on GitHub-hosted runner (fork PR - no cache or coverage upload)"
-
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Verify Bazel version
-      run: bazel --version
-
-    # Exclude web_ui:build as it requires npm which isn't in the bazel container
-    - name: Build all targets
-      run: bazel build //... -- -//web_ui:build
-
-    - name: Run all tests
-      run: bazel test //... -- -//web_ui:build
 
   validate-docs:
     name: Validate Documentation

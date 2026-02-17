@@ -1,7 +1,7 @@
 site_name: Bazel Multi-Language Tutorial
 site_description: A hands-on guide to building polyglot applications with Bazel
-site_author: rrl-personal-projects
-site_url: https://rrl-personal-projects.github.io/bazel-tutorial/
+site_author: amulya-labs
+site_url: https://amulya-labs.github.io/bazel-tutorial/
 
 # Enable directory URLs (e.g., /quickstart/ instead of /quickstart.html)
 use_directory_urls: true
@@ -9,8 +9,8 @@ use_directory_urls: true
 # Note: The React app in docs/app/ will be copied as-is to site/app/
 # MkDocs automatically copies non-markdown files
 
-repo_name: rrl-personal-projects/bazel-tutorial
-repo_url: https://github.com/rrl-personal-projects/bazel-tutorial
+repo_name: amulya-labs/bazel-tutorial
+repo_url: https://github.com/amulya-labs/bazel-tutorial
 
 theme:
   name: material
@@ -83,7 +83,7 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/rrl-personal-projects/bazel-tutorial
+      link: https://github.com/amulya-labs/bazel-tutorial
 
   # Announcement banner for running the dashboard
   # Note: Material for MkDocs supports announcement bars in the paid version
