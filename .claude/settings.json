@@ -1,366 +1,49 @@
 {
-  "allowedCommands": [
-    {
-      "command": "npm",
-      "args": ["*"],
-      "description": "Any npm command (install, run scripts, tests, build, dev, etc.)"
-    },
-    {
-      "command": "git",
-      "args": ["*"],
-      "description": "Any git command (status, diff, commit, push, etc.)"
-    },
-    {
-      "command": "gh",
-      "args": ["*"],
-      "description": "GitHub CLI (PRs, issues, workflow, etc.)"
-    },
-    {
-      "command": "node",
-      "args": ["*"],
-      "description": "Run node scripts / tooling"
-    },
-    {
-      "command": "ls",
-      "args": ["*"],
-      "description": "List directory contents"
-    },
-    {
-      "command": "cat",
-      "args": ["*"],
-      "description": "Display file contents"
-    },
-    {
-      "command": "wc",
-      "args": ["*"],
-      "description": "Count lines/words/chars"
-    },
-    {
-      "command": "grep",
-      "args": ["*"],
-      "description": "Search in files"
-    },
-    {
-      "command": "find",
-      "args": ["*"],
-      "description": "Find files"
-    },
-    {
-      "command": "pwd",
-      "args": [],
-      "description": "Print working directory"
-    },
-    {
-      "command": "mkdir",
-      "args": ["*"],
-      "description": "Create directories"
-    },
-    {
-      "command": "cp",
-      "args": ["*"],
-      "description": "Copy files"
-    },
-    {
-      "command": "mv",
-      "args": ["*"],
-      "description": "Move/rename files"
-    },
-    {
-      "command": "chmod",
-      "args": ["*"],
-      "description": "Change file permissions"
-    },
-    {
-      "command": "echo",
-      "args": ["*"],
-      "description": "Echo / write text"
-    },
-    {
-      "command": "head",
-      "args": ["*"],
-      "description": "Show first lines of file"
-    },
-    {
-      "command": "tail",
-      "args": ["*"],
-      "description": "Show last lines of file"
-    },
-    {
-      "command": "docker",
-      "args": ["compose", "*"],
-      "description": "Local docker compose (build/up/down/logs)"
-    },
-    {
-      "command": "docker",
-      "args": ["ps", "*"],
-      "description": "View docker containers"
-    },
-    {
-      "command": "docker",
-      "args": ["logs", "*"],
-      "description": "View docker logs"
-    },
-    {
-      "command": "kubectl",
-      "args": ["get", "*"],
-      "description": "Read-only k8s queries"
-    },
-    {
-      "command": "kubectl",
-      "args": ["describe", "*"],
-      "description": "Read-only k8s describe"
-    },
-    {
-      "command": "kubectl",
-      "args": ["logs", "*"],
-      "description": "Read pod logs"
-    },
-    {
-      "command": "python",
-      "args": ["*"],
-      "description": "Run Python scripts and commands"
-    },
-    {
-      "command": "python3",
-      "args": ["*"],
-      "description": "Run Python 3 scripts and commands"
-    },
-    {
-      "command": "pytest",
-      "args": ["*"],
-      "description": "Run pytest tests"
-    },
-    {
-      "command": "pip",
-      "args": ["list", "*"],
-      "description": "List installed packages"
-    },
-    {
-      "command": "pip",
-      "args": ["show", "*"],
-      "description": "Show package information"
-    },
-    {
-      "command": "udl",
-      "args": ["*"],
-      "description": "Unified Data Layer CLI (data ingestion, features)"
-    },
-    {
-      "command": "fsb",
-      "args": ["*"],
-      "description": "Feature Store Builder CLI"
-    },
-    {
-      "command": "fe",
-      "args": ["*"],
-      "description": "Feature Engineering CLI"
-    },
-    {
-      "command": "mt",
-      "args": ["*"],
-      "description": "Model Training CLI (TFT, LightGBM)"
-    },
-    {
-      "command": "backtest",
-      "args": ["*"],
-      "description": "Backtesting CLI"
-    },
-    {
-      "command": "ruff",
-      "args": ["check", "*"],
-      "description": "Ruff linter (check only)"
-    },
-    {
-      "command": "mypy",
-      "args": ["*"],
-      "description": "MyPy type checker"
-    },
-    {
-      "command": "black",
-      "args": ["--check", "*"],
-      "description": "Black formatter (check only)"
-    },
-    {
-      "command": "isort",
-      "args": ["--check", "*"],
-      "description": "isort import sorter (check only)"
-    },
-    {
-      "command": "which",
-      "args": ["*"],
-      "description": "Locate commands"
-    },
-    {
-      "command": "type",
-      "args": ["*"],
-      "description": "Show command type"
-    },
-    {
-      "command": "tree",
-      "args": ["*"],
-      "description": "Display directory tree"
-    },
-    {
-      "command": "cloc",
-      "args": ["*"],
-      "description": "Count lines of code"
-    },
-    {
-      "command": "rmdir",
-      "args": ["*"],
-      "description": "Remove empty directories"
-    }
-  ],
-
-  "autoApprove": {
-    "enabled": true,
-    "patterns": [
-      "npm install*",
-      "npm ci*",
-      "npm run *",
-      "npm test*",
-      "node *",
-      "git status*",
-      "git diff*",
-      "git log*",
-      "git branch*",
-      "git checkout*",
-      "git add*",
-      "git commit*",
-      "git push*",
-      "git pull*",
-      "git fetch*",
-      "git stash*",
-      "git merge*",
-      "git rebase*",
-      "gh pr create*",
-      "gh pr view*",
-      "gh pr list*",
-      "gh pr status*",
-      "gh pr checks*",
-      "gh issue*",
-      "gh repo view*",
-      "gh workflow*",
-      "gh run*",
-      "docker compose up*",
-      "docker compose down*",
-      "docker compose build*",
-      "docker compose logs*",
-      "docker ps*",
-      "docker logs*",
-      "kubectl get*",
-      "kubectl describe*",
-      "kubectl logs*",
-      "ls*",
-      "cat*",
-      "wc*",
-      "grep*",
-      "find*",
-      "pwd",
-      "mkdir*",
-      "cp*",
-      "mv*",
-      "chmod*",
-      "echo*",
-      "head*",
-      "tail*",
-      "python -c*",
-      "python -m py_compile*",
-      "python -m pytest*",
-      "python3 -c*",
-      "python3 -m py_compile*",
-      "python3 -m pytest*",
-      "pytest*",
-      "udl --help*",
-      "udl doctor*",
-      "udl sync-universe*",
-      "udl ingest-prices*",
-      "udl ingest-macro*",
-      "udl features*",
-      "fsb --help*",
-      "fsb build*",
-      "fe --help*",
-      "fe make*",
-      "mt --help*",
-      "mt train*",
-      "mt predict*",
-      "mt register-model*",
-      "mt promote-model*",
-      "mt list-models*",
-      "mt get-model-info*",
-      "backtest --help*",
-      "backtest run-backtest*",
-      "pip list*",
-      "pip show*",
-      "poetry show*",
-      "poetry env info*",
-      "which*",
-      "type*",
-      "cloc*",
-      "tree*",
-      "rmdir*",
-      "ruff check*",
-      "mypy*",
-      "black --check*",
-      "isort --check*"
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/validate-bash.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/post-bash.sh",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   },
-
-  "restrictedCommands": [
-    {
-      "command": "rm",
-      "args": ["-rf", "/"],
-      "description": "ABSOLUTE NOPE: wipe root filesystem"
-    },
-    {
-      "command": "rm",
-      "args": ["-rf", "/*"],
-      "description": "ABSOLUTE NOPE: wipe root contents"
-    },
-    {
-      "command": "rm",
-      "args": ["-rf", "."],
-      "description": "Repo nuke: recursive delete current dir"
-    },
-    {
-      "command": "rm",
-      "args": ["-rf", "*"],
-      "description": "Recursive deletes need confirmation"
-    },
-    {
-      "command": "git",
-      "args": ["push", "--force", "*main*"],
-      "description": "Force push to main branch"
-    },
-    {
-      "command": "git",
-      "args": ["push", "--force", "*master*"],
-      "description": "Force push to master branch"
-    },
-    {
-      "command": "git",
-      "args": ["reset", "--hard", "*"],
-      "description": "Hard reset (destructive history rewrite)"
-    },
-    {
-      "command": "gh",
-      "args": ["pr", "merge", "*"],
-      "description": "Merging PRs without review requires confirmation"
-    },
-    {
-      "command": "kubectl",
-      "args": ["delete", "*"],
-      "description": "Deleting cluster resources"
-    },
-    {
-      "command": "docker",
-      "args": ["system", "prune", "-a", "*"],
-      "description": "Deletes images/volumes aggressively"
-    },
-    {
-      "command": "docker",
-      "args": ["rmi", "-f", "*"],
-      "description": "Force-removing images"
-    }
-  ]
+  "permissions": {
+    "allow": [
+      "Read(/tmp/*)",
+      "Write(/tmp/*)",
+      "Edit(/tmp/*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:crates.io)",
+      "WebFetch(domain:lib.rs)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:pypi.org)",
+      "WebFetch(domain:npmjs.com)",
+      "WebFetch(domain:pkg.go.dev)",
+      "WebFetch(domain:rubygems.org)",
+      "WebFetch(domain:mvnrepository.com)",
+      "WebFetch(domain:hub.docker.com)"
+    ],
+    "deny": []
+  }
 }
