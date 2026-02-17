@@ -27,12 +27,10 @@ concurrency:
 jobs:
   update-data:
     name: Fetch and Export Economic Data
-    runs-on: [self-hosted, linux, cpu, small]
+    runs-on: ubuntu-latest
     container:
       image: gcr.io/bazel-public/bazel:6.4.0
       options: --user root
-      volumes:
-        - /var/cache/bazel:/root/.cache/bazel
 
     steps:
       - name: Checkout code
