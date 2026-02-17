@@ -45,7 +45,11 @@ jobs:
 
     - name: Run all tests with coverage
       run: |
-        bazel coverage --combined_report=lcov //... -- -//web_ui:build
+        # Use local strategy for Java to avoid cgroup worker issues in containers
+        bazel coverage --combined_report=lcov \
+          --strategy=Javac=local \
+          --strategy=JavaIjar=local \
+          //... -- -//web_ui:build
         # Copy coverage report to workspace for upload
         cp bazel-out/_coverage/_coverage_report.dat coverage.lcov || true
 
