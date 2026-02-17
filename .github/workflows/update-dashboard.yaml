@@ -91,4 +91,4 @@ jobs:
           echo "The documentation workflow will automatically rebuild and deploy"
           echo "the dashboard with the new data on the next push to main."
           echo ""
-          echo "Dashboard URL: https://rrl-personal-projects.github.io/bazel-tutorial/app/"
+          echo "Dashboard URL: https://amulya-labs.github.io/bazel-tutorial/app/"

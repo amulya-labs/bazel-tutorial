@@ -38,7 +38,7 @@ brew install bazel  # macOS
 # or download from https://bazel.build/install
 
 # Clone the repository
-git clone https://github.com/rrl-personal-projects/bazel-tutorial.git
+git clone https://github.com/amulya-labs/bazel-tutorial.git
 cd bazel-tutorial
 
 # Build everything
@@ -326,4 +326,4 @@ MIT License - See LICENSE file for details
 
 **Happy Building! 🚀**
 
-For questions or issues, please open a [GitHub issue](https://github.com/rrl-personal-projects/bazel-tutorial/issues).
+For questions or issues, please open a [GitHub issue](https://github.com/amulya-labs/bazel-tutorial/issues).

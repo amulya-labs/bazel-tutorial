@@ -1,12 +1,12 @@
 # 🧱 Bazel Multi-Language Tutorial (with Economic Dashboard)
 
-[![CI](https://github.com/rrl-personal-projects/bazel-tutorial/actions/workflows/ci.yaml/badge.svg)](https://github.com/rrl-personal-projects/bazel-tutorial/actions/workflows/ci.yaml)
-[![codecov](https://codecov.io/gh/rrl-personal-projects/bazel-tutorial/branch/main/graph/badge.svg)](https://codecov.io/gh/rrl-personal-projects/bazel-tutorial)
+[![CI](https://github.com/amulya-labs/bazel-tutorial/actions/workflows/ci.yaml/badge.svg)](https://github.com/amulya-labs/bazel-tutorial/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/gh/amulya-labs/bazel-tutorial/branch/main/graph/badge.svg)](https://codecov.io/gh/amulya-labs/bazel-tutorial)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A comprehensive, hands-on guide to building polyglot applications with Bazel — Google's fast, reproducible, and scalable build system.
 
-**📚 [Full Documentation →](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+**📚 [Full Documentation →](https://amulya-labs.github.io/bazel-tutorial/)**
 
 ---
 
@@ -14,7 +14,7 @@ A comprehensive, hands-on guide to building polyglot applications with Bazel —
 
 Experience the Economic Indicators Dashboard deployed on GitHub Pages:
 
-**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/app/)**
+**[🚀 View Live Dashboard →](https://amulya-labs.github.io/bazel-tutorial/app/)**
 
 - **Real economic data** from the Federal Reserve (FRED API)
 - **Auto-updates daily** via GitHub Actions
@@ -48,7 +48,7 @@ brew install bazel  # macOS
 # or download from https://bazel.build/install
 
 # Clone the repository
-git clone https://github.com/rrl-personal-projects/bazel-tutorial.git
+git clone https://github.com/amulya-labs/bazel-tutorial.git
 cd bazel-tutorial
 
 # Build everything
@@ -58,7 +58,7 @@ bazel build //...
 bazel test //...
 ```
 
-**[Full Quick Start Guide →](https://rrl-personal-projects.github.io/bazel-tutorial/quickstart/)**
+**[Full Quick Start Guide →](https://amulya-labs.github.io/bazel-tutorial/quickstart/)**
 
 ## 📚 What's Inside
 
@@ -71,7 +71,7 @@ Simple services to learn Bazel fundamentals:
 | `py_service` | Python (FastAPI) | "Hello from Python" web service | `bazel run //py_service:server` |
 | `go_service` | Go | "Hello from Go" web service | `bazel run //go_service:server` |
 
-**[Learn More →](https://rrl-personal-projects.github.io/bazel-tutorial/basic-tutorial/)**
+**[Learn More →](https://amulya-labs.github.io/bazel-tutorial/basic-tutorial/)**
 
 ### 2️⃣ Economic Indicators Dashboard
 
@@ -113,7 +113,7 @@ cd web_ui && npm install && npm run dev
 
 Open http://localhost:3000 in your browser! 🎉
 
-**[Full Dashboard Documentation →](https://rrl-personal-projects.github.io/bazel-tutorial/economic-dashboard/)**
+**[Full Dashboard Documentation →](https://amulya-labs.github.io/bazel-tutorial/economic-dashboard/)**
 
 ## 🏗️ Repository Structure
 
@@ -174,7 +174,7 @@ go_binary(
 )
 ```
 
-**[Learn more about Bazel concepts →](https://rrl-personal-projects.github.io/bazel-tutorial/concepts/)**
+**[Learn more about Bazel concepts →](https://amulya-labs.github.io/bazel-tutorial/concepts/)**
 
 ## 🔄 Incremental Builds
 
@@ -209,21 +209,21 @@ bazel test //py_api:api_test
 bazel test //... --test_output=all
 ```
 
-**[Complete testing guide →](https://rrl-personal-projects.github.io/bazel-tutorial/testing/)**
+**[Complete testing guide →](https://amulya-labs.github.io/bazel-tutorial/testing/)**
 
 ## 📖 Documentation
 
-Comprehensive guides available at **[https://rrl-personal-projects.github.io/bazel-tutorial/](https://rrl-personal-projects.github.io/bazel-tutorial/)**
+Comprehensive guides available at **[https://amulya-labs.github.io/bazel-tutorial/](https://amulya-labs.github.io/bazel-tutorial/)**
 
-- **[Quick Start Guide](https://rrl-personal-projects.github.io/bazel-tutorial/quickstart/)** - Get up and running quickly
-- **[Installation Guide](https://rrl-personal-projects.github.io/bazel-tutorial/installation/)** - Install all prerequisites
-- **[Basic Tutorial](https://rrl-personal-projects.github.io/bazel-tutorial/basic-tutorial/)** - Learn with simple services
-- **[Economic Dashboard](https://rrl-personal-projects.github.io/bazel-tutorial/economic-dashboard/)** - Full-stack application
-- **[Bazel Concepts](https://rrl-personal-projects.github.io/bazel-tutorial/concepts/)** - Deep dive into fundamentals
-- **[Dependencies](https://rrl-personal-projects.github.io/bazel-tutorial/dependencies/)** - Managing dependencies
-- **[Query Guide](https://rrl-personal-projects.github.io/bazel-tutorial/query/)** - Explore the build graph
-- **[Testing Guide](https://rrl-personal-projects.github.io/bazel-tutorial/testing/)** - Testing strategies
-- **[Contributing](https://rrl-personal-projects.github.io/bazel-tutorial/contributing/)** - Development guidelines
+- **[Quick Start Guide](https://amulya-labs.github.io/bazel-tutorial/quickstart/)** - Get up and running quickly
+- **[Installation Guide](https://amulya-labs.github.io/bazel-tutorial/installation/)** - Install all prerequisites
+- **[Basic Tutorial](https://amulya-labs.github.io/bazel-tutorial/basic-tutorial/)** - Learn with simple services
+- **[Economic Dashboard](https://amulya-labs.github.io/bazel-tutorial/economic-dashboard/)** - Full-stack application
+- **[Bazel Concepts](https://amulya-labs.github.io/bazel-tutorial/concepts/)** - Deep dive into fundamentals
+- **[Dependencies](https://amulya-labs.github.io/bazel-tutorial/dependencies/)** - Managing dependencies
+- **[Query Guide](https://amulya-labs.github.io/bazel-tutorial/query/)** - Explore the build graph
+- **[Testing Guide](https://amulya-labs.github.io/bazel-tutorial/testing/)** - Testing strategies
+- **[Contributing](https://amulya-labs.github.io/bazel-tutorial/contributing/)** - Development guidelines
 
 ## 🧠 Why Bazel for Polyglot Repos?
 
@@ -251,7 +251,7 @@ Comprehensive guides available at **[https://rrl-personal-projects.github.io/baz
 - Run: `bazel run //go_fetch:refresh`
 - Set: `export FRED_API_KEY=your_key`
 
-**See more:** [Full Troubleshooting Guide](https://rrl-personal-projects.github.io/bazel-tutorial/installation/#common-installation-issues)
+**See more:** [Full Troubleshooting Guide](https://amulya-labs.github.io/bazel-tutorial/installation/#common-installation-issues)
 
 ### Validation Script
 
@@ -263,7 +263,7 @@ Verify your setup is working:
 
 ## 🤝 Contributing
 
-Contributions are welcome! See **[Contributing Guide](https://rrl-personal-projects.github.io/bazel-tutorial/contributing/)** for guidelines on:
+Contributions are welcome! See **[Contributing Guide](https://amulya-labs.github.io/bazel-tutorial/contributing/)** for guidelines on:
 - Adding new services
 - Improving documentation
 - Adding tests
@@ -285,4 +285,4 @@ MIT License - See LICENSE file for details
 
 **Happy Building! 🚀**
 
-For questions or issues, open a [GitHub issue](https://github.com/rrl-personal-projects/bazel-tutorial/issues).
+For questions or issues, open a [GitHub issue](https://github.com/amulya-labs/bazel-tutorial/issues).

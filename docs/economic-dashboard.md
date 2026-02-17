@@ -33,29 +33,29 @@ This is a **teaching repository** that shows:
 
 ### Components
 
-1. **[`go_fetch/`](https://github.com/rrl-personal-projects/bazel-tutorial/tree/main/go_fetch)** - Go service that fetches economic indicators from FRED API
+1. **[`go_fetch/`](https://github.com/amulya-labs/bazel-tutorial/tree/main/go_fetch)** - Go service that fetches economic indicators from FRED API
    - Fetches **14 FRED series** covering **10 high-ROI macro indicators** with 30-year baseline
-   - Stores data in SQLite database ([`store_sqlite.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/store_sqlite.go))
-   - FRED API client ([`fred.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/fred.go))
-   - Rich metadata and categorization ([`metadata.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/metadata.go))
-   - Comprehensive data dictionary ([`indicators.md`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/indicators.md))
-   - Includes mock HTTP tests ([`fred_test.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/fred_test.go))
-   - Bazel build config: [`BUILD.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/BUILD.bazel)
+   - Stores data in SQLite database ([`store_sqlite.go`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/store_sqlite.go))
+   - FRED API client ([`fred.go`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/fred.go))
+   - Rich metadata and categorization ([`metadata.go`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/metadata.go))
+   - Comprehensive data dictionary ([`indicators.md`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/indicators.md))
+   - Includes mock HTTP tests ([`fred_test.go`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/fred_test.go))
+   - Bazel build config: [`BUILD.bazel`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/BUILD.bazel)
 
-2. **[`py_api/`](https://github.com/rrl-personal-projects/bazel-tutorial/tree/main/py_api)** - Python FastAPI REST service
-   - Reads from SQLite database ([`db.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/db.py))
-   - Computes MoM/YoY deltas ([`handlers.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/handlers.py))
-   - FastAPI server ([`main.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/main.py))
+2. **[`py_api/`](https://github.com/amulya-labs/bazel-tutorial/tree/main/py_api)** - Python FastAPI REST service
+   - Reads from SQLite database ([`db.py`](https://github.com/amulya-labs/bazel-tutorial/blob/main/py_api/db.py))
+   - Computes MoM/YoY deltas ([`handlers.py`](https://github.com/amulya-labs/bazel-tutorial/blob/main/py_api/handlers.py))
+   - FastAPI server ([`main.py`](https://github.com/amulya-labs/bazel-tutorial/blob/main/py_api/main.py))
    - Exposes normalized JSON endpoints
-   - Includes fixture-based tests ([`test_api.py`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/test_api.py))
-   - Bazel build config: [`BUILD.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/BUILD.bazel)
+   - Includes fixture-based tests ([`test_api.py`](https://github.com/amulya-labs/bazel-tutorial/blob/main/py_api/test_api.py))
+   - Bazel build config: [`BUILD.bazel`](https://github.com/amulya-labs/bazel-tutorial/blob/main/py_api/BUILD.bazel)
 
-3. **[`web_ui/`](https://github.com/rrl-personal-projects/bazel-tutorial/tree/main/web_ui)** - React + TypeScript + Vite frontend
-   - Dashboard view with indicator cards ([`App.tsx`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/web_ui/src/App.tsx))
-   - Chart component ([`LineChart.tsx`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/web_ui/src/components/LineChart.tsx))
+3. **[`web_ui/`](https://github.com/amulya-labs/bazel-tutorial/tree/main/web_ui)** - React + TypeScript + Vite frontend
+   - Dashboard view with indicator cards ([`App.tsx`](https://github.com/amulya-labs/bazel-tutorial/blob/main/web_ui/src/App.tsx))
+   - Chart component ([`LineChart.tsx`](https://github.com/amulya-labs/bazel-tutorial/blob/main/web_ui/src/components/LineChart.tsx))
    - Detailed series view with charts
    - Responsive design
-   - Bazel build config: [`BUILD.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/web_ui/BUILD.bazel)
+   - Bazel build config: [`BUILD.bazel`](https://github.com/amulya-labs/bazel-tutorial/blob/main/web_ui/BUILD.bazel)
 
 ---
 
@@ -63,7 +63,7 @@ This is a **teaching repository** that shows:
 
 The Economic Indicators Dashboard is deployed live on GitHub Pages:
 
-**[🚀 View Live Dashboard →](https://rrl-personal-projects.github.io/bazel-tutorial/app/)**
+**[🚀 View Live Dashboard →](https://amulya-labs.github.io/bazel-tutorial/app/)**
 
 - **Automatic updates**: Data refreshes daily at 12:00 UTC via GitHub Actions
 - **Static hosting**: Fully client-side React app with pre-generated JSON data
@@ -78,7 +78,7 @@ The Economic Indicators Dashboard is deployed live on GitHub Pages:
 4. **React build** creates optimized production bundle with data files
 5. **GitHub Pages** serves the static site
 
-See [`.github/workflows/update-dashboard.yaml`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/.github/workflows/update-dashboard.yaml) for the complete workflow.
+See [`.github/workflows/update-dashboard.yaml`](https://github.com/amulya-labs/bazel-tutorial/blob/main/.github/workflows/update-dashboard.yaml) for the complete workflow.
 
 ---
 
@@ -207,7 +207,7 @@ The dashboard tracks **10 core high-ROI macroeconomic indicators** (14 FRED seri
 
 **Coverage:** All indicators have data back to 1990 or earlier ✅
 
-**Detailed Specifications:** See [`go_fetch/indicators.md`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/indicators.md) for complete data dictionary
+**Detailed Specifications:** See [`go_fetch/indicators.md`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/indicators.md) for complete data dictionary
 
 ### Economic Categories
 
@@ -248,7 +248,7 @@ API documentation: http://localhost:8000/docs
 
 ## 🧱 Bazel Concepts
 
-### [`MODULE.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/MODULE.bazel)
+### [`MODULE.bazel`](https://github.com/amulya-labs/bazel-tutorial/blob/main/MODULE.bazel)
 
 This file defines external dependencies using **Bzlmod** (Bazel's modern dependency system):
 
@@ -306,7 +306,7 @@ Want to deploy your own version on GitHub Pages? Here's how:
 
 ### Step 1: Fork the Repository
 
-Fork [bazel-tutorial](https://github.com/rrl-personal-projects/bazel-tutorial) to your GitHub account.
+Fork [bazel-tutorial](https://github.com/amulya-labs/bazel-tutorial) to your GitHub account.
 
 ### Step 2: Create a Personal Access Token (PAT)
 
@@ -379,7 +379,7 @@ defaultSeries = []string{
 
 ### Adding a New Economic Indicator
 
-1. **Update [`go_fetch/main.go`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/main.go#L19-L26)** - Add series code to `defaultSeries`
+1. **Update [`go_fetch/main.go`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/main.go#L19-L26)** - Add series code to `defaultSeries`
    ```go
    defaultSeries = []string{
        "CPIAUCSL",
@@ -397,7 +397,7 @@ defaultSeries = []string{
 
 ### Adding Go Dependencies
 
-1. Add to [`go_fetch/go.mod`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/go_fetch/go.mod):
+1. Add to [`go_fetch/go.mod`](https://github.com/amulya-labs/bazel-tutorial/blob/main/go_fetch/go.mod):
    ```go
    require github.com/some/package v1.0.0
    ```
@@ -410,12 +410,12 @@ defaultSeries = []string{
 
 ### Adding Python Dependencies
 
-1. Add to [`py_api/requirements.txt`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/py_api/requirements.txt):
+1. Add to [`py_api/requirements.txt`](https://github.com/amulya-labs/bazel-tutorial/blob/main/py_api/requirements.txt):
    ```
    requests==2.31.0
    ```
 
-2. Update [`MODULE.bazel`](https://github.com/rrl-personal-projects/bazel-tutorial/blob/main/MODULE.bazel) pip.parse section
+2. Update [`MODULE.bazel`](https://github.com/amulya-labs/bazel-tutorial/blob/main/MODULE.bazel) pip.parse section
 
 3. Rebuild:
    ```bash
